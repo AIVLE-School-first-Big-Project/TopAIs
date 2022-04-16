@@ -6,8 +6,11 @@ def albums(request):
 def blog(request):
     return render(request, 'app/blog.html') 
 
-def contact(request):
-    return render(request, 'app/contact.html') 
+def service_coolroof(request):
+    return render(request, 'app/service_coolroof.html') 
+
+def service_roadline(request):
+    return render(request, 'app/service_roadline.html') 
 
 def elements(request):
     return render(request, 'app/elements.html') 
