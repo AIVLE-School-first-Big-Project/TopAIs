@@ -32,3 +32,6 @@ def signup_com(request):
 
 def signup_official(request):
     return render(request, 'app/signup_official.html')
+
+def service_writework(request):
+    return render(request, 'app/service_writework.html')
