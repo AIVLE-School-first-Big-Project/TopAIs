@@ -20,3 +20,12 @@ def index(request):
 
 def login(request):
     return render(request, 'app/login.html')
+
+def signup_selecttype(request):
+    return render(request, 'app/signup_selecttype.html')
+
+def signup_com(request):
+    return render(request, 'app/signup_com.html')
+
+def signup_official(request):
+    return render(request, 'app/signup_official.html')

@@ -10,4 +10,7 @@ urlpatterns = [
     path('elements/', views.elements,name='elements'),
     path('event/', views.event,name='event'),
     path('login/', views.login,name='login'),
+    path('signup_com/', views.signup_com,name='signup_com'),
+    path('signup_selecttype/', views.signup_selecttype,name='signup_selecttype'),
+    path('signup_official/', views.signup_official,name='signup_official'),
 ]
