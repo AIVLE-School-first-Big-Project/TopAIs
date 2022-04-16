@@ -392,7 +392,7 @@ img {
             border-bottom-color: rgba(255, 255, 255, 0.1); } }
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.megamenu-item > a::after,
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.has-down > a::after {
-        color: #ffffff; }
+        color: #ffffff; } */
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.megamenu-item ul li > a::after,
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.has-down ul li > a::after {
         color: #232323; }
@@ -417,14 +417,7 @@ img {
             color: #ffffff;
             padding: 0 30px;
             border-bottom-color: rgba(255, 255, 255, 0.1) !important; } }
-      .header-area .oneMusic-main-menu .classy-navbar .classynav ul li .dropdown li .dropdown li .dropdown li a {
-        border-bottom: 1px solid rgba(242, 244, 248, 0.7); }
-        @media only screen and (min-width: 768px) and (max-width: 991px) {
-          .header-area .oneMusic-main-menu .classy-navbar .classynav ul li .dropdown li .dropdown li .dropdown li a {
-            border-bottom-color: rgba(255, 255, 255, 0.1) !important; } }
-        @media only screen and (max-width: 767px) {
-          .header-area .oneMusic-main-menu .classy-navbar .classynav ul li .dropdown li .dropdown li .dropdown li a {
-            border-bottom-color: rgba(255, 255, 255, 0.1) !important; } }
+
     .header-area .oneMusic-main-menu .login-register-cart-button {
       position: relative;
       z-index: 1;
@@ -451,35 +444,7 @@ img {
           line-height: 1; }
           .header-area .oneMusic-main-menu .login-register-cart-button .login-register-btn a:hover, .header-area .oneMusic-main-menu .login-register-cart-button .login-register-btn a:focus {
             color: rgba(255, 255, 255, 0.7); }
-      .header-area .oneMusic-main-menu .login-register-cart-button .cart-btn {
-        position: relative;
-        z-index: 10; }
-        .header-area .oneMusic-main-menu .login-register-cart-button .cart-btn p {
-          -webkit-transition-duration: 500ms;
-          transition-duration: 500ms;
-          margin-bottom: 0;
-          color: #fff;
-          font-size: 18px;
-          cursor: pointer;
-          line-height: 1; }
-          .header-area .oneMusic-main-menu .login-register-cart-button .cart-btn p:hover, .header-area .oneMusic-main-menu .login-register-cart-button .cart-btn p:focus {
-            color: rgba(255, 255, 255, 0.7); }
-          .header-area .oneMusic-main-menu .login-register-cart-button .cart-btn p .quantity {
-            width: 15px;
-            height: 15px;
-            border: 1px solid #fff;
-            background-color: #232323;
-            color: #fff;
-            display: block;
-            position: absolute;
-            bottom: -5px;
-            left: -10px;
-            z-index: 10;
-            font-size: 9px;
-            font-weight: 400;
-            border-radius: 50%;
-            line-height: 13px;
-            text-align: center; }
+
   .header-area .is-sticky .oneMusic-main-menu {
     position: fixed;
     width: 100%;

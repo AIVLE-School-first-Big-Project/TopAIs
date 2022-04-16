@@ -4,10 +4,8 @@ from app import views
 
 urlpatterns = [
     path('main/', views.index,name='index'),
-    path('albums/', views.albums,name='albums'),
-    path('blog/', views.blog,name='blog'),
-    path('contact/', views.contact,name='contact'),
-    path('elements/', views.elements,name='elements'),
-    path('event/', views.event,name='event'),
+    path('board/', views.board,name='board'),
+    path('qna/', views.qna,name='qna'),
+    path('service/', views.service,name='service'),
     path('login/', views.login,name='login'),
 ]
