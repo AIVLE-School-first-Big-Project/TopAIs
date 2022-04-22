@@ -1705,6 +1705,59 @@ img {
   margin-left : 925px; 
   margin-top : -100px
 }
+.comming-soon {
+  font-size: 50px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.write-btn {
+  background-color: #fff;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  min-width: 100px;
+  height: 50px;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 0;
+  padding: 0 30px;
+  font-size: 16px;
+  line-height: 47px;
+  font-weight: 500;
+  text-transform: capitalize; }
+  .write-btn:hover, .write-btn:focus {
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #000000;
+    color: #fff; }
+
+.cancel-btn {
+  background-color: #fff;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  min-width: 100px;
+  height: 50px;
+  color: red;
+  border: 1px solid red;
+  border-radius: 0;
+  padding: 0 30px;
+  font-size: 16px;
+  line-height: 47px;
+  font-weight: 500;
+  text-transform: capitalize; }
+  .cancel-btn:hover, .cancel-btn:focus {
+    font-size: 16px;
+    font-weight: 500;
+    background-color: red;
+    color: #fff; }
+
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
