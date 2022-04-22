@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+        <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/breadcumb3.jpg);">
+            <div class="bradcumbContent">
+                <p>CONPANY</p>
+                <h2>SIGNUP</h2>
+            </div>
+        </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    
+    <!-- ##### SIGNUP Area Start ##### -->
+    <section class="login-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <!-- SINGUP Form -->
+                        <div class="login-form">
+                            <form action="#" method="post">
+                                <div class="form-group">
+                                    <label for="Inputcom">Company name</label>
+                                    <input type="com" class="form-control" id="Inputcom" placeholder="Enter Company Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Inputname">Name</label>
+                                    <input type="name" class="form-control" id="Inputname" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputID">ID</label>
+                                    <input type="ID" class="form-control" id="InputID" placeholder="ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Inputcat">Category</label>
+                                    <input type="cat" class="form-control" id="Inputcat" placeholder="Cool-Roof / ROAD-LINE">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Inputhomepage">HomePage</label>
+                                    <input type="homepage" class="form-control" id="Inputhomepage" placeholder="HomePage">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Inputphonenum">Phone Number</label>
+                                    <input type="phonenum" class="form-control" id="Inputphonenum" aria-describedby="phoneHelp" placeholder="OOO-OOOO-OOOO">
+                                    <small id="phoneHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your Phone Number with anyone else.</small>
+                                </div>
+                                <button type="submit" class="btn oneMusic-btn mt-30">SIGNUP</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### SIGNUP Area End ##### -->
+
+
+
+
+{%endblock content%}

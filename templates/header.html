@@ -38,9 +38,10 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="{% url 'service' %}">서비스</a></li>
-                                    <li><a href="{% url 'board' %}">게시판</a></li>
-                                    <li><a href="{% url 'qna' %}">문의</a></li>
+                                    <li><a href="{% url 'index' %}">홈</a></li>
+                                    <li><a href="{% url 'event' %}">서비스</a></li>
+                                    <li><a href="{% url 'service_coolroof' %}">게시판</a></li>
+                                    <li><a href="{% url 'service_coolroof' %}">문의</a></li>
                                 </ul>
 
                                 <!-- Login/Register & Cart Button -->
@@ -48,6 +49,15 @@
                                     <!-- Login/Register -->
                                     <div class="login-register-btn mr-50">
                                         <a href="{% url 'login' %}" id="loginBtn">Login / Register</a>
+                                    </div>
+
+                                    <!-- Cart Button -->
+                                    <div class="cart-btn">
+                                        <p>
+                                            <a style="color:white;" href="index.html">
+                                                <span class="icon-home"></span>
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
