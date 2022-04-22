@@ -43,14 +43,16 @@ def signup_selecttype(request):
 def signup_com(request):
     # user가 로그인 상태시 main으로 리다이렉트
     if request.user.is_authenticated:
-        return redirect('app/main.html')
+        return redirect('index')
 
     context = {}
     if request.method == 'POST':
         form = CompanyForm(request.POST)
+
         if form.is_valid():
-            for field in form:
-                print(f"{field.label} : {field.data}")
+            form.save()
+            return redirect('login')
+
         else:
             context['form'] = form
 
@@ -61,14 +63,16 @@ def signup_com(request):
 def signup_official(request):
     # user가 로그인 상태시 main으로 리다이렉트
     if request.user.is_authenticated:
-        return redirect('app/main.html')
+        return redirect('index')
 
     context = {}
     if request.method == 'POST':
         form = AgencyForm(request.POST)
+
         if form.is_valid():
-            for field in form:
-                print(f"{field.field} : {field.data}")
+            form.save()
+            return redirect('login')
+
         else:
             context['form'] = form
 

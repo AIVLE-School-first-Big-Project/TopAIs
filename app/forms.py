@@ -1,12 +1,14 @@
 from django import forms
 from app.models import User, Company, Agency
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 
 USER_INFO = ['username', 'user_id', 'password1', 'password2', 'email', 'phone']
 
 
 class RegistrationForm(UserCreationForm):
-
+    # def clean_phone(self):
+    #     phone = self.cleaned_data['phone'].lower()
+    #     try
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
         try:
@@ -15,13 +17,14 @@ class RegistrationForm(UserCreationForm):
             return email
         raise forms.ValidationError(f"Email {email} is already in use.")
 
-    def clean_username(self):
-        username = self.cleaned_data['username']
+    def clean_user_id(self):
+        print(self.cleaned_data)
+        user_id = self.cleaned_data['user_id']
         try:
-            _ = User.objects.get(username=username)
+            _ = User.objects.get(username=user_id)
         except Exception as e:
-            return username
-        raise forms.ValidationError(f"Username {username} is already in use.")
+            return user_id
+        raise forms.ValidationError(f"Username {user_id} is already in use.")
 
 
 class CompanyForm(RegistrationForm):
@@ -40,7 +43,3 @@ class AgencyForm(RegistrationForm):
             *USER_INFO,
             'area',
         )
-
-
-# class LoginForm(AuthenticationForm):
-

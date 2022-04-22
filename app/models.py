@@ -13,22 +13,22 @@ COMP_STATUS = (
 )
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, models.Model):
     id = models.AutoField(primary_key=True)
     user_id = models.CharField(max_length=32)
     password = models.CharField(max_length=64)
     username = models.CharField(max_length=32)
     email = models.EmailField(max_length=128)
     phone = models.CharField(max_length=16)
-    user_type = models.IntegerField(choices=USER_STATUS)
+    user_type = models.CharField(max_length=32, choices=USER_STATUS)
 
-    USERNAME_FIELD = 'user_id'
+    USERNAME_FIELD = 'id'
 
     class Meta:
         db_table = 'User'
 
 
-class Agency(User):
+class Agency(User, models.Model):
     area = models.CharField(max_length=32)
     email_auth = models.BooleanField(default=False)
 
@@ -36,7 +36,7 @@ class Agency(User):
         db_table = 'Agency'
 
 
-class Company(User):
+class Company(User, models.Model):
     comp_category = models.CharField(max_length=32, choices=COMP_STATUS)
     comp_name = models.CharField(max_length=32)
     comp_homepage = models.CharField(max_length=64)
