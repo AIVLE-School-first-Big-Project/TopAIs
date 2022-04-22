@@ -1,3 +1,45 @@
 from django.db import models
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 # Create your models here.
+
+USER_STATUS = (
+    ('Company', 0),
+    ('Agency', 1),
+)
+COMP_STATUS = (
+    ('Cool-Roof', 0),
+    ('Road-Line', 1),
+)
+
+
+class User(AbstractBaseUser):
+    id = models.AutoField(primary_key=True)
+    user_id = models.CharField(max_length=32)
+    password = models.CharField(max_length=64)
+    username = models.CharField(max_length=32)
+    email = models.EmailField(max_length=128)
+    phone = models.CharField(max_length=16)
+    user_type = models.IntegerField(choices=USER_STATUS)
+
+    USERNAME_FIELD = 'user_id'
+
+    class Meta:
+        db_table = 'User'
+
+
+class Agency(User):
+    area = models.CharField(max_length=32)
+    email_auth = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'Agency'
+
+
+class Company(User):
+    comp_category = models.CharField(max_length=32, choices=COMP_STATUS)
+    comp_name = models.CharField(max_length=32)
+    comp_homepage = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'Company'
