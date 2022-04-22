@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 secrets.json
 databases.json
+email.json
 
 # C extensions
 *.so
