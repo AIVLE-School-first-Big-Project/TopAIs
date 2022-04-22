@@ -128,7 +128,7 @@ img {
 /* :: 3.3.0 Section Padding */
 .section-padding-100 {
   padding-top: 100px;
-  padding-bottom: 100px; }
+  padding-bottom: 100px;}
 
 .section-padding-100-0 {
   padding-top: 100px;
@@ -1638,6 +1638,38 @@ img {
   .single-web-icon:hover {
     box-shadow: 0 2px 50px 0 rgba(0, 0, 0, 0.15); }
 
+.service-box {
+  margin-left : 5px;
+  width : 280px; 
+  height : 70px; 
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  padding: 5px
+}
+.service-box-title {
+  color: #000000;
+  font-weight: 700;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 15px;
+  margin-left : 10px 
+}
+.service-box-address{
+  color: #000000;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 12px; 
+  font-weight: 500; 
+  margin-left : 10px 
+}
+.service-box-area{
+  color: #000000;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 12px; 
+  font-weight: 500; 
+  margin-left : 180px
+}
+.service-next-btn {
+  margin-left : 925px; 
+  margin-top : -100px
+}
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
