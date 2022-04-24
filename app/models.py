@@ -1,5 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
@@ -13,22 +14,36 @@ COMP_STATUS = (
 )
 
 
-class User(AbstractBaseUser, models.Model):
-    id = models.AutoField(primary_key=True)
-    user_id = models.CharField(max_length=32)
+class UserManager(BaseUserManager):
+    def _create_user(self, user_id, password, **extra_fields):
+        if not user_id:
+            raise ValueError('The given user_id must be set')
+        user = self.model(
+            user_id=user_id, **extra_fields,
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+
+class User(AbstractBaseUser):
+    user_id = models.CharField(max_length=32, unique=True)
     password = models.CharField(max_length=64)
     username = models.CharField(max_length=32)
     email = models.EmailField(max_length=128)
     phone = models.CharField(max_length=16)
     user_type = models.CharField(max_length=32, choices=USER_STATUS)
 
-    USERNAME_FIELD = 'id'
+    objects = UserManager()
+
+    USERNAME_FIELD = 'user_id'
 
     class Meta:
         db_table = 'User'
 
 
 class Agency(User, models.Model):
+    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     area = models.CharField(max_length=32)
     email_auth = models.BooleanField(default=False)
 
@@ -37,6 +52,7 @@ class Agency(User, models.Model):
 
 
 class Company(User, models.Model):
+    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     comp_category = models.CharField(max_length=32, choices=COMP_STATUS)
     comp_name = models.CharField(max_length=32)
     comp_homepage = models.CharField(max_length=64)

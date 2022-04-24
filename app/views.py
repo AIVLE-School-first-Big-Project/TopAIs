@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from app.forms import CompanyForm, AgencyForm
+from app.forms import CompanyRegistrationForm, AgencyRegistrationForm, AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 
 
 def albums(request):
@@ -31,11 +32,11 @@ def index(request):
     return render(request, 'app/index.html')
 
 
-def login(request):
-    return render(request, 'app/login.html')
-
-
 def signup_selecttype(request):
+    # user가 로그인 상태시 Main으로 다이렉트
+    user = request.user
+    if user.is_authenticated:
+        return redirect('index')
     return render(request, 'app/signup_selecttype.html')
 
 
@@ -47,7 +48,7 @@ def signup_com(request):
 
     context = {}
     if request.method == 'POST':
-        form = CompanyForm(request.POST)
+        form = CompanyRegistrationForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -67,7 +68,7 @@ def signup_official(request):
 
     context = {}
     if request.method == 'POST':
-        form = AgencyForm(request.POST)
+        form = AgencyRegistrationForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -77,6 +78,30 @@ def signup_official(request):
             context['form'] = form
 
     return render(request, 'app/signup_official.html', context)
+
+
+def login_accounts(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+
+    context = {}
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        if form.is_valid():
+            user_id = request.POST['user_id']
+            password = request.POST['password']
+            user = authenticate(user_id=user_id, password=password)
+            if user:
+                login(request, user)
+                return redirect('index')
+        else:
+            context['form'] = form
+    return render(request, 'app/login.html', context)
+
+
+def logout_accounts(request):
+    logout(request)
+    return redirect('index')
 
 
 def service_writework(request):
