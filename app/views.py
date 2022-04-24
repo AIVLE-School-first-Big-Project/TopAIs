@@ -35,3 +35,6 @@ def signup_official(request):
 
 def service_writework(request):
     return render(request, 'app/service_writework.html')
+
+def board_list(request):
+    return render(request, 'app/board_list.html')

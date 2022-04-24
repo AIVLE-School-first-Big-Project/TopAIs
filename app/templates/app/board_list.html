@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <p>Communication with Company</p>
+        <h2>BOARD</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Events Area Start ##### -->
+
+<section class="events-area section-padding-100">
+    <div class="container">
+        <div class="row">
+
+            <div class="container">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr class="text-center">
+                            <th scope="col">DATE</th>
+                            <th scope="col">TITLE</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">진행상황</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% comment %} {% for board in boards %}
+                        <tr class="text-center">
+                            <td scope="row">
+                                <span>{{ board.created_date | date:"Y-m-d h:i" }}</span>
+                            </td>
+                            <td>
+                                <a href="/post/{{ board.id }}">
+                                    <span>{{ board.title }}</span>
+                                </a>
+                            </td>
+                            <td>
+                                <span>{{ board.id }}</span>
+                            </td>
+                            <td>
+                                <span>{{ board.진행상황}}</span>
+                            </td>
+                        </tr>
+                        {% endfor %} {% endcomment %}
+
+                        <tr class="text-center">
+                            <td>
+                                <span>2022-04-22</span>
+                            </td>
+                            <td>
+                                <span>쿨루프 시공</span>
+                            </td>
+                            <td>
+                                <span>GAGAcompany</span>
+                            </td>
+                            <td>
+                                <span>진행중</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-auto mr-auto"></div>
+                    <div class="col-auto">
+                        <a class="btn btn-primary" href="/post" role="button">글쓰기</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{%endblock content%}
