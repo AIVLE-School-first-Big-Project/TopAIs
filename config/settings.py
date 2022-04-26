@@ -98,12 +98,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': db.get('SQL_USER', 'user'),
-        'PASSWORD': db.get('SQL_PASSWORD', 'password'),
-        'HOST': db.get('SQL_HOST', 'localhost'),
-        'PORT': db.get('SQL_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+        # 'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+        # 'USER': db.get('SQL_USER', 'user'),
+        # 'PASSWORD': db.get('SQL_PASSWORD', 'password'),
+        # 'HOST': db.get('SQL_HOST', 'localhost'),
+        # 'PORT': db.get('SQL_PORT', '5432'),
     }
 }
 

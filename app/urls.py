@@ -15,4 +15,5 @@ urlpatterns = [
     path('signup_selecttype/', views.signup_selecttype, name='signup_selecttype'),
     path('signup_official/', views.signup_official, name='signup_official'),
     path('service_writework/', views.service_writework, name='service_writework'),
+    path('mapxy/', views.map_xy, name='map_xy'),
 ]
