@@ -16,4 +16,6 @@ urlpatterns = [
     path('signup_official/', views.signup_official,name='signup_official'),
     path('service_writework/', views.service_writework,name='service_writework'),
     path('board_list/', views.board_list,name='board_list'),
+    path('mapxy/', views.map, name='map'),
+    path('pwchange/', views.pwchange, name='pwchange'),
 ]

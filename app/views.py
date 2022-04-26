@@ -38,3 +38,9 @@ def service_writework(request):
 
 def board_list(request):
     return render(request, 'app/board_list.html')
+
+def map(request):
+    return render(request, 'app/map.html')
+
+def pwchange(request):
+    return render(request, 'app/pwchange.html')
