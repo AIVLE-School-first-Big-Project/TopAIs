@@ -3,43 +3,42 @@
 
 {% block content %}
 
-    <!-- ##### Breadcumb Area Start ##### -->
-    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/breadcumb3.jpg);">
-        <div class="bradcumbContent">
-            <p>See what’s new</p>
-            <h2>Login</h2>
-        </div>
-    </section>
-    <!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+    <div class="bradcumbContent">
+        <p>See what’s new</p>
+        <h2>Login</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
 
-    <!-- ##### Login Area Start ##### -->
-    <section class="login-area section-padding-100">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-8">
-                    <div class="login-content">
-                        <h3>Welcome Back</h3>
-                        <!-- Login Form -->
-                        <div class="login-form">
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail">
-                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
-                            </form>
-                        <a href="{% url 'signup_selecttype' %}" class = "btn see-more-btn" style = "margin-left : 450px">SIGNUP</a>
-                        </div>
+<!-- ##### Login Area Start ##### -->
+<section class="login-area section-padding-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="login-content">
+                    <h3>Welcome Back</h3>
+                    <!-- Login Form -->
+                    <div class="login-form">
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">ID</label>
+                                <input type="id" class="form-control" id="Inputid" aria-describedby="idHelp" placeholder="ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                        </form>
+                    <a href="{% url 'signup_selecttype' %}" class = "btn see-more-btn" style = "margin-left : 450px; position : relative">SIGNUP</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- ##### Login Area End ##### -->
+    </div>
+</section>
+<!-- ##### Login Area End ##### -->
 
 {%endblock content%}
