@@ -1,6 +1,9 @@
 var area_x = 35.149571;
 var area_y = 129.003490;
-
+var addr_dict = {'name':'럭키', 
+                'add' : '부산광역시 사상구 주례동 507-14번지', 
+                'x' : '35.149571', 
+                'y' :'129.003490'};
 let markers = new Array();
 let infowindows = new Array();
 
@@ -12,9 +15,9 @@ var coolroof = new naver.maps.LatLng(area_x, area_y),
 
 var positions = [
     {
-        building_name : '럭키종합상가',
-        address: '부산광역시 사상구 가야대로284번길 2',
-        latlng: new naver.maps.LatLng(35.149571, 129.003490)
+        building_name : addr_dict['name'],
+        address: addr_dict['add'],
+        latlng: new naver.maps.LatLng(addr_dict['x'], addr_dict['y'])
     },
     {
         building_name : '초가찜',
