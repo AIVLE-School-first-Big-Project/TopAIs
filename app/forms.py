@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
-USER_INFO = ['username', 'user_id', 'password1', 'email', 'phone']
+USER_INFO = ['username', 'user_id', 'password1', 'email', 'phone', 'user_type']
 
 
 class RegistrationForm(UserCreationForm, forms.ModelForm):

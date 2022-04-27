@@ -43,7 +43,7 @@ class User(AbstractBaseUser):
 
 
 class Agency(User, models.Model):
-    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    uid = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True)
     area = models.CharField(max_length=32)
     email_auth = models.BooleanField(default=False)
 
@@ -52,7 +52,7 @@ class Agency(User, models.Model):
 
 
 class Company(User, models.Model):
-    # user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    uid = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True)
     comp_category = models.CharField(max_length=32, choices=COMP_STATUS)
     comp_name = models.CharField(max_length=32)
     comp_homepage = models.CharField(max_length=64)

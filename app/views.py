@@ -49,7 +49,9 @@ def signup_com(request):
     context = {}
     if request.method == 'POST':
         form = CompanyRegistrationForm(request.POST)
-
+        form.data._mutable = True
+        form.data.update({'user_type': 'Company'})
+        form.data._mutable = False
         if form.is_valid():
             form.save()
             return redirect('login')
@@ -69,7 +71,9 @@ def signup_official(request):
     context = {}
     if request.method == 'POST':
         form = AgencyRegistrationForm(request.POST)
-
+        form.data._mutable = True
+        form.data.update({'user_type': 'Agency'})
+        form.data._mutable = False
         if form.is_valid():
             form.save()
             return redirect('login')
