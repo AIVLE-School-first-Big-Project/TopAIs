@@ -32,7 +32,7 @@ var coolroof = new naver.maps.LatLng(area_x, area_y),
         zoom: 19
     })
 
-for (var i = 0; i < areaArr.length; i ++) {
+for (var i = 0; i < areaArr.length; i++) {
     // 마커 생성
     var marker = new naver.maps.Marker({
         map: map, // 마커를 표시할 지도
