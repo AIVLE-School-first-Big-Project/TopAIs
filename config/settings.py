@@ -23,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 secret_file = os.path.join(BASE_DIR, 'secrets.json')
-db_file = os.path.join(BASE_DIR, 'databases.json')
+# db_file = os.path.join(BASE_DIR, 'databases.json')
 # secret_file = [BASE_DIR /'secrets.json']
 
 with open(secret_file) as f:
     secrets = json.loads(f.read())
-with open(db_file) as f:
-    db = json.loads(f.read())
+# with open(db_file) as f:
+#     db = json.loads(f.read())
 
 def get_secret(setting, secrets=secrets):
     try:
@@ -95,12 +95,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': db.get('SQL_USER', 'user'),
-        'PASSWORD': db.get('SQL_PASSWORD', 'password'),
-        'HOST': db.get('SQL_HOST', 'localhost'),
-        'PORT': db.get('SQL_PORT', '5432'),
+        # 'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+        # 'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+        # 'USER': db.get('SQL_USER', 'user'),
+        # 'PASSWORD': db.get('SQL_PASSWORD', 'password'),
+        # 'HOST': db.get('SQL_HOST', 'localhost'),
+        # 'PORT': db.get('SQL_PORT', '5432'),
     }
 }
 
