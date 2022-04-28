@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import json, os
+import json
+import os
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,15 +29,14 @@ email_file = os.path.join(BASE_DIR, 'email.json')
 # secret_file = [BASE_DIR /'secrets.json']
 
 with open(secret_file) as f:
-    secrets = json.loads(f.read())
-
+    secret = json.loads(f.read())
 with open(db_file) as f:
     db = json.loads(f.read())
     
 with open(email_file) as f:
     email = json.loads(f.read())
 
-def get_secret(setting, secrets=secrets):
+def get_secret(setting, secrets=secret):
     try:
         return secrets[setting]
     except KeyError:
@@ -55,6 +55,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'app',
+    'accounts',
+    'board',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,7 +80,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,9 +98,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# 외부 db
+# DATABASES = {
+#     'default': {
+#         'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+#         'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+#         'USER': db.get('SQL_USER', 'user'),
+#         'PASSWORD': db.get('SQL_PASSWORD', 'password'),
+#         'HOST': db.get('SQL_HOST', 'localhost'),
+#         'PORT': db.get('SQL_PORT', '5432'),
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+<<<<<<< HEAD
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         # 'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
         # 'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
@@ -106,6 +120,9 @@ DATABASES = {
         # 'PASSWORD': db.get('SQL_PASSWORD', 'password'),
         # 'HOST': db.get('SQL_HOST', 'localhost'),
         # 'PORT': db.get('SQL_PORT', '5432'),
+=======
+        'NAME': BASE_DIR / 'db.sqlite3',
+>>>>>>> a1d5a3ac2992ca3467300f3f2de7f02066ba91d2
     }
 }
 
@@ -150,6 +167,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 
 
 # Email 전송 설정
@@ -162,3 +180,7 @@ EMAIL_USE_TLS = True            # TLS 보안 방법
 EMAIL_HOST_USER = email["EMAIL_HOST_USER"]         # 발신할 이메일
 EMAIL_HOST_PASSWORD = email["EMAIL_HOST_PASSWORD"] # 발신할 메일의 비밀번호
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER                    # 사이트와 관련한 자동 응답을 받을 이메일 주소
+=======
+AUTH_USER_MODEL = 'accounts.User'
+LOGOUT_REDIRECT_URL = '/app/main'
+>>>>>>> a1d5a3ac2992ca3467300f3f2de7f02066ba91d2

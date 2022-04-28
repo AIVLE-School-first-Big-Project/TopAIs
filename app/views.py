@@ -1,7 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+<<<<<<< HEAD
 from app.email_auth import EmailAuthView
 from app.forms import CompanyForm, AgencyForm
+=======
+from app.forms import CompanyRegistrationForm, AgencyRegistrationForm, AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+>>>>>>> a1d5a3ac2992ca3467300f3f2de7f02066ba91d2
 
 
 def albums(request):
@@ -10,14 +16,6 @@ def albums(request):
 
 def blog(request):
     return render(request, 'app/blog.html')
-
-
-def service_coolroof(request):
-    return render(request, 'app/service_coolroof.html')
-
-
-def service_roadline(request):
-    return render(request, 'app/service_roadline.html')
 
 
 def elements(request):
@@ -30,57 +28,3 @@ def event(request):
 
 def index(request):
     return render(request, 'app/index.html')
-
-
-def login(request):
-    return render(request, 'app/login.html')
-
-
-def signup_selecttype(request):
-    return render(request, 'app/signup_selecttype.html')
-
-
-@csrf_exempt
-def signup_com(request):
-    # user가 로그인 상태시 main으로 리다이렉트
-    if request.user.is_authenticated:
-        return redirect('index')
-
-    context = {}
-    if request.method == 'POST':
-        form = CompanyForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            EmailAuthView.post(request, form.data)
-            return redirect('login')
-
-        else:
-            context['form'] = form
-
-    return render(request, 'app/signup_com.html', context)
-
-
-@csrf_exempt
-def signup_official(request):
-    # user가 로그인 상태시 main으로 리다이렉트
-    if request.user.is_authenticated:
-        return redirect('index')
-
-    context = {}
-    if request.method == 'POST':
-        form = AgencyForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            EmailAuthView.post(request, form.data)
-            return redirect('login')
-
-        else:
-            context['form'] = form
-
-    return render(request, 'app/signup_official.html', context)
-
-
-def service_writework(request):
-    return render(request, 'app/service_writework.html')

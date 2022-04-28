@@ -3,33 +3,32 @@
 
 {% block content %}
     <!-- ##### Breadcumb Area Start ##### -->
-        <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
-            <div class="bradcumbContent">
-                <p>CONPANY</p>
-                <h2>SIGNUP</h2>
-            </div>
-        </section>
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>OFFICIAL</p>
+            <h2>SIGNUP</h2>
+        </div>
+    </section>
     <!-- ##### Breadcumb Area End ##### -->
-
     <!-- ##### SIGNUP Area Start ##### -->
     <section class="login-area section-padding-100">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="login-content">
-                        <!-- SINGUP Form -->
+                        <!-- SIGNUP Form -->
                         <div class="login-form">
                             <!-- Error Form -->
-                            {% include "app/form_errors.html" %}
+                            {% include "form_errors.html" %}
                             <form method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <label for="InputCompName">Company name</label>
-                                    <input type="text" class="form-control" id="inputCompName" name="comp_name"
-                                           placeholder="Enter Company Name">
+                                    <label for="InputArea">Area</label>
+                                    <input type="text" class="form-control" id="inputArea" name="area"
+                                           placeholder="Enter Your AREA">
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputUsername">Name</label>
+                                    <label for="InputName">Name</label>
                                     <input type="text" class="form-control" id="inputUsername" name="username"
                                            placeholder="Name">
                                 </div>
@@ -44,19 +43,9 @@
                                            placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <label for="InputPassword2">Confirm Password</label>
+                                    <label for="InputPassword2">Password</label>
                                     <input type="password" class="form-control" id="inputPassword2" name="password2"
-                                           placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputCategory">Category</label>
-                                    <input type="text" class="form-control" id="inputCategory" name="comp_category"
-                                           placeholder="Cool-Roof / ROAD-LINE">
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputHomepage">HomePage</label>
-                                    <input type="text" class="form-control" id="inputHomepage" name="comp_homepage"
-                                           placeholder="HomePage">
+                                           placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputEmail">Email address</label>
@@ -81,8 +70,5 @@
         </div>
     </section>
     <!-- ##### SIGNUP Area End ##### -->
-
-
-
 
 {% endblock content %}
