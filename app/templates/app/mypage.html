@@ -10,4 +10,92 @@
         </div>
     </section>
     <!-- ##### Breadcumb Area End ##### -->
-    
+
+    <section class="contact-area section-padding-100">
+        <div class="container">
+            <div class="row">
+              <div class="col">
+                {% comment %} <div class = "col-md-3 col-md-pull-9" style = 'padding-left: 100px; padding-right:0%'> {% endcomment %}
+                    <div class="single-widget-area mb-30">
+                        <div class="widget-title">
+                            <h5>Categories</h5>
+                        </div>
+                        <div class="widget-content">
+                            <ul>
+                                <li><a href="#">개인정보</a></li>
+                                <li><a href="{% url 'pwchange' %}">비밀번호변경</a></li>
+                                <li><a href="#">개인정보 변경</a></li>
+                                <li><a href="#">내 사업 확인</a></li>
+                            </ul>
+                        </div>
+                    </div>
+              {% comment %} </div> {% endcomment %}
+              <div class="col">
+                {% comment %} <div class = "col-md-9 col-md-push-3" > {% endcomment %}
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-8">
+                                <div class="login-content">
+                                    <!-- PWchange Form -->
+                                    <div class="login-form">
+                                        <form action="{% url 'index' %}" method="post">
+                                            <div class="form-group">
+                                                <label for="password1">Password</label>
+                                                <input type="password" name="password1" id="password1" class="form-control"  placeholder="Password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password2">Password Check</label>
+                                                <input type="password" name="password2" id="password2" class="form-control"  placeholder="Password Check" required>
+                                            </div>
+                                            <button type="submit" class="btn oneMusic-btn mt-30">CHANGE</button>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+              </div>
+            </div>
+          {% comment %} </div> {% endcomment %}
+        {% comment %} <div class="row">
+        <div class = "col-md-3 col-md-pull-9" style = 'padding-left: 100px; padding-right:0%'>
+            <div class="single-widget-area mb-30">
+                <div class="widget-title">
+                    <h5>Categories</h5>
+                </div>
+                <div class="widget-content">
+                    <ul>
+                        <li><a href="#">개인정보</a></li>
+                        <li><a href="{% url 'pwchange' %}">비밀번호변경</a></li>
+                        <li><a href="#">개인정보 변경</a></li>
+                        <li><a href="#">내 사업 확인</a></li>
+                    </ul>
+                </div>
+            </div> {% endcomment %}
+
+        {% comment %} <div class = "col-md-9 col-md-push-3" >
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-8">
+                        <div class="login-content">
+                            <!-- PWchange Form -->
+                            <div class="login-form">
+                                <form action="{% url 'index' %}" method="post">
+                                    <div class="form-group">
+                                        <label for="password1">Password</label>
+                                        <input type="password" name="password1" id="password1" class="form-control"  placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password2">Password Check</label>
+                                        <input type="password" name="password2" id="password2" class="form-control"  placeholder="Password Check" required>
+                                    </div>
+                                    <button type="submit" class="btn oneMusic-btn mt-30">CHANGE</button>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div> {% endcomment %}
+    </div>
+</section>
+{%endblock content%}
