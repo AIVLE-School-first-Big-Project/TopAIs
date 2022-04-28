@@ -5,6 +5,8 @@ from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrati
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     return render(request, 'signup.html')
 
 
@@ -50,6 +52,7 @@ def signup_official(request):
     return render(request, 'signup_official.html', context)
 
 
+@csrf_exempt
 def login_accounts(request):
     if request.user.is_authenticated:
         return redirect('index')
@@ -63,6 +66,9 @@ def login_accounts(request):
             user = authenticate(user_id=user_id, password=password)
             if user:
                 login(request, user)
+                next_url = request.GET.get('next')
+                if next_url:
+                    return redirect(next_url)
                 return redirect('index')
         else:
             context['form'] = form

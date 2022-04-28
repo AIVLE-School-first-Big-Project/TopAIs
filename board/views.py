@@ -15,9 +15,10 @@ def service_roadLine(request):
     return render(request, 'service_roadLine.html')
 
 
+@login_required(login_url='/accounts/login')
 def service_write(request):
-    # login안했을때
     context = {}
+
     if request.method == 'POST':
         form = BoardWriteForm(request.POST)
         if form.is_valid():
