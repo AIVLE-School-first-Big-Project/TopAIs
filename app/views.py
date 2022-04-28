@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from app.email_auth import EmailAuthView
 from app.forms import CompanyForm, AgencyForm
 
 
@@ -51,6 +52,7 @@ def signup_com(request):
 
         if form.is_valid():
             form.save()
+            EmailAuthView.post(request, form.data)
             return redirect('login')
 
         else:
@@ -71,6 +73,7 @@ def signup_official(request):
 
         if form.is_valid():
             form.save()
+            EmailAuthView.post(request, form.data)
             return redirect('login')
 
         else:

@@ -25,6 +25,9 @@ class User(AbstractBaseUser, models.Model):
 
     USERNAME_FIELD = 'id'
 
+    def __str__(self):
+       return str(self.user_id)
+
     class Meta:
         db_table = 'User'
 

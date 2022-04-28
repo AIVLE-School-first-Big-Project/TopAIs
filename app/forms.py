@@ -36,6 +36,7 @@ class CompanyForm(RegistrationForm):
         )
 
 
+
 class AgencyForm(RegistrationForm):
     class Meta:
         model = Agency
@@ -43,3 +44,11 @@ class AgencyForm(RegistrationForm):
             *USER_INFO,
             'area',
         )
+    
+    # 특정 도메인 사용자 인증
+    def clean_email(self):
+        email = super().clean_email()
+        email_domain = email.split('@')
+        if email_domain[-1] != 'naver.com':
+            raise forms.ValidationError(f"Email {email} is not official.")
+        return email
