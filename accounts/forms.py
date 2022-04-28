@@ -1,14 +1,12 @@
 from django import forms
-from accounts.models import User, Company, Agency
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
+from .models import Agency, Company, User
 
 USER_INFO = ['username', 'user_id', 'password1', 'email', 'phone', ]
 
 
 class RegistrationForm(UserCreationForm, forms.ModelForm):
-
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
         try:

@@ -40,9 +40,9 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="{% url 'index' %}">홈</a></li>
-                                <li><a href="{% url 'event' %}">서비스</a></li>
-                                <li><a href="{% url 'service_coolroof' %}">게시판</a></li>
-                                <li><a href="{% url 'service_coolroof' %}">문의</a></li>
+                                <li><a href="{% url 'service' %}">서비스</a></li>
+                                <li><a href="{% url 'coolRoof' %}">게시판</a></li>
+                                <li><a href="{% url 'coolRoof' %}">문의</a></li>
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'index' %}">MyPage</a></li>
                                 {% endif %}
@@ -56,7 +56,7 @@
                                         <a href="{% url 'logout' %}" id="loginBtn">logout</a>
                                     {% else %}
                                         <a href="{% url 'login' %}?next={{ request.path }}" id="loginBtn">Login</a>
-                                        <a href="{% url 'signup_selecttype' %}" id="loginBtn">Register</a>
+                                        <a href="{% url 'signup' %}" id="loginBtn">Register</a>
                                     {% endif %}
                                 </div>
 
