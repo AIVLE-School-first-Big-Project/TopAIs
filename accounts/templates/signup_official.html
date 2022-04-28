@@ -25,39 +25,39 @@
                                 <div class="form-group">
                                     <label for="InputArea">Area</label>
                                     <input type="text" class="form-control" id="inputArea" name="area"
-                                           placeholder="Enter Your AREA">
+                                           placeholder="Enter Your AREA" value="{{ form.area.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputName">Name</label>
                                     <input type="text" class="form-control" id="inputUsername" name="username"
-                                           placeholder="Name">
+                                           placeholder="Name" value="{{ form.username.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputID">ID</label>
                                     <input type="text" class="form-control" id="inputID" name="user_id"
-                                           placeholder="ID">
+                                           placeholder="ID" value="{{ form.user_id.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputPassword1">Password</label>
                                     <input type="password" class="form-control" id="inputPassword1" name="password1"
-                                           placeholder="Password">
+                                           placeholder="Password" value="{{ form.password1.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputPassword2">Password</label>
                                     <input type="password" class="form-control" id="inputPassword2" name="password2"
-                                           placeholder="Confirm Password">
+                                           placeholder="Confirm Password" value="{{ form.password2.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputEmail">Email address</label>
                                     <input type="email" class="form-control" id="inputEmail" name="email"
-                                           aria-describedby="emailHelp" placeholder="Enter E-mail">
+                                           aria-describedby="emailHelp" placeholder="Enter E-mail" value="{{ form.email.value|default_if_none:'' }}">
                                     <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
                                         never share your email with anyone else.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="InputPhone">Phone Number</label>
                                     <input type="text" class="form-control" id="inputPhone" name="phone"
-                                           aria-describedby="phoneHelp" placeholder="OOO-OOOO-OOOO">
+                                           aria-describedby="phoneHelp" placeholder="OOO-OOOO-OOOO" value="{{ form.phone.value|default_if_none:'' }}">
                                     <small id="phoneHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
                                         never share your Phone Number with anyone else.</small>
                                 </div>

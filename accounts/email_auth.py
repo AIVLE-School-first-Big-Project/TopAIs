@@ -1,3 +1,4 @@
+from ast import arg
 import logging
 import threading
 
@@ -6,7 +7,6 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
-from django.contrib.auth import views as auth_views
 
 from config import settings
 from .models import User
@@ -16,7 +16,7 @@ from .tokens import account_activation_token
 # 이메일 인증
 class EmailAuthView(TemplateView):
     logger = logging.getLogger(__name__)
-    template_name = 'app/email/email_complete.html'
+    template_name = 'email/email_complete.html'
 
     def get(self, *args, **kwargs):
         uid = force_bytes(urlsafe_base64_decode(kwargs['uid64']))
@@ -30,14 +30,14 @@ class EmailAuthView(TemplateView):
         if user is not None and account_activation_token.check_token(user, token):
             user.email_auth = True
             user.save()
-            return redirect('login')
+        return redirect('login')
         
         # return redirect('auth_requeset')
 
     def post(self, request, *args, **kwargs):
-        user = User.objects.get(email=request['email'])
+        user = User.objects.get(user_id=request.user_id)
 
-        message = render_to_string('app/email/email-auth-message.txt', {
+        message = render_to_string('email/email-auth-message.txt', {
             'protocol': 'http',
             'domain': '127.0.0.1:8000',
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),

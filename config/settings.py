@@ -112,7 +112,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-<<<<<<< HEAD
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         # 'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
         # 'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
@@ -120,9 +119,6 @@ DATABASES = {
         # 'PASSWORD': db.get('SQL_PASSWORD', 'password'),
         # 'HOST': db.get('SQL_HOST', 'localhost'),
         # 'PORT': db.get('SQL_PORT', '5432'),
-=======
-        'NAME': BASE_DIR / 'db.sqlite3',
->>>>>>> a1d5a3ac2992ca3467300f3f2de7f02066ba91d2
     }
 }
 
@@ -167,7 +163,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< HEAD
 
 
 # Email 전송 설정
@@ -180,7 +175,8 @@ EMAIL_USE_TLS = True            # TLS 보안 방법
 EMAIL_HOST_USER = email["EMAIL_HOST_USER"]         # 발신할 이메일
 EMAIL_HOST_PASSWORD = email["EMAIL_HOST_PASSWORD"] # 발신할 메일의 비밀번호
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER                    # 사이트와 관련한 자동 응답을 받을 이메일 주소
-=======
+
+
+# user 관련 설정
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = '/app/main'
->>>>>>> a1d5a3ac2992ca3467300f3f2de7f02066ba91d2

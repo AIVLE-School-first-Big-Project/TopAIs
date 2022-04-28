@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -32,6 +33,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=128)
     phone = models.CharField(max_length=16)
     user_type = models.CharField(max_length=32, choices=USER_STATUS)
+    email_auth = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -44,7 +46,6 @@ class User(AbstractBaseUser):
 class Agency(User, models.Model):
     uid = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True)
     area = models.CharField(max_length=32)
-    email_auth = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Agency'
