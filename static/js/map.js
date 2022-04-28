@@ -49,7 +49,7 @@ for (var i = 0; i < areaArr.length; i++) {
     ].join('')
     })
     function select() {
-        document.getElementById("title").innerText = areaArr[i]['name']
+        document.getElementById("title").innerHTML = areaArr[i]['name']
         document.getElementById('address').innerHTML = areaArr[i]['add']
     }
     markers.push(marker);
