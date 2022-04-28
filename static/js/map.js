@@ -37,8 +37,7 @@ for (var i = 0; i < areaArr.length; i++) {
     var marker = new naver.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: new naver.maps.LatLng(areaArr[i]['x'], areaArr[i]['y']), // 마커를 표시할 위치
-    })
-
+    });
     var infowindow = new naver.maps.InfoWindow({
         content: [
             '<div class="iw_inner section-padding-10">',
