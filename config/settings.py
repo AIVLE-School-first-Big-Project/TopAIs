@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import json,os
+import json
+import os
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,11 +28,12 @@ db_file = os.path.join(BASE_DIR, 'databases.json')
 # secret_file = [BASE_DIR /'secrets.json']
 
 with open(secret_file) as f:
-    secrets = json.loads(f.read())
+    secret = json.loads(f.read())
 with open(db_file) as f:
     db = json.loads(f.read())
 
-def get_secret(setting, secrets=secrets):
+
+def get_secret(setting, secrets=secret):
     try:
         return secrets[setting]
     except KeyError:
@@ -45,7 +47,6 @@ SECRET_KEY = get_secret("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,7 +75,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,21 +90,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# 외부 db
+# DATABASES = {
+#     'default': {
+#         'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+#         'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+#         'USER': db.get('SQL_USER', 'user'),
+#         'PASSWORD': db.get('SQL_PASSWORD', 'password'),
+#         'HOST': db.get('SQL_HOST', 'localhost'),
+#         'PORT': db.get('SQL_PORT', '5432'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': db.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': db.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': db.get('SQL_USER', 'user'),
-        'PASSWORD': db.get('SQL_PASSWORD', 'password'),
-        'HOST': db.get('SQL_HOST', 'localhost'),
-        'PORT': db.get('SQL_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -123,7 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -134,7 +139,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -148,3 +152,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'app.User'
+LOGOUT_REDIRECT_URL = '/app/main'
