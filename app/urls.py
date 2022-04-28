@@ -8,10 +8,4 @@ urlpatterns = [
     path('albums/', views.albums, name='albums'),
     path('blog/', views.blog, name='blog'),
     path('event/', views.event, name='event'),
-    # path('login/', views.login_accounts, name='login'),
-    # path('logout', views.logout_accounts, name='logout'),
-    # path('signup_com/', views.signup_com, name='signup_com'),
-    # path('signup_selecttype/', views.signup_selecttype, name='signup_selecttype'),
-    # path('signup_official/', views.signup_official, name='signup_official'),
-    # path('service_writework/', views.service_writework, name='service_writework'),
 ]

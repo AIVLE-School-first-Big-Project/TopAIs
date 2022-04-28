@@ -520,16 +520,8 @@ img {
                     border-bottom-color: rgba(255, 255, 255, 0.1) !important;
                 }
             }
-            .classynav ul li .dropdown li .dropdown li .dropdown li a {
-                border-bottom: 1px solid rgba(242, 244, 248, 0.7);
-                @media #{$breakpoint-md} {
-                    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-                }
-                @media #{$breakpoint-xs} {
-                    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-                }
-            }
         }
+        
         .login-register-cart-button {
             position: relative;
             z-index: 1;
@@ -556,39 +548,6 @@ img {
                     &:hover,
                     &:focus {
                         color: rgba(255, 255, 255, 0.7);
-                    }
-                }
-            }
-            .cart-btn {
-                position: relative;
-                z-index: 10;
-                p {
-                    @include trans-duration(500ms);
-                    margin-bottom: 0;
-                    color: #fff;
-                    font-size: 18px;
-                    cursor: pointer;
-                    line-height: 1;
-                    &:hover,
-                    &:focus {
-                        color: rgba(255, 255, 255, 0.7);
-                    }
-                    .quantity {
-                        width: 15px;
-                        height: 15px;
-                        border: 1px solid #fff;
-                        background-color: #232323;
-                        color: #fff;
-                        display: block;
-                        position: absolute;
-                        bottom: -5px;
-                        left: -10px;
-                        z-index: 10;
-                        font-size: 9px;
-                        font-weight: 400;
-                        border-radius: 50%;
-                        line-height: 13px;
-                        text-align: center;
                     }
                 }
             }
