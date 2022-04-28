@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 from .forms import BoardWriteForm, CommentWriteForm
+from .models import Board, Comment
 
 
 def service(request):
@@ -23,14 +26,14 @@ def service_write(request):
         form = BoardWriteForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.uid = request.user
+            form.user_id = request.session['_auth_user_id']
             form.save()
-            return redirect('service_write')
+            return redirect('board_list')
         else:
             context['form'] = form
     return render(request, 'service_write.html', context)
 
 
 @login_required(login_url='/accounts/login')
-def board_list(request):
+def listing(request):
     return render(request, 'board_list.html')
