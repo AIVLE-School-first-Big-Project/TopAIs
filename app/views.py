@@ -44,3 +44,6 @@ def map(request):
 
 def pwchange(request):
     return render(request, 'app/pwchange.html')
+
+def mypage(request):
+    return render(request, 'app/mypage.html')

@@ -18,4 +18,5 @@ urlpatterns = [
     path('board_list/', views.board_list,name='board_list'),
     path('mapxy/', views.map, name='map'),
     path('pwchange/', views.pwchange, name='pwchange'),
+    path('mypage/', views.mypage, name='mypage'),
 ]
