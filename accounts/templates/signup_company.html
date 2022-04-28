@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>COMPANY</p>
+            <h2>SIGNUP</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### SIGNUP Area Start ##### -->
+    <section class="login-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <!-- SINGUP Form -->
+                        <div class="login-form">
+                            <!-- Error Form -->
+                            {% include "form_errors.html" %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="InputCompName">Company name</label>
+                                    <input type="text" class="form-control" id="inputCompName" name="comp_name"
+                                           placeholder="Enter Company Name" value="{{ form.comp_name.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputUsername">Name</label>
+                                    <input type="text" class="form-control" id="inputUsername" name="username"
+                                           placeholder="Name" value="{{ form.username.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputID">ID</label>
+                                    <input type="text" class="form-control" id="inputID" name="user_id"
+                                           placeholder="ID" value="{{ form.inputID.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="inputPassword1" name="password1"
+                                           placeholder="Password" value="{{ form.password1.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputPassword2">Confirm Password</label>
+                                    <input type="password" class="form-control" id="inputPassword2" name="password2"
+                                           placeholder="Password" value="{{ form.password2.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputCategory">Category</label>
+                                    <input type="text" class="form-control" id="inputCategory" name="comp_category"
+                                           placeholder="Cool-Roof / ROAD-LINE" value="{{ form.comp_category.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputHomepage">HomePage</label>
+                                    <input type="text" class="form-control" id="inputHomepage" name="comp_homepage"
+                                           placeholder="HomePage" value="{{ form.comp_homepage.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputEmail">Email address</label>
+                                    <input type="email" class="form-control" id="inputEmail" name="email"
+                                           aria-describedby="emailHelp" placeholder="Enter E-mail" value="{{ form.email.value|default_if_none:'' }}">
+                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
+                                        never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputPhone">Phone Number</label>
+                                    <input type="text" class="form-control" id="inputPhone" name="phone"
+                                           aria-describedby="phoneHelp" placeholder="OOO-OOOO-OOOO" value="{{ form.phone.value|default_if_none:'' }}">
+                                    <small id="phoneHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
+                                        never share your Phone Number with anyone else.</small>
+                                </div>
+                                <button type="submit" class="btn oneMusic-btn mt-30">SIGNUP</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### SIGNUP Area End ##### -->
+
+
+
+
+{% endblock content %}

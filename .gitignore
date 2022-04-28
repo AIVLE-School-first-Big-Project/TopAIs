@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 secrets.json
 databases.json
+email.json
 
 # C extensions
 *.so
@@ -129,3 +130,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.idea/

@@ -1,14 +1,12 @@
 from django import forms
-from accounts.models import User, Company, Agency
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
+from .models import Agency, Company, User
 
 USER_INFO = ['username', 'user_id', 'password1', 'email', 'phone', ]
 
 
 class RegistrationForm(UserCreationForm, forms.ModelForm):
-
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
         try:
@@ -50,6 +48,14 @@ class AgencyRegistrationForm(RegistrationForm):
             *USER_INFO,
             'area',
         )
+
+    # 특정 도메인 사용자 인증
+    def clean_email(self):
+        email = super().clean_email()
+        email_domain = email.split('@')
+        if email_domain[-1] != 'naver.com':
+            raise forms.ValidationError(f"Email {email} is not official.")
+        return email
 
 
 class AuthenticationForm(forms.ModelForm):
