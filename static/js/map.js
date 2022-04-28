@@ -49,14 +49,24 @@ for (var i = 0; i < areaArr.length; i++) {
     ].join('')
     })
     function select() {
-        document.getElementById("service-box").innerHTML += ['<div class = "service-box mb-15">' + 
-        '<div class = "service-box-title">'+ document.querySelector('#name').textContent+'</div>'+
+        document.getElementById("service-box").innerHTML += ['<div id="innerservice-box" class = "service-box mb-15">' + 
+        '<div onclick = "boxclose()" class="close"></div>'+
+        '<div class = "service-box-title mt-10">'+ document.querySelector('#name').textContent+'</div>'+
         '<div class = "service-box-address">'+document.querySelector('#addr').textContent+'</div>' + '</div>']
         document.getElementById('select-btn').style.backgroundColor = 'grey';
         document.getElementById('select-btn').style.color = 'white';
         document.getElementById('select-btn').style.border = '0px';
         document.getElementById('select-btn').style.pointerEvents = 'none';
+        marker.style.color = 'red'
     }
+    function boxclose() {
+        document.getElementById("innerservice-box").remove();
+        document.getElementById('select-btn').style.backgroundColor = 'white';
+        document.getElementById('select-btn').style.color = 'lightseagreen';
+        document.getElementById('select-btn').style.border = '1px solid lightseagreen';
+        document.getElementById('select-btn').style.pointerEvents = '';
+    }
+
     markers.push(marker);
     infowindows.push(infowindow);
 
