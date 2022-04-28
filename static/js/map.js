@@ -6,18 +6,18 @@ var areaArr = [
         'x':'35.149571',
         'y' :'129.003490' 
     },
-    // {
-    //     'name' : '초가찜',
-    //     'add': '부산광역시 사상구 주례동 507-14번지',
-    //     'x':'35.149661644944004',
-    //     'y' :'129.00400623125148'
-    // },
-    // {
-    //     'name' : '안오이시오이시스시',
-    //     'add': '부산광역시 사상구 주례3동 507-21',
-    //     'x':'35.14951479354232',
-    //     'y' :'129.00416721005902'  
-    // }
+    {
+        'name' : '초가찜',
+        'add': '부산광역시 사상구 주례동 507-14번지',
+        'x':'35.149661644944004',
+        'y' :'129.00400623125148'
+    },
+    {
+        'name' : '안오이시오이시스시',
+        'add': '부산광역시 사상구 주례3동 507-21',
+        'x':'35.14951479354232',
+        'y' :'129.00416721005902'  
+    }
 ];
 
 var area_x = 35.149571;
@@ -42,15 +42,20 @@ for (var i = 0; i < areaArr.length; i++) {
     var infowindow = new naver.maps.InfoWindow({
         content: [
             '<div class="iw_inner section-padding-10">',
-            '   <div class = "service-box-title ml-0">' + areaArr[i]['name'] + '</div>',
-            '   <div class = "service-box-address ml-0">' + areaArr[i]['add'] + '</div>',
-            '   <button type="submit" onclick = "select()" class="btn select-btn mt-15">SELECT</button>',
+            '   <div id = "name" class = "service-box-title ml-0">' + areaArr[i]['name'] + '</div>',
+            '   <div id = "addr" class = "service-box-address ml-0">' + areaArr[i]['add'] + '</div>',
+            '   <button id="select-btn" type="submit" onclick = "select()" class="btn select-btn mt-15">SELECT</button>',
             '</div>'
     ].join('')
     })
     function select() {
-        document.getElementById("title").innerHTML = areaArr[i]['name']
-        document.getElementById('address').innerHTML = areaArr[i]['add']
+        document.getElementById("service-box").innerHTML += ['<div class = "service-box mb-15">' + 
+        '<div class = "service-box-title">'+ document.querySelector('#name').textContent+'</div>'+
+        '<div class = "service-box-address">'+document.querySelector('#addr').textContent+'</div>' + '</div>']
+        document.getElementById('select-btn').style.backgroundColor = 'grey';
+        document.getElementById('select-btn').style.color = 'white';
+        document.getElementById('select-btn').style.border = '0px';
+        document.getElementById('select-btn').style.pointerEvents = 'none';
     }
     markers.push(marker);
     infowindows.push(infowindow);
