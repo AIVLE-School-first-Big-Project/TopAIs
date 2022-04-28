@@ -29,3 +29,8 @@ def service_write(request):
         else:
             context['form'] = form
     return render(request, 'service_write.html', context)
+
+
+@login_required(login_url='/accounts/login')
+def board_list(request):
+    return render(request, 'board_list.html')

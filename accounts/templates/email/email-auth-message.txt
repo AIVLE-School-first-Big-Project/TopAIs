@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+안녕하세요 :)
+
+다음 링크를 누르시면 이메일이 인증됩니다.
+
+{{ protocol }}://{{ domain }}{% url 'email_auth' uid64=uid token=token %}
+
+{% endautoescape %}

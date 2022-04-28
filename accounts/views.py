@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+
+from accounts.email_auth import EmailAuthView
 from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
 
 
@@ -23,8 +26,9 @@ def signup_company(request):
             form = form.save(commit=False)
             form.user_type = 'Company'
             form.save()
+            EmailAuthView.post(request, form)
+            messages.info(request, '이메일 인증 후 로그인해주세요.')
             return redirect('login')
-
         else:
             context['form'] = form
 
@@ -44,8 +48,9 @@ def signup_official(request):
             form = form.save(commit=False)
             form.user_type = 'Agency'
             form.save()
+            EmailAuthView.post(request, form)
+            messages.info(request, '이메일 인증 후 로그인해주세요.')
             return redirect('login')
-
         else:
             context['form'] = form
 
@@ -64,12 +69,16 @@ def login_accounts(request):
             user_id = request.POST['user_id']
             password = request.POST['password']
             user = authenticate(user_id=user_id, password=password)
+
             if user:
-                login(request, user)
-                next_url = request.GET.get('next')
-                if next_url:
-                    return redirect(next_url)
-                return redirect('index')
+                if not user.email_auth:
+                    messages.info(request, '이메일 인증 후 로그인해주세요.')
+                else:
+                    login(request, user)
+                    next_url = request.GET.get('next')
+                    if next_url:
+                        return redirect(next_url)
+            return redirect('index')
         else:
             context['form'] = form
     return render(request, 'login.html', context)
