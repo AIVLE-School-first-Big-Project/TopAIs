@@ -1,23 +1,23 @@
 // 변수 선언
 var areaArr = [
     {
-        'name' : '럭키',
+        'name' : '럭키아파트',
         'add': '부산광역시 사상구 가야대로284번길 2',
         'x':'35.149571',
         'y' :'129.003490' 
     },
-    {
-        'name' : '초가찜',
-        'add': '부산광역시 사상구 주례동 507-14번지',
-        'x':'35.149661644944004',
-        'y' :'129.00400623125148'
-    },
-    {
-        'name' : '오이시스시',
-        'add': '부산광역시 사상구 주례3동 507-21',
-        'x':'35.14951479354232',
-        'y' :'129.00416721005902'  
-    }
+    // {
+    //     'name' : '초가찜',
+    //     'add': '부산광역시 사상구 주례동 507-14번지',
+    //     'x':'35.149661644944004',
+    //     'y' :'129.00400623125148'
+    // },
+    // {
+    //     'name' : '안오이시오이시스시',
+    //     'add': '부산광역시 사상구 주례3동 507-21',
+    //     'x':'35.14951479354232',
+    //     'y' :'129.00416721005902'  
+    // }
 ];
 
 var area_x = 35.149571;
@@ -44,15 +44,19 @@ for (var i = 0; i < areaArr.length; i++) {
             '<div class="iw_inner section-padding-10">',
             '   <div class = "service-box-title ml-0">' + areaArr[i]['name'] + '</div>',
             '   <div class = "service-box-address ml-0">' + areaArr[i]['add'] + '</div>',
-            '   <button type="submit" id="select-btn" class="btn select-btn mt-15">SELECT</button>',
+            '   <button type="submit" onclick = "select()" class="btn select-btn mt-15">SELECT</button>',
             '</div>'
     ].join('')
     })
-
+    function select() {
+        document.getElementById("title").innerText = areaArr[i]['name']
+        document.getElementById('address').innerHTML = areaArr[i]['add']
+    }
     markers.push(marker);
     infowindows.push(infowindow);
 
 };
+
 
 map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
 
