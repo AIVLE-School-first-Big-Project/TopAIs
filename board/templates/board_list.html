@@ -4,7 +4,7 @@
 {% block content %}
 
 <!-- ##### Breadcumb Area Start ##### -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/breadcumb3.jpg);">
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
     <div class="bradcumbContent">
         <p>Check Business List</p>
         <h2>BOARD</h2>
@@ -16,16 +16,7 @@
 <section class="events-area section-padding-100">
     <div class="container">
         <div class="row">
-            <div class="row my-3">
-                <div class="col-6">
-                    <div class="input-group">
-                        <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="container">
                 <table class="table">
@@ -44,13 +35,41 @@
                                 <span>2022-04-22</span>
                             </td>
                             <td>
+                                <span href = ''>쿨루프 시공</span>
+                            </td>
+                            <td>
+                                <span>GAGAcompany</span>
+                            </td>
+                            <td>
+                                <span class="progress_text">진행중</span>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>
+                                <span>2022-04-22</span>
+                            </td>
+                            <td>
                                 <span>쿨루프 시공</span>
                             </td>
                             <td>
                                 <span>GAGAcompany</span>
                             </td>
                             <td>
-                                <span>진행중</span>
+                                <span class="complete_text">완료</span>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>
+                                <span>2022-04-22</span>
+                            </td>
+                            <td>
+                                <span>쿨루프 시공</span>
+                            </td>
+                            <td>
+                                <span>GAGAcompany</span>
+                            </td>
+                            <td>
+                                <span class="check_text">검토중</span>
                             </td>
                         </tr>
 

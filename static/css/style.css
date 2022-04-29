@@ -66,7 +66,7 @@ img {
 }
 .mt-15 {
   margin-top: 15px !important; }
-  
+
 .mt-10 {
   margin-top: 10px;
 }
@@ -1787,6 +1787,19 @@ img {
 }
 .close:after {
   transform: rotate(-45deg);
+}
+
+.progress_text{
+  color : seagreen;
+  font-weight: 600;
+}
+.check_text{
+  color : #f79c00;
+  font-weight: 600;
+}
+.complete_text{
+  color : red;
+  font-weight: 600;
 }
 /* ====== The End ====== */
 
