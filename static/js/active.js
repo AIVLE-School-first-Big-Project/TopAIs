@@ -213,3 +213,19 @@
     })
 
 })(jQuery);
+
+function modalclose() {
+    document.getElementById("modal").style.visibility = 'hidden';
+}
+function cancelwrite(){
+    if (!confirm("삭제 하시겠습니까?")) {
+    } else {
+        document.location.href = '/board/service'
+    }
+}
+function presavewrite(){
+    alert("임시저장 되었습니다.")
+}
+function savewrite(){
+    alert("저장 되었습니다.")
+}

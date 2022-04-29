@@ -58,10 +58,10 @@
                             {#                            </a>#}
 
                             <button type="button"
-                                    class="btn cancel-btn mt-30 mr-30" onclick="history.back()">CANCEL
+                                    class="btn cancel-btn mt-30 mr-30" onclick="cancelwrite()">CANCEL
                             </button>
-                            <button type="submit" class="btn write-btn mt-30 mr-30">임시저장</button>
-                            <button type="submit" class="btn write-btn mt-30">저장</button>
+                            <button type="submit" onclick="presavewrite()" class="btn write-btn mt-30 mr-30">임시저장</button>
+                            <button type="submit" onclick="savewrite()" class="btn write-btn mt-30">저장</button>
                         </div>
                     </div>
                 </form>

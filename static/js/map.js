@@ -46,7 +46,7 @@ for (var i = 0; i < areaArr.length; i++) {
             '   <button id="select-btn" type="submit" onclick = "select()" class="btn select-btn mt-15">SELECT</button>',
             '</div>'
     ].join('')
-    })
+    })   
     function select() {
         document.getElementById("service-box").innerHTML += ['<div id="innerservice-box" class = "service-box mb-15">' + 
         '<div onclick = "boxclose()" class="close"></div>'+
@@ -56,7 +56,6 @@ for (var i = 0; i < areaArr.length; i++) {
         document.getElementById('select-btn').style.color = 'white';
         document.getElementById('select-btn').style.border = '0px';
         document.getElementById('select-btn').style.pointerEvents = 'none';
-        marker.style.color = 'red'
     }
     function boxclose() {
         document.getElementById("innerservice-box").remove();
