@@ -3,82 +3,89 @@
 
 {% block content %}
 
-<!-- ##### Breadcumb Area Start ##### -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
-    <div class="bradcumbContent">
-        <p>Check Business List</p>
-        <h2>BOARD</h2>
-    </div>
-</section>
-<!-- ##### Breadcumb Area End ##### -->
-<!-- ##### Events Area Start ##### -->
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>Check Business List</p>
+            <h2>BOARD</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    <!-- ##### Events Area Start ##### -->
 
-<section class="events-area section-padding-100">
-    <div class="container">
-        <div class="row">
+    <section class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
 
 
-            <div class="container">
-                <table class="table">
-                    <thead class="thead-light">
+                <div class="container">
+                    <table class="table">
+                        <thead class="thead-light">
                         <tr class="text-center">
                             <th scope="col">DATE</th>
                             <th scope="col">TITLE</th>
                             <th scope="col">작성자</th>
                             <th scope="col">진행상황</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
+                        {% for board in board_list %}
+                            <tr class="text-center">
+                                <td>{{ board.created_at|date:"Y.m.d" }}</td>
+                                <td><a href="{{ board.get_absolute_url }}">{{ board.title }}</a></td>
+                                <td>{{ board.user }}</td>
+                                <td>{{ board.process }}</td>
+                            </tr>
+                        {% endfor %}
+                        {#                        <tr class="text-center">#}
+                        {#                            <td>#}
+                        {#                                <span>2022-04-22</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span href=''>쿨루프 시공</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span>GAGAcompany</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span class="progress_text">진행중</span>#}
+                        {#                            </td>#}
+                        {#                        </tr>#}
+                        {#                        <tr class="text-center">#}
+                        {#                            <td>#}
+                        {#                                <span>2022-04-22</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span>쿨루프 시공</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span>GAGAcompany</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span class="complete_text">완료</span>#}
+                        {#                            </td>#}
+                        {#                        </tr>#}
+                        {#                        <tr class="text-center">#}
+                        {#                            <td>#}
+                        {#                                <span>2022-04-22</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span>쿨루프 시공</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span>GAGAcompany</span>#}
+                        {#                            </td>#}
+                        {#                            <td>#}
+                        {#                                <span class="check_text">검토중</span>#}
+                        {#                            </td>#}
+                        {#                        </tr>#}
 
-                        <tr class="text-center">
-                            <td>
-                                <span>2022-04-22</span>
-                            </td>
-                            <td>
-                                <span href = ''>쿨루프 시공</span>
-                            </td>
-                            <td>
-                                <span>GAGAcompany</span>
-                            </td>
-                            <td>
-                                <span class="progress_text">진행중</span>
-                            </td>
-                        </tr>
-                        <tr class="text-center">
-                            <td>
-                                <span>2022-04-22</span>
-                            </td>
-                            <td>
-                                <span>쿨루프 시공</span>
-                            </td>
-                            <td>
-                                <span>GAGAcompany</span>
-                            </td>
-                            <td>
-                                <span class="complete_text">완료</span>
-                            </td>
-                        </tr>
-                        <tr class="text-center">
-                            <td>
-                                <span>2022-04-22</span>
-                            </td>
-                            <td>
-                                <span>쿨루프 시공</span>
-                            </td>
-                            <td>
-                                <span>GAGAcompany</span>
-                            </td>
-                            <td>
-                                <span class="check_text">검토중</span>
-                            </td>
-                        </tr>
+                        </tbody>
+                    </table>
 
-                    </tbody>
-                </table>
+                </div>
 
             </div>
-            
         </div>
-    </div>
-</section>
-{%endblock content%}
+    </section>
+{% endblock content %}

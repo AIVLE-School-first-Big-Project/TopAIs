@@ -9,4 +9,5 @@ urlpatterns = [
     path('roadLine/', views.service_roadLine, name='roadLine'),
     path('write/', views.service_write, name='write'),
     path('list/', views.listing, name='board_list'),
+    path('detail/<int:pk>', views.board_detail_view, name='board_detail')
 ]
