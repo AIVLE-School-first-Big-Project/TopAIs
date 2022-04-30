@@ -73,12 +73,13 @@ def login_accounts(request):
             if user:
                 if not user.email_auth:
                     messages.info(request, '이메일 인증 후 로그인해주세요.')
+                    return redirect('login')
                 else:
                     login(request, user)
                     next_url = request.GET.get('next')
                     if next_url:
                         return redirect(next_url)
-            return redirect('index')
+                    return redirect('index')
         else:
             context['form'] = form
     return render(request, 'login.html', context)

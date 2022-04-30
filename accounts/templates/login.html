@@ -5,12 +5,13 @@
 
 
 {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message }}
+<div id="modal" class="modal-overlay">
+    <div class="modal-window">
+            <h4>회원가입을 축하합니다</h4>
+            <h6>{{message}}</h6>
+            <button onclick="modalclose()" class = "btn check-btn">확인</button>
     </div>
+</div>
 {% endfor %}
 
     <!-- ##### Breadcumb Area Start ##### -->

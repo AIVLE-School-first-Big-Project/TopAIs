@@ -36,4 +36,22 @@ def service_write(request):
 
 @login_required(login_url='/accounts/login')
 def listing(request):
+    board_list = Board.objects.order_by('-id')
+    paginator = Paginator(board_list, 10)
+
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    start_page = (int(page_number) - 1) // 10 * 10 + 1
+    end_page = start_page + 9
+
+    if end_page > paginator.num_pages:
+        end_page = paginator.num_pages
+
+    context = {
+        'page_info': page_obj,
+        'page_range': range(start_page, end_page + 1)
+    }
+
+    print(board_list)
+    print(start_page, end_page)
     return render(request, 'board_list.html')
