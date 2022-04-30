@@ -87,3 +87,15 @@ def login_accounts(request):
 def logout_accounts(request):
     logout(request)
     return redirect('index')
+
+def pwchange(request):
+    return render(request, 'pwchange.html')
+
+def edit_company(request):
+    return render(request, 'edit_company.html')
+
+def edit_official(request):
+    return render(request, 'edit_official.html')
+
+def my_business(request):
+    return render(request, 'my_business.html')

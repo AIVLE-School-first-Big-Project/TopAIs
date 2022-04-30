@@ -9,5 +9,9 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('signup_official', views.signup_official, name='signup_official'),
     path('signup_company', views.signup_company, name='signup_company'),
-    path('email_auth/<str:uid64>/<str:token>', email_auth.EmailAuthView.get, name='email_auth')
+    path('pwchange/', views.pwchange, name='pwchange'),
+    path('edit_company/', views.edit_company, name='edit_company'),
+    path('edit_official/', views.edit_official, name='edit_official'),
+    path('my_business/', views.my_business, name='my_business'),
+    path('email_auth/<str:uid64>/<str:token>', email_auth.EmailAuthView.get, name='email_auth'),
 ]

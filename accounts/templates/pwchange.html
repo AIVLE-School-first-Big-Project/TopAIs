@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'widget.html' %}
+        <div class = "col-md-9 col-md-push-3" style = 'padding-left: 115px; padding-right: 100px;'>
+            <div class="login-content" style = 'height:100%; width : 800px; box-shadow : none; background-color : #bcbbb'>
+                <!-- PWchange Form -->
+                <div class="login-form">
+                    <form action="{% url 'index' %}" method="post">
+                        <div class="form-group">
+                            <label for="password1">Password</label>
+                            <input type="password" name="password1" id="password1" class="form-control"  placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Password Check</label>
+                            <input type="password" name="password2" id="password2" class="form-control"  placeholder="Password Check" required>
+                        </div>
+                        <button type="submit" class="btn oneMusic-btn mt-30">CHANGE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{%endblock content%}

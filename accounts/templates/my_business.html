@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'widget.html' %}
+        <div class = "col-md-9 col-md-push-3" style = 'padding-left: 115px; padding-right: 100px;'>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr class="text-center">
+                        <th scope="col">DATE</th>
+                        <th scope="col">TITLE</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">진행상황</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="text-center">
+                        <td>
+                            <span>2022-04-22</span>
+                        </td>
+                        <td>
+                            <span href = ''>쿨루프 시공</span>
+                        </td>
+                        <td>
+                            <span>GAGAcompany</span>
+                        </td>
+                        <td>
+                            <span class="progress_text">진행중</span>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>
+                            <span>2022-04-22</span>
+                        </td>
+                        <td>
+                            <span>쿨루프 시공</span>
+                        </td>
+                        <td>
+                            <span>GAGAcompany</span>
+                        </td>
+                        <td>
+                            <span class="complete_text">완료</span>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>
+                            <span>2022-04-22</span>
+                        </td>
+                        <td>
+                            <span>쿨루프 시공</span>
+                        </td>
+                        <td>
+                            <span>GAGAcompany</span>
+                        </td>
+                        <td>
+                            <span class="check_text">검토중</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+{%endblock content%}
