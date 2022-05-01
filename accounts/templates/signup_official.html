@@ -24,7 +24,8 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label for="InputArea">Area</label>
-                                    <input type="text" class="form-control" id="inputArea" name="area"
+                                    <datalist id="area"></datalist>
+                                    <input type="text" class="form-control" id="inputArea" name="area" list = "area"
                                            placeholder="Enter Your AREA" value="{{ form.area.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">

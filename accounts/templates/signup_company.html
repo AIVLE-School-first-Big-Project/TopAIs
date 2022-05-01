@@ -50,7 +50,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="InputCategory">Category</label>
-                                    <input type="text" class="form-control" id="inputCategory" name="comp_category"
+                                    <datalist id="category_type">
+                                        <option value ="Cool-Roof">
+                                        <option value ="ROAD-LINE">
+                                    </datalist>
+                                    <input type="text" class="form-control" id="inputCategory" name="comp_category" list = "category_type"
                                            placeholder="Cool-Roof / ROAD-LINE" value="{{ form.comp_category.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
