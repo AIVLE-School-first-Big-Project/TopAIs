@@ -145,6 +145,10 @@ img {
   padding-top: 0;
   padding-bottom: 100px; }
 
+.section-padding-70-100 {
+  padding-top: 70px;
+  padding-bottom: 100px; }
+
 .section-padding-100-70 {
   padding-top: 100px;
   padding-bottom: 70px; }
