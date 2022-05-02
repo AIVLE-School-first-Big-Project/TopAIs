@@ -10,14 +10,6 @@ def service(request):
     return render(request, 'service.html')
 
 
-def service_coolRoof(request):
-    return render(request, 'service_coolRoof.html')
-
-
-def service_roadLine(request):
-    return render(request, 'service_roadLine.html')
-
-
 @login_required(login_url='/accounts/login')
 def service_write(request):
     context = {}

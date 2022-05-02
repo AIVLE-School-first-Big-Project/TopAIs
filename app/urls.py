@@ -4,20 +4,10 @@ from app import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('main/', views.index,name='index'),
-    path('albums/', views.albums,name='albums'),
-    path('blog/', views.blog,name='blog'),
-    path('elements/', views.elements,name='elements'),
-    path('event/', views.event,name='event'),
-    path('login/', views.login,name='login'),
-    # path('signup_com/', views.signup_com,name='signup_com'),
-    # path('signup_selecttype/', views.signup_selecttype,name='signup_selecttype'),
-    # path('signup_official/', views.signup_official,name='signup_official'),
-    # path('service_writework/', views.service_writework,name='service_writework'),
-    # path('board_list/', views.board_list,name='board_list'),
-    # path('mapxy/', views.map, name='map'),
-    # path('pwchange/', views.pwchange, name='pwchange'),
-    # path('mypage/', views.mypage, name='mypage'),
-    # path('service_coolroof/', views.service_coolroof,name='service_coolroof'),
-    # path('service_roadline/', views.service_roadline,name='service_roadline'),
+    path('main/', views.index, name='index'),
+    path('albums/', views.albums,name=' albums'),
+    path('blog/', views.blog, name='blog'),
+    path('elements/', views.elements, name='elements'),
+    path('event/', views.event, name='event'),
+    path('login/', views.login, name='login'),
 ]

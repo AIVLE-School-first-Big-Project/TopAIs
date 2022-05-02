@@ -1,48 +1,53 @@
 // 변수 선언
-var areaArr = [
-    {
-        'name' : '럭키아파트',
-        'add': '부산광역시 사상구 가야대로284번길 2',
-        'x':'35.149571',
-        'y' :'129.003490' 
-    },
-    {
-        'name' : '초가찜',
-        'add': '부산광역시 사상구 주례동 507-14번지',
-        'x':'35.149661644944004',
-        'y' :'129.00400623125148'
-    },
-    {
-        'name' : '안오이시오이시스시',
-        'add': '부산광역시 사상구 주례3동 507-21',
-        'x':'35.14951479354232',
-        'y' :'129.00416721005902'  
-    }
-];
+// var areaArr = [
+//     {
+//         'name' : '럭키아파트',
+//         'add': '부산광역시 사상구 가야대로284번길 2',
+//         'x':'35.149571',
+//         'y' :'129.003490' 
+//     },
+//     {
+//         'name' : '초가찜',
+//         'add': '부산광역시 사상구 주례동 507-14번지',
+//         'x':'35.149661644944004',
+//         'y' :'129.00400623125148'
+//     },
+//     {
+//         'name' : '안오이시오이시스시',
+//         'add': '부산광역시 사상구 주례3동 507-21',
+//         'x':'35.14951479354232',
+//         'y' :'129.00416721005902'  
+//     }
+// ];
 
-var area_x = 35.149571;
-var area_y = 129.003490;
+var area_x = areaArr['0']['latitude'];
+var area_y = areaArr['0']['longitude'];
 let markers = new Array();
 let infowindows = new Array();
 
-// 구현 내용
 var coolroof = new naver.maps.LatLng(area_x, area_y),
     map = new naver.maps.Map('map', {
         center: coolroof,
         zoom: 19
     })
-
-for (var i = 0; i < areaArr.length; i++) {
+console.log('map.js')
+console.log(areaArr.length)
+for(key in areaArr) {
     // 마커 생성
+    console.log(areaArr[key]['latitude'])
     var marker = new naver.maps.Marker({
         map: map, // 마커를 표시할 지도
-        position: new naver.maps.LatLng(areaArr[i]['x'], areaArr[i]['y']), // 마커를 표시할 위치
+        position: new naver.maps.LatLng(areaArr[key]['latitude'], areaArr[key]['longitude']), // 마커를 표시할 위치
     });
     var infowindow = new naver.maps.InfoWindow({
         content: [
             '<div class="iw_inner section-padding-10">',
-            '   <div id = "name" class = "service-box-title ml-0">' + areaArr[i]['name'] + '</div>',
-            '   <div id = "addr" class = "service-box-address ml-0">' + areaArr[i]['add'] + '</div>',
+            '   <div id = "name" class = "service-box-title ml-0">' + areaArr[key]['name'] + '</div>',
+            '   <div id = "addr" class = "service-box-address ml-0">' + 
+            areaArr[key]['city'] + ' ' + 
+            areaArr[key]['county'] + ' ' + areaArr[key]['district'] +
+            areaArr[key]['number1'] + ' ' + areaArr[key]['number2'] +
+            '</div>',
             '   <button id="select-btn" type="submit" onclick = "select()" class="btn select-btn mt-15">SELECT</button>',
             '</div>'
     ].join('')
@@ -86,6 +91,8 @@ function getClickHandler(seq) {
         }
     }
 }
+
+console.log(markers)
 
 for (var i=0; ii=markers.length; i<ii, i++) {
     console.log(markers[i], getClickHandler(i));
