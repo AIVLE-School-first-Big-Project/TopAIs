@@ -62,3 +62,7 @@ def board_detail_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
     context = {'board': board}
     return render(request, 'board_detail.html', context)
+
+@login_required(login_url=login_url)
+def qna(request):
+    return render(request, 'qna.html')

@@ -125,3 +125,6 @@ def edit_official(request):
 
 def my_business(request):
     return render(request, 'my_business.html')
+
+def my_qna(request):
+    return render(request, 'my_qna.html')
