@@ -7,7 +7,15 @@
             <div class="login-content" style = 'height:100%; width : 800px; box-shadow : none; background-color : #bcbbb'>
                 <!-- PWchange Form -->
                 <div class="login-form">
-                    <form action="{% url 'index' %}" method="post">
+                    <form method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                        <div class="alert-danger" role="alert">
+                            {% for message in messages %}
+                                {{ message.message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                         <div class="form-group">
                             <label for="password1">Password</label>
                             <input type="password" name="password1" id="password1" class="form-control"  placeholder="Password" required>

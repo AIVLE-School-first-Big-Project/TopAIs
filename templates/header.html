@@ -74,25 +74,37 @@
                                     <!-- Login/Register -->
                                     <div class="login-register-btn mr-50">
                                         {% if user.is_authenticated %}
-                                            <a href="{% url 'logout' %}" id="loginBtn">Logout</a>
+                                            <a href="{% url 'logout' %}" id="logout">Logout</a>
                                         {% else %}
                                             <a href="{% url 'login' %}" id="loginBtn">Login / Register</a>
                                         {% endif %}
                                     </div>
 
                                     <!-- Cart Button -->
+                                    {% if user.is_authenticated %}
                                     <div class="cart-btn">
-                                        <p>
+                                        <a style="color:white" href="{% url 'my_business' %}" class="icon-user"></a>
+                                        {% comment %} <p>
                                             <a style="color:white" href="{% url 'index' %}">
                                                 <span class="icon-home"></span>
                                             </a>
-                                        </p>
+                                        </p> {% endcomment %}
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Nav End -->
-
                         </div>
+                        <script>
+                            document.querySelector("#logout").addEventListener("click", (e) => {
+                                if (confirm("로그아웃 하시겠습니까?")) {
+                                    alert("로그아웃 되셨습니다.");
+                                } else {
+                                    e.preventDefault();
+                                    alert("취소하셨습니다.");
+                                }
+                              });
+                        </script>
                 </nav>
             </div>
         </div>
