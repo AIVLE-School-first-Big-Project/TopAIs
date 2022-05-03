@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>Check Business List</p>
+            <h2>BOARD</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    <!-- ##### Events Area Start ##### -->
+
+    <section class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="container">
+                    <h1>Title: {{ board.title }}</h1>
+                    <p><strong>created_at:</strong> {{ board.created_at|date:"Y.m.d H:i:s" }}</p>
+                    <p><strong>updated_at:</strong> {{ board.updated_at|date:"Y.m.d H:i:s" }}</p>
+                    <p><strong>Author:</strong> {{ board.user }}</p>
+                    <p><strong>content:</strong> {{ board.content }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
