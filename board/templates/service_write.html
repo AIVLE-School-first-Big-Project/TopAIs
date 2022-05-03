@@ -34,7 +34,7 @@
                 <div class="w-900">
                     {% include "form_errors.html" %}
                 </div>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group row w-900">
                         <label for="inputTitle" class="col-sm-2 col-form-label"><strong>TITLE</strong></label>
@@ -44,7 +44,11 @@
                         <label for="inputDeadline"
                                class="col-sm-2 col-form-label"><strong>DEADLINE</strong></label>
                         <input type="date" name="deadline" class="form-control w-900" id="inputDeadline">
-{#                        {{ form.deadline }}#}
+                    </div>
+                    <div class="form-group row w-900">
+                        <label for="inputFile"
+                               class="col-sm-2 col-form-label"><strong>FILE</strong></label>
+                        <input type="file" name="files" multiple class="form-control w-900" id="inputFile">
                     </div>
                     <div class="form-group row w-900">
                         <label for="inputContent" class="col-sm-2 col-form-label"><strong>CONTENT</strong></label>
