@@ -22,6 +22,9 @@
                     <p><strong>updated_at:</strong> {{ board.updated_at|date:"Y.m.d H:i:s" }}</p>
                     <p><strong>Author:</strong> {{ board.user }}</p>
                     <p><strong>content:</strong> {{ board.content }}</p>
+                    {% for f in file %}
+                        <a href="{% url 'file_download' f.id %}"><p>{{ f.name | truncatechars:100 }}</p></a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
