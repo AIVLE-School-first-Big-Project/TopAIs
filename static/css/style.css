@@ -1849,6 +1849,41 @@ img {
   background-color : black;
   color : white
 }
+.board-title {
+  display: flex; 
+  justify-content: center; 
+  font-size : 25px;
+}
+.board-time {
+  display: flex; 
+  justify-content: right;
+  color: #000000;
+  font-weight: 700;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 15px;
+  margin-left : 10px 
+}
+.board-content {
+  display: flex; 
+  justify-content: left;
+  color: #000000;
+  font-weight: 500;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 15px;
+  margin-left : 10px 
+}
+.pos-right {
+  display:flex; 
+  justify-content: right;
+}
+.rewrite {
+  margin-left : 800px; 
+  height:25px; 
+  width : 50px; 
+  min-width:0; 
+  font-size : 13px; 
+  line-height: 0%;
+}
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
