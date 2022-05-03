@@ -66,5 +66,5 @@ def board_detail_view(request, pk):
 def qna_write(request):
     return render(request, 'qna_write.html')
 
-def qna_list(request):
-    return render(request, 'qna_list.html')
+def faq(request):
+    return render(request, 'faq.html')
