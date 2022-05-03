@@ -63,6 +63,8 @@ def board_detail_view(request, pk):
     context = {'board': board}
     return render(request, 'board_detail.html', context)
 
-@login_required(login_url=login_url)
-def qna(request):
-    return render(request, 'qna.html')
+def qna_write(request):
+    return render(request, 'qna_write.html')
+
+def qna_list(request):
+    return render(request, 'qna_list.html')
