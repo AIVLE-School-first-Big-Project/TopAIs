@@ -7,8 +7,8 @@ app_names = 'board'
 
 urlpatterns = [
     path('service/', views.service, name='service'),
-    # path('coolRoof/', views.service_coolRoof, name='coolRoof'),
-    # path('roadLine/', views.service_roadLine, name='roadLine'),
+    path('coolRoof/', views.service_coolRoof, name='coolRoof'),
+    path('roadLine/', views.service_roadLine, name='roadLine'),
     path('qna_write/', views.qna_write, name='qna_write'),
     path('faq/', views.faq, name='faq'),
     path('write/', views.service_write, name='write'),

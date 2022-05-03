@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
 
+from map.models import Building
+
 from .forms import BoardWriteForm, CommentWriteForm
 from .models import Board, Comment, Announcement
 
@@ -17,6 +19,22 @@ def service(request):
     return render(request, 'service.html')
 
 
+def service_coolRoof(request):
+    building = Building.objects.filter(city='부산광역시').values(
+        "latitude", "longitude", "city", "county", "district", "number1", "number2")
+    
+    areas = {}
+    for i in range(len(building)):
+        areas[str(i)] = building[i]
+    
+    return render(request, 'service_coolRoof.html', context={'areas': areas})
+
+
+def service_roadLine(request):
+    return render(request, 'service_roadLine.html')
+
+
+@login_required(login_url=login_url)
 @login_required(login_url='/accounts/login')
 def service_write(request):
     context = {}

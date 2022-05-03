@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block content %}
+
+<script>
+    var areaArr = JSON.parse("{{ areas }}".replace(/&#x27;/g, "\""))
+    console.log(areaArr)
+</script>
+
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
         <div class="bradcumbContent">
