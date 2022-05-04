@@ -32,9 +32,10 @@ with open(secret_file) as f:
     secret = json.loads(f.read())
 with open(db_file) as f:
     db = json.loads(f.read())
-    
+
 with open(email_file) as f:
     email = json.loads(f.read())
+
 
 def get_secret(setting, secrets=secret):
     try:
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     'app',
     'accounts',
     'board',
+    'map',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,19 +166,21 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # Email 전송 설정
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'        # 개발용으로, 실제로 이메일을 보내지 않고 console에 출력되도록 함. (이메일이 잘 출력되는지 확인)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'           # 배포용으로, 실제로 이메일 전송됨.
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # 배포용으로, 실제로 이메일 전송됨.
 
-EMAIL_HOST = 'smtp.gmail.com'   # 메일을 호스트하는 서버
-EMAIL_PORT = '587'              # gmail과 통신하는 포트
-EMAIL_USE_TLS = True            # TLS 보안 방법 
-EMAIL_HOST_USER = email["EMAIL_HOST_USER"]         # 발신할 이메일
-EMAIL_HOST_PASSWORD = email["EMAIL_HOST_PASSWORD"] # 발신할 메일의 비밀번호
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER                    # 사이트와 관련한 자동 응답을 받을 이메일 주소
-
+EMAIL_HOST = 'smtp.gmail.com'  # 메일을 호스트하는 서버
+EMAIL_PORT = '587'  # gmail과 통신하는 포트
+EMAIL_USE_TLS = True  # TLS 보안 방법
+EMAIL_HOST_USER = email["EMAIL_HOST_USER"]  # 발신할 이메일
+EMAIL_HOST_PASSWORD = email["EMAIL_HOST_PASSWORD"]  # 발신할 메일의 비밀번호
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 사이트와 관련한 자동 응답을 받을 이메일 주소
 
 # user 관련 설정
 AUTH_USER_MODEL = 'accounts.User'
 LOGOUT_REDIRECT_URL = '/app/main'
+
+# media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
