@@ -43,12 +43,13 @@ def service_write(request):
     context = {}
     
     if request.method == 'POST':
-        if request.POST.get('selected_area', None):
+        selected_areas = request.POST.get('selected_area', '')
+        if selected_areas:
             context['selected_areas'] = json.loads(selected_areas)
         else:
-            selected_areas = request.POST.get('selected_areas', {})
-            context['selected_areas'] = json.loads(selected_areas.replace("'", '"'))
-
+            selected_areas = request.POST.get('selected_areas', 0)
+            if selected_areas: 
+                context['selected_areas'] = json.loads(selected_areas.replace("'", '"'))
             form = BoardWriteForm(request.POST)
             if form.is_valid():
                 form = form.save(commit=False)
