@@ -75,7 +75,7 @@ def login_accounts(request):
 
             if user:
                 if not user.email_auth:
-                    messages.info(request, '이메일 인증 후 로그인해주세요.')
+                    messages.info(request, '　　　　　이메일 인증 후 로그인해주세요.')
                     return redirect('login')
                 else:
                     login(request, user)
@@ -101,7 +101,7 @@ def pwchange(request):
             user = User.objects.get(id = user_id)
             user.set_password(user_pw)
             user.save()
-            messages.info(request, '비밀번호가 변경되었습니다. 　　　　　　　　　　　　다시 로그인 해주세요.')
+            messages.info(request, '　　　　　　비밀번호가 변경되었습니다. 　　　　　　　다시 로그인 해주세요.')
             return HttpResponseRedirect(reverse('login'))
     return render(request,'pwchange.html')
 
