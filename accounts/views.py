@@ -89,33 +89,26 @@ def login_accounts(request):
 
 
 def pwchange(request):
-
     if request.method == 'POST':
-        user_id = request.user
+        user_id = request.session.get('_auth_user_id')
         user_pw =  request.POST.get('password1')
         user_pw_check =request.POST.get('password2')
-        print(user_id, user_pw, user_pw_check)
 
         if user_pw_check != user_pw:
             messages.info(request, '비밀번호가 일치하지 않습니다.')
             return HttpResponseRedirect(reverse('pwchange'))   
         else:
-            user = User.objects.get(user_id = user_id)
-            user.password = user_pw
+            user = User.objects.get(id = user_id)
+            user.set_password(user_pw)
             user.save()
-            del request.session['user']
             messages.info(request, '　비밀번호가 변경되었습니다.　　다시 로그인 해주세요.')
             return HttpResponseRedirect(reverse('login'))
-
     return render(request,'pwchange.html')
 
 
 def logout_accounts(request):
     logout(request)
     return redirect('index')
-
-def pwchange(request):
-    return render(request, 'pwchange.html')
 
 def edit_company(request):
     return render(request, 'edit_company.html')
