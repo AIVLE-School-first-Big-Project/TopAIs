@@ -7,19 +7,19 @@
                     <form action="{% url 'edit_official' %}" method="post">
                         {% csrf_token %}
                         <div class="form-group has-feedback">
-                            <label class="control-label" for="userId">아이디</label>
+                            <label class="control-label" for="userId">ID</label>
                             <input class="form-control" type="text" id="userId" name="userId" value="{{user.user_id}}" readonly="readonly"/>
                         </div>
                         <div class="form-group has-feedback">
-                            <label class="control-label" for="agencyArea">지역</label>
+                            <label class="control-label" for="agencyArea">AREA</label>
                             <input class="form-control" type="text" id="agencyArea" name="agencyArea" value="{{agency.area}}" readonly="readonly"/>
                         </div>
                         <div class="form-group has-feedback">
-                            <label class="control-label" for="userName">이름</label>
+                            <label class="control-label" for="userName">NAME</label>
                             <input class="form-control" type="text" id="userName" name="userName" value="{{user.username}}"/>
                         </div>
                         <div class="form-group has-feedback">
-                            <label class="control-label" for="userEmail">이메일</label>
+                            <label class="control-label" for="userEmail">E-MAIL</label>
                             <input class="form-control" type="email" id="userEmail" name="userEmail" value="{{user.email}}" readonly="readonly"/>
                         </div>
                         <div class="form-group has-feedback">
@@ -27,7 +27,7 @@
                             <input class="form-control" type="text" id="userName" name="userName" value="{{user.phone}}"/>
                         </div>
                         <div class="form-group has-feedback">
-                            <button class="btn btn-success" type="submit" id="submit">회원정보수정</button>
+                            <button type="submit" class="btn select-btn mt-15 edit-btn">회원정보수정</button>
                         </div>
                     </form>
             </div>

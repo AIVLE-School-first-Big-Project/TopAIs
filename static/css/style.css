@@ -1953,6 +1953,10 @@ a.text-secondary:hover {
   color : white;
   border : 0px;
 }
+.edit-btn{
+  width : 50%; 
+  margin-left : 220px;
+}
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
