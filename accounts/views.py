@@ -111,6 +111,11 @@ def logout_accounts(request):
     return redirect('index')
 
 def edit_company(request):
+    # user_id = request.session.get('_auth_user_id')
+    # user = User.objects.get(id = user_id)
+    # if request.method == 'POST':
+    #     if user.user_type == 'Company':
+    #         userrequest.POST.get('compName')
     return render(request, 'edit_company.html')
 
 def edit_official(request):

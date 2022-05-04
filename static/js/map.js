@@ -34,6 +34,7 @@ var areaArr = {
 
 var area_x = areaArr['0']['latitude'];
 var area_y = areaArr['0']['longitude'];
+var selectedArea = {};
 let markers = new Array();
 let infowindows = new Array();
 
@@ -43,11 +44,8 @@ var coolroof = new naver.maps.LatLng(area_x, area_y),
         center: coolroof,
         zoom: 19
     })
-console.log('map.js')
-console.log(areaArr.length)
 for(key in areaArr) {
     // 마커 생성
-    console.log(areaArr[key]['latitude'])
     var marker = new naver.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: new naver.maps.LatLng(areaArr[key]['latitude'], areaArr[key]['longitude']), // 마커를 표시할 위치
@@ -61,11 +59,11 @@ for(key in areaArr) {
             areaArr[key]['county'] + ' ' + areaArr[key]['district'] +
             areaArr[key]['number1'] + ' ' + areaArr[key]['number2'] +
             '</div>',
-            '   <button id="select-btn" type="submit" onclick = "select()" class="btn select-btn mt-15">SELECT</button>',
+            '   <button id="select-btn" type="submit" onclick = "select(' + key + ')" class="btn select-btn mt-15">SELECT</button>',
             '</div>'
     ].join('')
     })   
-    function select() {
+    function select(key) {
         if (document.getElementById('select-btn').innerHTML == 'SELECT'){
             var name = document.querySelector('#name').textContent;
             document.getElementById("service-box").innerHTML += ['<div id="innerservice-box" class="service-box mb-15">' +
@@ -74,7 +72,8 @@ for(key in areaArr) {
             document.getElementById('select-btn').style.backgroundColor = 'red';
             document.getElementById('select-btn').style.color = 'white';
             document.getElementById('select-btn').style.border = '1px solid red';
-            document.getElementById('select-btn').innerHTML = 'CANCEL'
+            document.getElementById('select-btn').innerHTML = 'CANCEL';
+            selectedArea[key] = areaArr[key];
         }
         else {
             var name = document.querySelector('#name').textContent;
@@ -82,11 +81,14 @@ for(key in areaArr) {
             document.getElementById('select-btn').style.backgroundColor = 'white';
             document.getElementById('select-btn').style.color = 'lightseagreen';
             document.getElementById('select-btn').style.border = '1px solid lightseagreen';
-            document.getElementById('select-btn').innerHTML = 'SELECT'
+            document.getElementById('select-btn').innerHTML = 'SELECT';
+            delete selectedArea[key];
         }
+        document.getElementById('selected_area').value = JSON.stringify(selectedArea);
     }
     markers.push(marker);
     infowindows.push(infowindow);
+    
 };
 
 
@@ -109,7 +111,6 @@ function getClickHandler(seq) {
 console.log(markers)
 
 for (var i=0; ii=markers.length; i<ii, i++) {
-    console.log(markers[i], getClickHandler(i));
     naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
 }
 
