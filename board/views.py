@@ -41,10 +41,15 @@ def service_roadLine(request):
 @login_required(login_url='/accounts/login')
 def service_write(request):
     context = {}
+    
     if request.method == 'POST':
-        selected_areas = request.POST.get('selected_area', {})
-        context['selected_areas'] = json.loads(selected_areas)
-        try:
+        if request.POST.get('selected_area', None):
+            context['selected_areas'] = json.loads(selected_areas)
+        else:
+            selected_areas = request.POST.get('selected_areas', {})
+            context['selected_areas'] = json.loads(selected_areas.replace("'", '"'))
+
+            form = BoardWriteForm(request.POST)
             if form.is_valid():
                 form = form.save(commit=False)
                 form.user_id = request.session['_auth_user_id']
@@ -60,7 +65,6 @@ def service_write(request):
                 return redirect('board_list')
             else:
                 context['form'] = form
-        except: pass
     return render(request, 'service_write.html', context)
 
 
