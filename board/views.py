@@ -1,6 +1,8 @@
+import json
 import os.path
 import urllib.parse
 import mimetypes
+from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -34,27 +36,35 @@ def service_roadLine(request):
     return render(request, 'service_roadLine.html')
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 @login_required(login_url='/accounts/login')
 def service_write(request):
     context = {}
+    
     if request.method == 'POST':
-        form = BoardWriteForm(request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.user_id = request.session['_auth_user_id']
-            form.save()
-
-            if request.FILES:
-                for file in request.FILES.getlist('files'):
-                    Announcement.objects.create(
-                        name=file.name,
-                        uploadFile=file,
-                        board_id=form.id,
-                    )
-            return redirect('board_list')
+        if request.POST.get('selected_area', None):
+            context['selected_areas'] = json.loads(selected_areas)
         else:
-            context['form'] = form
+            selected_areas = request.POST.get('selected_areas', {})
+            context['selected_areas'] = json.loads(selected_areas.replace("'", '"'))
+
+            form = BoardWriteForm(request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.user_id = request.session['_auth_user_id']
+                form.save()
+
+                if request.FILES:
+                    for file in request.FILES.getlist('files'):
+                        Announcement.objects.create(
+                            name=file.name,
+                            uploadFile=file,
+                            board_id=form.id,
+                        )
+                return redirect('board_list')
+            else:
+                context['form'] = form
     return render(request, 'service_write.html', context)
 
 

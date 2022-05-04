@@ -14,21 +14,13 @@
     <section class="contact-area section-padding-100">
         <div class="row">
             <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
+            {% for key, val in selected_areas.items %}
                 <div class="service-box mb-30">
-                    <div class="service-box-title">KT 부산지점</div>
-                    <div class="service-box-address">부산광역시 사상구 주례3동</div>
+                    <div class="service-box-title">{{ val.name }}</div>
+                    <div class="service-box-address">{{ val.city }} {{ val.county }} {{ val.district }} {{ val.number1 }} {{ val.number2 }}</div>
                     <div class="service-box-area">면적 : 120.9m2</div>
                 </div>
-                <div class="service-box mb-30">
-                    <div class="service-box-title">KT 부산지점</div>
-                    <div class="service-box-address">부산광역시 사상구 주례3동</div>
-                    <div class="service-box-area">면적 : 120.9m2</div>
-                </div>
-                <div class="service-box mb-30">
-                    <div class="service-box-title">KT 부산지점</div>
-                    <div class="service-box-address">부산광역시 사상구 주례3동</div>
-                    <div class="service-box-area">면적 : 120.9m2</div>
-                </div>
+            {% endfor %}
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 50px;'>
                 <div class="w-900">
@@ -55,6 +47,7 @@
                         <textarea type="text" name='content' class="form-control w-900" id="inputContent"
                                   style='height: 300px'></textarea>
                     </div>
+                    <input type="hidden" name="selected_areas" value="{{ selected_areas }}">
                     <div class="row" style='padding-right : 150px'>
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">

@@ -31,11 +31,12 @@
                 </div>
                 <div id = 'service-box'>
                 </div>
-                <div class = "service-next-btn">
-                    <a href="{% url 'write' %}">
+                <form action="{% url 'write' %}" method="post">
+                    <input type="hidden" id="selected_area" name="selected_area">
+                    <div class = "service-next-btn">
                         <button type="submit" class="btn oneMusic-btn mt-30">NEXT -></button>
-                    </a>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

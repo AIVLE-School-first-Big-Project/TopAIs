@@ -1,9 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import authenticate, get_user_model
 from .models import Agency, Company, User
 
 USER_INFO = ['username', 'user_id', 'password1', 'email', 'phone', ]
+USER_UPDATE = ['userId', 'userName', 'userEmail', 'userPhone']
 
 
 class RegistrationForm(UserCreationForm, forms.ModelForm):
@@ -69,3 +70,20 @@ class AuthenticationForm(forms.ModelForm):
             password = self.cleaned_data['password']
             if not authenticate(user_id=user_id, password=password):
                 raise forms.ValidationError("Invalid login")
+
+# class UserUpdateForm(UserChangeForm, forms.ModelForm):
+#     def clean_phone(self):
+#         phone = self.cleaned_data['phone']
+#         try:
+#             _ = User.objects.get(phone=phone)
+#         except User.DoesNotExist as e:
+#             return phone
+#         raise forms.ValidationError(f"Phone {phone} is already in use.")
+
+# class CompanyUpdateForm(forms.ModelForm):
+#     class Meta:
+#         model = Company
+#         fields = (
+#             *USER_UPDATE,
+#             'compName', 'compHompage', 'compCategory',
+#         )
