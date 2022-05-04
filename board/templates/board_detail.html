@@ -12,19 +12,37 @@
     </section>
     <!-- ##### Breadcumb Area End ##### -->
     <!-- ##### Events Area Start ##### -->
-
-    <section class="events-area section-padding-100">
-        <div class="container">
-            <div class="row">
-                <div class="container">
-                    <h1>Title: {{ board.title }}</h1>
-                    <p><strong>created_at:</strong> {{ board.created_at|date:"Y.m.d H:i:s" }}</p>
-                    <p><strong>updated_at:</strong> {{ board.updated_at|date:"Y.m.d H:i:s" }}</p>
-                    <p><strong>Author:</strong> {{ board.user }}</p>
-                    <p><strong>content:</strong> {{ board.content }}</p>
-                    {% for f in file %}
-                        <a href="{% url 'file_download' f.id %}"><p>{{ f.name | truncatechars:100 }}</p></a>
-                    {% endfor %}
+    <section class="contact-area section-padding-100">
+        <div class="row">
+            <div class="col-md-3 col-md-pull-9" style='padding-left: 100px; padding-right:0%'>
+                <div class="service-box mb-30">
+                    <div class="service-box-title">KT 부산지점</div>
+                    <div class="service-box-address">부산광역시 사상구 주례3동</div>
+                    <div class="service-box-area">면적 : 120.9m2</div>
+                </div>
+                <div class="service-box mb-30">
+                    <div class="service-box-title">KT 부산지점</div>
+                    <div class="service-box-address">부산광역시 사상구 주례3동</div>
+                    <div class="service-box-area">면적 : 120.9m2</div>
+                </div>
+                <div class="service-box mb-30">
+                    <div class="service-box-title">KT 부산지점</div>
+                    <div class="service-box-address">부산광역시 사상구 주례3동</div>
+                    <div class="service-box-area">면적 : 120.9m2</div>
+                </div>
+            </div>
+            <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
+                <div style = "width : 800px">
+                    <button type="button" class="btn select-btn rewrite" >수정</button>
+                    <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
+                    <div class="progress_text pos-right">진행중</div>
+                    <div class = "service-box-title board-title">{{ board.title }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>CREATE / UPDATE</strong></div> 
+                    <div class="board-time">{{ board.created_at|date:"Y.m.d H:i:s" }} / {{ board.updated_at|date:"Y.m.d H:i:s" }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
+                    <div class="board-time"><strong>{{ board.user }}</strong></div>
+                    <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div> 
+                    <div class="board-content">{{ board.content }}</div>
                 </div>
             </div>
         </div>

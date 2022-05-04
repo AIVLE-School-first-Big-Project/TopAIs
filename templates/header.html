@@ -66,7 +66,7 @@
                                     <li><a href="{% url 'index' %}">홈</a></li>
                                     <li><a href="{% url 'service' %}">서비스</a></li>
                                     <li><a href="{% url 'board_list' %}">알림판</a></li>
-                                    <li><a href="{% url 'faq' %}">문의</a></li>
+                                    <li><a href="{% url 'faq' %}">F A Q</a></li>
                                 </ul>
 
                                 <!-- Login/Register & Cart Button -->
@@ -83,7 +83,7 @@
                                     <!-- Cart Button -->
                                     {% if user.is_authenticated %}
                                     <div class="cart-btn">
-                                        <a style="color:white" href="{% url 'my_business' %}" class="icon-user"></a>
+                                        <a style="color:white; font-size:30px" href="{% url 'my_business' %}" class="icon-user"></a>
                                         {% comment %} <p>
                                             <a style="color:white" href="{% url 'index' %}">
                                                 <span class="icon-home"></span>
