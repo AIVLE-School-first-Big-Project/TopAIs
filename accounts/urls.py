@@ -15,4 +15,5 @@ urlpatterns = [
     path('my_business/', views.my_business, name='my_business'),
     path('my_qna/', views.my_qna, name='my_qna'),
     path('email_auth/<str:uid64>/<str:token>', email_auth.EmailAuthView.get, name='email_auth'),
+    path('signup_agreement/', views.signup_agreement, name='signup_agreement'),
 ]

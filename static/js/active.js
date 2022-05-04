@@ -233,3 +233,19 @@ var area_name = ['영도구', '부산진구', '동래구', '남구', '북구', '
 for (var i=0; i<area_name.length; i++) {
    document.getElementById("area").innerHTML += '<option value="'+area_name[i]+'">' 
 }
+function agreement_checked() {
+
+    const checkbox = document.getElementById('my_checkbox');
+  
+    // 2. checked 속성을 체크합니다.
+    const is_checked = checkbox.checked;
+  
+    // 3. 결과를 출력합니다.
+    if (is_checked == true) {
+        document.getElementById("agree_btn").disabled = false
+    }
+    else {
+        document.getElementById("agree_btn").disabled = true
+    }
+    
+  }
