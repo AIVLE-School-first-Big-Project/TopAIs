@@ -126,3 +126,6 @@ def my_business(request):
 
 def my_qna(request):
     return render(request, 'my_qna.html')
+
+def signup_agreement(request):
+    return render(request, 'signup_agreement.html')

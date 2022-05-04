@@ -64,6 +64,9 @@ img {
 .ml-0{
   margin-left: 0px;
 }
+.ml-900{
+  margin-left: 900px;
+}
 .mt-15 {
   margin-top: 15px !important; }
 
@@ -1856,6 +1859,41 @@ img {
   background-color : black;
   color : white
 }
+.board-title {
+  display: flex; 
+  justify-content: center; 
+  font-size : 25px;
+}
+.board-time {
+  display: flex; 
+  justify-content: right;
+  color: #000000;
+  font-weight: 700;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 15px;
+  margin-left : 10px 
+}
+.board-content {
+  display: flex; 
+  justify-content: left;
+  color: #000000;
+  font-weight: 500;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 15px;
+  margin-left : 10px 
+}
+.pos-right {
+  display:flex; 
+  justify-content: right;
+}
+.rewrite {
+  margin-left : 800px; 
+  height:25px; 
+  width : 50px; 
+  min-width:0; 
+  font-size : 13px; 
+  line-height: 0%;
+}
 
 .text-secondary {
   color: #3d5d6f;
@@ -1905,6 +1943,19 @@ a.text-secondary:hover {
 #accordion a[aria-expanded=true] .fa-plus {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+.panel_box.panel_white {
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+}
+.disable-btn:disabled {
+  background-color: grey;
+  color : white;
+  border : 0px;
+}
+.edit-btn{
+  width : 50%; 
+  margin-left : 220px;
 }
 /* ====== The End ====== */
 
