@@ -101,7 +101,7 @@ def pwchange(request):
             user = User.objects.get(id = user_id)
             user.set_password(user_pw)
             user.save()
-            messages.info(request, '　비밀번호가 변경되었습니다.　　다시 로그인 해주세요.')
+            messages.info(request, '비밀번호가 변경되었습니다. 　　　　　　　　　　　　다시 로그인 해주세요.')
             return HttpResponseRedirect(reverse('login'))
     return render(request,'pwchange.html')
 
