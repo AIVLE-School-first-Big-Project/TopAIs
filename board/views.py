@@ -38,7 +38,6 @@ def service_roadLine(request):
 
 @csrf_exempt
 @login_required(login_url=login_url)
-@login_required(login_url='/accounts/login')
 def service_write(request):
     context = {}
 
@@ -92,6 +91,17 @@ def listing(request):
 
 @login_required(login_url=login_url)
 def board_detail_view(request, pk):
+    # 댓글 작성
+    if request.method == 'POST':
+        form = CommentWriteForm(request.POST)
+        if form.is_valid():
+            print(form.data)
+
+            # 첨부 파일
+            if request.FILES:
+                for file in request.FILES['files']:
+                    print(file)
+
     board = get_object_or_404(Board, pk=pk)
     file = Announcement.objects.filter(board_id__exact=pk)
     context = {

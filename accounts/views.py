@@ -4,7 +4,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
 from .models import User
-from django.http import  HttpResponseRedirect
+from board.models import Board
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from accounts.email_auth import EmailAuthView
 from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
@@ -91,24 +92,25 @@ def login_accounts(request):
 def pwchange(request):
     if request.method == 'POST':
         user_id = request.session.get('_auth_user_id')
-        user_pw =  request.POST.get('password1')
-        user_pw_check =request.POST.get('password2')
+        user_pw = request.POST.get('password1')
+        user_pw_check = request.POST.get('password2')
 
         if user_pw_check != user_pw:
             messages.info(request, '비밀번호가 일치하지 않습니다.')
-            return HttpResponseRedirect(reverse('pwchange'))   
+            return HttpResponseRedirect(reverse('pwchange'))
         else:
-            user = User.objects.get(id = user_id)
+            user = User.objects.get(id=user_id)
             user.set_password(user_pw)
             user.save()
             messages.info(request, '　　　　　　비밀번호가 변경되었습니다. 　　　　　　　다시 로그인 해주세요.')
             return HttpResponseRedirect(reverse('login'))
-    return render(request,'pwchange.html')
+    return render(request, 'pwchange.html')
 
 
 def logout_accounts(request):
     logout(request)
     return redirect('index')
+
 
 def edit_company(request):
     # user_id = request.session.get('_auth_user_id')
@@ -118,14 +120,20 @@ def edit_company(request):
     #         userrequest.POST.get('compName')
     return render(request, 'edit_company.html')
 
+
 def edit_official(request):
     return render(request, 'edit_official.html')
 
+
 def my_business(request):
-    return render(request, 'my_business.html')
+    board_list = Board.objects.filter(user_id=request.user)
+    context = {'board_list': board_list}
+    return render(request, 'my_business.html', context)
+
 
 def my_qna(request):
     return render(request, 'my_qna.html')
+
 
 def signup_agreement(request):
     return render(request, 'signup_agreement.html')
