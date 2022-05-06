@@ -1957,6 +1957,25 @@ a.text-secondary:hover {
   width : 50%; 
   margin-left : 220px;
 }
+.question-mark {
+  margin-left : 400px;
+  display : block;
+  cursor : pointer;
+}
+.question-box {
+  visibility: hidden;
+  top : 60px;
+  left : 490px; 
+  position:absolute; 
+  background-color:rgba(255, 255, 255, 1); 
+  width : 300px; 
+  height : 150px; 
+  z-index:939999999999999999999999;
+  text-align:left;
+  font-weight: 500;
+  padding : 10px;
+  border : 1px solid black
+}
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */

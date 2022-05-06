@@ -249,3 +249,10 @@ function agreement_checked() {
     }
     
   }
+function qboxopen() {
+    if(document.getElementById("qbox").style.visibility == "hidden") {
+    document.getElementById("qbox").style.visibility = "visible"}
+    else {
+        document.getElementById("qbox").style.visibility = "hidden"
+    }
+}
