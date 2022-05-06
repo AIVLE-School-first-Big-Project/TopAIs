@@ -24,11 +24,11 @@ def service(request):
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
         "latitude", "longitude", "city", "county", "district", "number1", "number2")
-    
+
     areas = {}
     for i in range(len(building)):
         areas[str(i)] = building[i]
-    
+
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
 
@@ -41,14 +41,14 @@ def service_roadLine(request):
 @login_required(login_url='/accounts/login')
 def service_write(request):
     context = {}
-    
+
     if request.method == 'POST':
         selected_areas = request.POST.get('selected_area', '')
         if selected_areas:
             context['selected_areas'] = json.loads(selected_areas)
         else:
             selected_areas = request.POST.get('selected_areas', 0)
-            if selected_areas: 
+            if selected_areas:
                 context['selected_areas'] = json.loads(selected_areas.replace("'", '"'))
             form = BoardWriteForm(request.POST)
             if form.is_valid():
@@ -100,12 +100,15 @@ def board_detail_view(request, pk):
     }
     return render(request, 'board_detail.html', context)
 
+
 @login_required(login_url=login_url)
 def qna_write(request):
     return render(request, 'qna_write.html')
 
+
 def faq(request):
     return render(request, 'faq.html')
+
 
 def file_download(request, pk):
     announcement = get_object_or_404(Announcement, file_ptr_id=pk)
