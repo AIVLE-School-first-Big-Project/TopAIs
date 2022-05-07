@@ -52,7 +52,7 @@ def service_write(request):
             form = BoardWriteForm(request.POST)
             if form.is_valid():
                 form = form.save(commit=False)
-                form.user_id = request.session['_auth_user_id']
+                form.user_id = request.session.get('_auth_user_ud')
                 form.save()
 
                 if request.FILES:

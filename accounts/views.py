@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from accounts.email_auth import EmailAuthView
 from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
+from django.contrib.auth.hashers import check_password
 
 
 def signup(request):
@@ -105,6 +106,29 @@ def pwchange(request):
             messages.info(request, '　　　　　　비밀번호가 변경되었습니다. 　　　　　　　다시 로그인 해주세요.')
             return HttpResponseRedirect(reverse('login'))
     return render(request, 'pwchange.html')
+
+
+def withdraw(request):
+    if request.method == 'POST':
+        user = request.user
+        password = request.POST.get('password1', '')
+        confirm_password = request.POST.get('password2', '')
+
+        if password != confirm_password:
+            messages.info(request, '두 비밀번호가 일치하지 않습니다.')
+            return HttpResponseRedirect(reverse('delete'))
+
+        if check_password(password, user.password):
+            user.delete()
+            logout(request)
+            messages.info(request, '회원탈퇴가 완료되었습니다.')
+            return redirect('index')
+
+        else:
+            messages.info(request, '비밀번호가 일치하지 않습니다.')
+            return HttpResponseRedirect(reverse('delete'))
+
+    return render(request, 'delete.html')
 
 
 def logout_accounts(request):

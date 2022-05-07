@@ -2,43 +2,47 @@
 {% load static %}
 
 {% block content %}
-{% include 'widget.html' %}
-        <div class = "col-md-9 col-md-push-3" style = 'padding-left: 115px; padding-right: 100px;'>
-                    <form action="{% url 'edit_company' %}" method="post">
-                        {% csrf_token %}
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="userId">아이디</label>
-                            <input class="form-control" type="text" id="userId" name="userId" value="{{company.uid}}" readonly="readonly"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="compName">회사이름</label>
-                            <input class="form-control" type="text" id="compName" name="compName" value="{{company.comp_name}}"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="compHompage">홈페이지</label>
-                            <input class="form-control" type="text" id="compHompage" name="compHompage" value="{{company.comp_homepage}}"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="compCategory">카테고리</label>
-                            <input class="form-control" type="text" id="compCategory" name="compCategory" value="{{company.comp_category}}"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="userName">이름</label>
-                            <input class="form-control" type="text" id="userName" name="userName" value="{{user.username}}"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="userEmail">이메일</label>
-                            <input class="form-control" type="email" id="userEmail" name="userEmail" value="{{user.email}}" readonly="readonly"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="control-label" for="userPhone">Phone number</label>
-                            <input class="form-control" type="text" id="userPhone" name="userPhone" value="{{user.phone}}"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <button type="submit" class="btn select-btn mt-15 edit-btn">회원정보수정</button>
-                        </div>
-                    </form>
+    {% include 'widget.html' %}
+    <div class="col-md-9 col-md-push-3" style='padding-left: 115px; padding-right: 100px;'>
+        <form action="{% url 'edit_company' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group has-feedback">
+                <label class="control-label" for="userId">아이디</label>
+                <input class="form-control" type="text" id="userId" name="userId" value="{{ company.uid }}"
+                       readonly="readonly"/>
             </div>
+            <div class="form-group has-feedback">
+                <label class="control-label" for="compName">회사이름</label>
+                <input class="form-control" type="text" id="compName" name="compName" value="{{ company.comp_name }}"/>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label" for="compHompage">홈페이지</label>
+                <input class="form-control" type="text" id="compHompage" name="compHompage"
+                       value="{{ company.comp_homepage }}"/>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label" for="compCategory">카테고리</label>
+                <input class="form-control" type="text" id="compCategory" name="compCategory"
+                       value="{{ company.comp_category }}"/>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label" for="userName">이름</label>
+                <input class="form-control" type="text" id="userName" name="userName" value="{{ user.username }}"/>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label" for="userEmail">이메일</label>
+                <input class="form-control" type="email" id="userEmail" name="userEmail" value="{{ user.email }}"
+                       readonly="readonly"/>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label" for="userPhone">Phone number</label>
+                <input class="form-control" type="text" id="userPhone" name="userPhone" value="{{ user.phone }}"/>
+            </div>
+            <div class="form-group has-feedback">
+                <button type="submit" class="btn select-btn mt-15 edit-btn">회원정보수정</button>
+            </div>
+        </form>
+    </div>
     </section>
     <script>
         document.querySelector("#submit").addEventListener("click", (e) => {
@@ -48,6 +52,6 @@
                 e.preventDefault();
                 alert("취소하셨습니다.");
             }
-          });
+        });
     </script>
-{%endblock content%}
+{% endblock content %}

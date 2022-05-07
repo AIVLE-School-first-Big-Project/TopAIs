@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import check_password
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import authenticate, get_user_model
@@ -70,6 +71,7 @@ class AuthenticationForm(forms.ModelForm):
             password = self.cleaned_data['password']
             if not authenticate(user_id=user_id, password=password):
                 raise forms.ValidationError("Invalid login")
+
 
 # class UserUpdateForm(UserChangeForm, forms.ModelForm):
 #     def clean_phone(self):
