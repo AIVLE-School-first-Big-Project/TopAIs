@@ -138,7 +138,23 @@ def board_edit_view(request, pk):
 
     if request.method == 'POST':
         if board.user == request.user:
-            form = BoardWriteForm()
+            form = BoardWriteForm(request.POST, instance=board)
+            if form.is_valid():
+                board = form.save(commit=False)
+                board.save()
+                messages.success(request, '수정되었습니다.')
+                return redirect('board_detail', pk)
+
+    else:
+        if board.user == request.user:
+            form = BoardWriteForm(instance=board)
+            context = {
+                'form': form,
+            }
+            return render(request, 'service_write.html', context)
+        else:
+            messages.error(request, '본인 게시글이 아닙니다.')
+            return redirect('board_detail', pk)
 
 
 @login_required(login_url=login_url)

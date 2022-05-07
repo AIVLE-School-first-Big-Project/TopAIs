@@ -14,7 +14,7 @@ urlpatterns = [
     path('write/', views.service_write, name='write'),
     path('list/', views.listing, name='board_list'),
     path('detail/<int:pk>', views.board_detail_view, name='board_detail'),
-    # path('edit/<int:pk>', views.board_edit_view, name='board_edit),
+    path('edit/<int:pk>', views.board_edit_view, name='board_edit'),
     path('delete/<int:pk>', views.board_delete_view, name='board_delete'),
     path('download/<int:pk>', views.file_download, name='file_download'),
 ]
