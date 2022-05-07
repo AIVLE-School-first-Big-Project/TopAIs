@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
+from django.contrib import messages
 
 from map.models import Building
 
@@ -104,11 +105,40 @@ def board_detail_view(request, pk):
 
     board = get_object_or_404(Board, pk=pk)
     file = Announcement.objects.filter(board_id__exact=pk)
+
+    # 게시글 작성자 확인
+    board_auth = False
+
+    if board.user == request.user:
+        board_auth = True
+
     context = {
         'board': board,
         'file': file,
+        'board_auth': board_auth,
     }
+
     return render(request, 'board_detail.html', context)
+
+
+def board_delete_view(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+
+    if board.user == request.user:
+        board.delete()
+        messages.success(request, "삭제되었습니다.")
+        return redirect('board_list')
+    else:
+        messages.error(request, "본인 게시글이 아닙니다.")
+        return redirect('board_detail', pk)
+
+
+def board_edit_view(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+
+    if request.method == 'POST':
+        if board.user == request.user:
+            form = BoardWriteForm()
 
 
 @login_required(login_url=login_url)

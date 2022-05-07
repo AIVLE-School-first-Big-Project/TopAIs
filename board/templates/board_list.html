@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block content %}
-
+    {% for message in messages %}
+        <div id="modal" class="modal-overlay">
+            <div class="modal-window">
+                <h6>{{ message }}</h6>
+                <button onclick="modalclose()" class="btn check-btn">확인</button>
+            </div>
+        </div>
+    {% endfor %}
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
         <div class="bradcumbContent">
@@ -34,7 +41,15 @@
                                 <td>{{ board.created_at|date:"Y.m.d" }}</td>
                                 <td><a href="{{ board.get_absolute_url }}">{{ board.title }}</a></td>
                                 <td>{{ board.user }}</td>
-                                <td>{{ board.process }}</td>
+                                <td>
+                                    {% if board.process == 0 %}
+                                        <div class="progress_text pos-center">진행중</div>
+                                    {% elif board.process == 1 %}
+                                        <div class="progress_text pos-center">검토중</div>
+                                    {% else %}
+                                        <div class="progress_text pos-center">완료</div>
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
