@@ -4,6 +4,7 @@ from django.db import models
 
 from board.models import Board
 
+
 # Create your models here.
 
 class Facility(models.Model):
@@ -15,13 +16,14 @@ class Facility(models.Model):
     class Meta:
         db_table = 'Facility'
 
+
 class Building(Facility, models.Model):
     name = models.CharField(max_length=30, null=True)
-    city = models.CharField(max_length=20)        # 시
-    county = models.CharField(max_length=20)      # 군
-    district = models.CharField(max_length=20)    # 구
-    number1 = models.CharField(max_length=20)     # 지번1
-    number2 = models.CharField(max_length=20)     # 지번2
+    city = models.CharField(max_length=20)  # 시
+    county = models.CharField(max_length=20)  # 군
+    district = models.CharField(max_length=20)  # 구
+    number1 = models.CharField(max_length=20)  # 지번1
+    number2 = models.CharField(max_length=20)  # 지번2
 
     class Meta:
         db_table = 'Building'

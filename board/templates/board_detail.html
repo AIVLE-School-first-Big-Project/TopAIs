@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block content %}
-
+    {% for message in messages %}
+        <div id="modal" class="modal-overlay">
+            <div class="modal-window">
+                <h6>{{ message }}</h6>
+                <button onclick="modalclose()" class="btn check-btn">확인</button>
+            </div>
+        </div>
+    {% endfor %}
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
         <div class="bradcumbContent">
@@ -19,9 +26,21 @@
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
                 <div style="width : 800px">
-                    <button type="button" class="btn select-btn rewrite">수정</button>
+                    {% if board_auth %}
+                        <button type="submit" onclick="location.href='{% url "board_edit" board.id %}'"
+                                class="btn select-btn rewrite">수정
+                        </button>
+                        <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite">삭제</button>
+                    {% endif %}
                     <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
-                    <div class="progress_text pos-right">진행중</div>
+                    {% if board.process == 0 %}
+                        <div class="progress_text pos-right">진행중</div>
+                    {% elif board.process == 1 %}
+                        <div class="progress_text pos-right">검토중</div>
+                    {% else %}
+                        <div class="progress_text pos-right">완료</div>
+                    {% endif %}
+
                     <div class="service-box-title board-title">{{ board.title }}</div>
                     <div class="col-sm-2 col-form-label"><strong>CREATE / UPDATE</strong></div>
                     <div class="board-time">{{ board.created_at|date:"Y.m.d H:i:s" }}
@@ -62,4 +81,10 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        function delete_modal() {
+            location.replace('/board/delete/{{ board.id }}');
+        }
+    </script>
 {% endblock content %}
+

@@ -205,7 +205,7 @@
     if (browserWindow.width() > 767) {
         new WOW().init();
     }
-    
+
     // :: 14.0 Gallery Menu Active Code
     $('.catagory-menu a').on('click', function () {
         $('.catagory-menu a').removeClass('active');
@@ -217,42 +217,47 @@
 function modalclose() {
     document.getElementById("modal").style.visibility = 'hidden';
 }
-function cancelwrite(){
+
+function cancelwrite() {
     if (!confirm("삭제 하시겠습니까?")) {
     } else {
         document.location.href = '/board/service'
     }
 }
-function presavewrite(){
+
+function presavewrite() {
     alert("임시저장 되었습니다.")
 }
-function savewrite(){
+
+function savewrite() {
     alert("저장 되었습니다.")
 }
+
 var area_name = ['영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군']
-for (var i=0; i<area_name.length; i++) {
-   document.getElementById("area").innerHTML += '<option value="'+area_name[i]+'">' 
+for (var i = 0; i < area_name.length; i++) {
+    document.getElementById("area").innerHTML += '<option value="' + area_name[i] + '">'
 }
+
 function agreement_checked() {
 
     const checkbox = document.getElementById('my_checkbox');
-  
+
     // 2. checked 속성을 체크합니다.
     const is_checked = checkbox.checked;
-  
+
     // 3. 결과를 출력합니다.
     if (is_checked == true) {
         document.getElementById("agree_btn").disabled = false
-    }
-    else {
+    } else {
         document.getElementById("agree_btn").disabled = true
     }
-    
-  }
+
+}
+
 function qboxopen() {
-    if(document.getElementById("qbox").style.visibility == "hidden") {
-    document.getElementById("qbox").style.visibility = "visible"}
-    else {
+    if (document.getElementById("qbox").style.visibility == "hidden") {
+        document.getElementById("qbox").style.visibility = "visible"
+    } else {
         document.getElementById("qbox").style.visibility = "hidden"
     }
 }

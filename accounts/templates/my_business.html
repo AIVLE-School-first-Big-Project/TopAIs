@@ -16,7 +16,15 @@
             {% for board in board_list %}
                 <td>{{ board.created_at|date:"Y.m.d" }}</td>
                 <td><a href="{{ board.get_absolute_url }}">{{ board.title }}</a></td>
-                <td>{{ board.process }}</td>
+                <td>
+                    {% if board.process == 0 %}
+                        <div class="progress_text pos-center">진행중</div>
+                    {% elif board.process == 1 %}
+                        <div class="progress_text pos-center">검토중</div>
+                    {% else %}
+                        <div class="progress_text pos-center">완료</div>
+                    {% endif %}
+                </td>
             {% endfor %}
             </tbody>
         </table>
