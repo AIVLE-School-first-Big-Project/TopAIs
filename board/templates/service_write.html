@@ -14,13 +14,13 @@
     <section class="contact-area section-padding-100">
         <div class="row">
             <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
-            {% for key, val in selected_areas.items %}
-                <div class="service-box mb-30">
-                    <div class="service-box-title">{{ val.name }}</div>
-                    <div class="service-box-address">{{ val.city }} {{ val.county }} {{ val.district }} {{ val.number1 }} {{ val.number2 }}</div>
-                    <div class="service-box-area">면적 : 120.9m2</div>
-                </div>
-            {% endfor %}
+                {% for key, val in selected_areas.items %}
+                    <div class="service-box mb-30">
+                        <div class="service-box-title">{{ val.name }}</div>
+                        <div class="service-box-address">{{ val.city }} {{ val.county }} {{ val.district }} {{ val.number1 }} {{ val.number2 }}</div>
+                        <div class="service-box-area">면적 : 120.9m2</div>
+                    </div>
+                {% endfor %}
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 50px;'>
                 <div class="w-900">
@@ -54,7 +54,8 @@
                             <button type="button"
                                     class="btn cancel-btn mt-30 mr-30" onclick="cancelwrite()">CANCEL
                             </button>
-                            <button type="submit" onclick="presavewrite()" class="btn write-btn mt-30 mr-30">임시저장</button>
+                            <button type="submit" onclick="presavewrite()" class="btn write-btn mt-30 mr-30">임시저장
+                            </button>
                             <button type="submit" onclick="savewrite()" class="btn write-btn mt-30">저장</button>
                         </div>
                     </div>
