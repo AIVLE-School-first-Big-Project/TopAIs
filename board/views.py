@@ -5,7 +5,7 @@ import mimetypes
 from django.views.decorators.csrf import csrf_exempt
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
 from django.contrib import messages
@@ -14,14 +14,19 @@ from map.models import Building
 
 from .forms import BoardWriteForm, CommentWriteForm
 from .models import Board, Comment, Announcement
+from accounts.views import is_Agency, is_Company
 
 login_url = '/accounts/login'
 
 
+@user_passes_test(is_Agency)
+@login_required(login_url=login_url)
 def service(request):
     return render(request, 'service.html')
 
 
+@user_passes_test(is_Agency)
+@login_required(login_url=login_url)
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
         "latitude", "longitude", "city", "county", "district", "number1", "number2")
@@ -33,12 +38,14 @@ def service_coolRoof(request):
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
 
+@login_required(login_url=login_url)
 def service_roadLine(request):
     return render(request, 'service_roadLine.html')
 
 
 @csrf_exempt
 @login_required(login_url=login_url)
+@user_passes_test(is_Agency)
 def service_write(request):
     context = {}
 
@@ -121,6 +128,7 @@ def board_detail_view(request, pk):
     return render(request, 'board_detail.html', context)
 
 
+@login_required(login_url=login_url)
 def board_delete_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
 
@@ -133,6 +141,7 @@ def board_delete_view(request, pk):
         return redirect('board_detail', pk)
 
 
+@login_required(login_url=login_url)
 def board_edit_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
 
@@ -166,6 +175,7 @@ def faq(request):
     return render(request, 'faq.html')
 
 
+@login_required(login_url=login_url)
 def file_download(request, pk):
     announcement = get_object_or_404(Announcement, file_ptr_id=pk)
     url = announcement.uploadFile.url[1:]

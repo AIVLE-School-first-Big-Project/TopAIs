@@ -12,6 +12,14 @@ from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrati
 from django.contrib.auth.hashers import check_password
 
 
+def is_Agency(user):
+    return user.serializable_value('user_type') == 'Agency'
+
+
+def is_Company(user):
+    return user.serializable_value('user_type') == 'Company'
+
+
 def signup(request):
     if request.user.is_authenticated:
         return redirect('index')
