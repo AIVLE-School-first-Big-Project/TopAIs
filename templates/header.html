@@ -82,14 +82,15 @@
 
                                     <!-- Cart Button -->
                                     {% if user.is_authenticated %}
-                                    <div class="cart-btn">
-                                        <a style="color:white; font-size:30px" href="{% url 'my_business' %}" class="icon-user"></a>
-                                        {% comment %} <p>
+                                        <div class="cart-btn">
+                                            <a style="color:white; font-size:30px" href="{% url 'my_business' %}"
+                                               class="icon-user"></a>
+                                            {% comment %} <p>
                                             <a style="color:white" href="{% url 'index' %}">
                                                 <span class="icon-home"></span>
                                             </a>
                                         </p> {% endcomment %}
-                                    </div>
+                                        </div>
                                     {% endif %}
                                 </div>
                             </div>
@@ -103,7 +104,7 @@
                                     e.preventDefault();
                                     alert("취소하셨습니다.");
                                 }
-                              });
+                            });
                         </script>
                 </nav>
             </div>

@@ -64,7 +64,7 @@ class Announcement(File):
 
 
 class Estimate(File):
-    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'Estimate'

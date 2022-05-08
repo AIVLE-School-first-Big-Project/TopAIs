@@ -5,6 +5,7 @@ from django.db import models
 
 from board.models import Board
 
+
 # Create your models here.
 
 class Facility(models.Model):
@@ -15,6 +16,7 @@ class Facility(models.Model):
 
     class Meta:
         db_table = 'Facility'
+
 
 class Building(Facility, models.Model):
     name = models.CharField(max_length=32, null=True)

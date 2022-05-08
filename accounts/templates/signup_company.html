@@ -26,7 +26,8 @@
                                 <div class="form-group">
                                     <label for="InputCompName">Company name</label>
                                     <input type="text" class="form-control" id="inputCompName" name="comp_name"
-                                           placeholder="Enter Company Name" value="{{ form.comp_name.value|default_if_none:'' }}">
+                                           placeholder="Enter Company Name"
+                                           value="{{ form.comp_name.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputUsername">Name</label>
@@ -51,28 +52,33 @@
                                 <div class="form-group">
                                     <label for="InputCategory">Category</label>
                                     <datalist id="category_type">
-                                        <option value ="Cool-Roof">
-                                        <option value ="ROAD-LINE">
+                                        <option value="Cool-Roof">
+                                        <option value="ROAD-LINE">
                                     </datalist>
-                                    <input type="text" class="form-control" id="inputCategory" name="comp_category" list = "category_type"
-                                           placeholder="Cool-Roof / ROAD-LINE" value="{{ form.comp_category.value|default_if_none:'' }}">
+                                    <input type="text" class="form-control" id="inputCategory" name="comp_category"
+                                           list="category_type"
+                                           placeholder="Cool-Roof / ROAD-LINE"
+                                           value="{{ form.comp_category.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputHomepage">HomePage</label>
                                     <input type="text" class="form-control" id="inputHomepage" name="comp_homepage"
-                                           placeholder="HomePage" value="{{ form.comp_homepage.value|default_if_none:'' }}">
+                                           placeholder="HomePage"
+                                           value="{{ form.comp_homepage.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputEmail">Email address</label>
                                     <input type="email" class="form-control" id="inputEmail" name="email"
-                                           aria-describedby="emailHelp" placeholder="Enter E-mail" value="{{ form.email.value|default_if_none:'' }}">
+                                           aria-describedby="emailHelp" placeholder="Enter E-mail"
+                                           value="{{ form.email.value|default_if_none:'' }}">
                                     <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
                                         never share your email with anyone else.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="InputPhone">Phone Number</label>
                                     <input type="text" class="form-control" id="inputPhone" name="phone"
-                                           aria-describedby="phoneHelp" placeholder="OOO-OOOO-OOOO" value="{{ form.phone.value|default_if_none:'' }}">
+                                           aria-describedby="phoneHelp" placeholder="OOO-OOOO-OOOO"
+                                           value="{{ form.phone.value|default_if_none:'' }}">
                                     <small id="phoneHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll
                                         never share your Phone Number with anyone else.</small>
                                 </div>
