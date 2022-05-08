@@ -29,11 +29,11 @@ def service(request):
 @user_passes_test(get_user_model().is_writable)
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
-        "latitude", "longitude", "city", "county", "district", "number1", "number2")
+        "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2")
 
     areas = {}
     for i in range(len(building)):
-        areas[str(i)] = building[i]
+        areas[str(building[i]['facility_ptr_id'])] = building[i]
 
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
@@ -67,13 +67,10 @@ def service_write(request):
 
                 # 시공대상 건물 저장
                 for key, values in context['selected_areas'].items():
-                    print(key, type(key))
-                    a = Building.objects.filter(id=key)
-                    print(a)
-                    # Business.objects.create(
-                    #     facility_id=Building.objects.get(pk=int(key)),
-                    #     board_id=form.id
-                    # )
+                    Business.objects.create(
+                        facility_id=key,
+                        board_id=form.id
+                    )
 
                 if request.FILES:
                     for file in request.FILES.getlist('files'):
@@ -128,6 +125,8 @@ def board_detail_view(request, pk):
                     print(file)
 
     board = get_object_or_404(Board, pk=pk)
+    building_list = Business.objects.select_related('board').values('facility')
+    selected_areas = Building.objects.filter(pk__in=building_list)
     file = Announcement.objects.filter(board_id__exact=pk)
 
     # 게시글 작성자 확인
@@ -140,6 +139,7 @@ def board_detail_view(request, pk):
         'board': board,
         'file': file,
         'board_auth': board_auth,
+        'selected_areas': selected_areas,
     }
 
     return render(request, 'board_detail.html', context)

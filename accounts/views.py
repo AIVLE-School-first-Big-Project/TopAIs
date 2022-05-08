@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import get_user_model
 
-from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm, AgencyUpdateForm
+from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
 from .email_auth import EmailAuthView
 from .models import Agency, Company
 
