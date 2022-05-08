@@ -20,18 +20,18 @@ class Facility(models.Model):
 
 class Building(Facility, models.Model):
     name = models.CharField(max_length=32, null=True)
-    city = models.CharField(max_length=32)        # 시
-    county = models.CharField(max_length=32)      # 군
-    district = models.CharField(max_length=32)    # 구
-    number1 = models.CharField(max_length=32)     # 지번1
-    number2 = models.CharField(max_length=32)     # 지번2
-    electro_201608 = models.FloatField(default=0)          # 2016년 8월 전기료
-    electro_201708 = models.FloatField(default=0)          # 2016년 8월 전기료
-    electro_201808 = models.FloatField(default=0)          # 2016년 8월 전기료
-    electro_201908 = models.FloatField(default=0)          # 2016년 8월 전기료
-    electro_202008 = models.FloatField(default=0)          # 2016년 8월 전기료
-    electro_202108 = models.FloatField(default=0)          # 2016년 8월 전기료
-    etcPurps = models.CharField(max_length=64, null=True)    # 건물 용도
+    city = models.CharField(max_length=32)  # 시
+    county = models.CharField(max_length=32)  # 군
+    district = models.CharField(max_length=32)  # 구
+    number1 = models.CharField(max_length=32)  # 지번1
+    number2 = models.CharField(max_length=32)  # 지번2
+    electro_201608 = models.FloatField(default=0)  # 2016년 8월 전기료
+    electro_201708 = models.FloatField(default=0)  # 2016년 8월 전기료
+    electro_201808 = models.FloatField(default=0)  # 2016년 8월 전기료
+    electro_201908 = models.FloatField(default=0)  # 2016년 8월 전기료
+    electro_202008 = models.FloatField(default=0)  # 2016년 8월 전기료
+    electro_202108 = models.FloatField(default=0)  # 2016년 8월 전기료
+    etcPurps = models.CharField(max_length=64, null=True)  # 건물 용도
     newPlatPlc = models.CharField(max_length=64, null=True)  # 도로명 주소
 
     class Meta:

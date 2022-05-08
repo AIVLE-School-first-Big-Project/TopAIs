@@ -19,9 +19,20 @@ class UserManager(BaseUserManager):
         if not user_id:
             raise ValueError('The given user_id must be set')
         user = self.model(
-            user_id=user_id, **extra_fields,
+            user_id=user_id,
+            **extra_fields,
         )
         user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, user_id, password, **extra_fields):
+        user = self._create_user(
+            user_id=user_id,
+            password=password,
+            **extra_fields,
+        )
+        user.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -34,6 +45,8 @@ class User(AbstractBaseUser):
     phone = models.CharField(max_length=16)
     user_type = models.CharField(max_length=32, choices=USER_STATUS)
     email_auth = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -41,6 +54,25 @@ class User(AbstractBaseUser):
 
     class Meta:
         db_table = 'User'
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
+
+    def is_Agency(self):
+        return self.user_type == 'Agency'
+
+    def is_Company(self):
+        return self.user_type == 'Company'
+
+    def is_writable(self):
+        return self.is_admin or self.is_Agency
 
 
 class Agency(User, models.Model):

@@ -1,23 +1,18 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib import messages
-
-from .models import User
-from board.models import Board
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from accounts.email_auth import EmailAuthView
-from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth import get_user_model
 
+from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
+from .email_auth import EmailAuthView
+from .models import Agency, Company
 
-def is_Agency(user):
-    return user.serializable_value('user_type') == 'Agency'
-
-
-def is_Company(user):
-    return user.serializable_value('user_type') == 'Company'
+from board.models import Board, Comment
+from map.models import Building
 
 
 def signup(request):
@@ -108,10 +103,11 @@ def pwchange(request):
             messages.info(request, '비밀번호가 일치하지 않습니다.')
             return HttpResponseRedirect(reverse('pwchange'))
         else:
-            user = User.objects.get(id=user_id)
+            user = get_user_model().objects.get(id=user_id)
             user.set_password(user_pw)
             user.save()
             messages.info(request, '　　　　　　비밀번호가 변경되었습니다. 　　　　　　　다시 로그인 해주세요.')
+            update_session_auth_hash(request, request.user)
             return HttpResponseRedirect(reverse('login'))
     return render(request, 'pwchange.html')
 
@@ -145,21 +141,68 @@ def logout_accounts(request):
 
 
 def edit_company(request):
-    # user_id = request.session.get('_auth_user_id')
-    # user = User.objects.get(id = user_id)
-    # if request.method == 'POST':
-    #     if user.user_type == 'Company':
-    #         userrequest.POST.get('compName')
-    return render(request, 'edit_company.html')
+    info = Company.objects.get(pk=request.user)
+
+    context = {
+        'info': info
+    }
+    return render(request, 'edit_company.html', context)
 
 
 def edit_official(request):
-    return render(request, 'edit_official.html')
+    info = Agency.objects.get(pk=request.user)
+
+    if request.method == 'POST':
+        form = AgencyUpdateForm(request.POST)
+        if form.is_valid():
+            print(form.data)
+    else:
+        form = AgencyUpdateForm()
+    # if request.method == 'POST':
+    #     form = AgencyRegistrationForm(request.POST)
+    # else:
+    #     form = AgencyRegistrationForm(request.POST)
+    context = {
+        'info': info,
+        'form': form,
+    }
+    return render(request, 'edit_official.html', context)
 
 
 def my_business(request):
-    board_list = Board.objects.filter(user_id=request.user)
-    context = {'board_list': board_list}
+    # kwargs = {
+    #     'name': '안오이시오이시스시',
+    #     'city': '부산광역시',
+    #     'county': '사상구',
+    #     'district': '주례3동',
+    #     'number1': '507',
+    #     'number2': '21',
+    #     'latitude': '35.14951479354232',
+    #     'longitude': '129.00416721005902',
+    #     'area': 0,
+    #     'facility_type': 'Building'
+    # }
+    #
+    # Building.objects.create(
+    #     **kwargs
+    # )
+
+    # 지자체
+    if get_user_model().is_Agency(request.user):
+        board_list = Board.objects.filter(user_id=request.user)
+
+    # 시공업체
+    elif get_user_model().is_Company(request.user):
+        comment_list = Comment.objects.filter(user_id=request.user)
+        board_list = comment_list
+
+    # 관리자
+    else:
+        board_list = Board.objects.order_by('-id')
+
+    context = {
+        'board_list': board_list,
+    }
     return render(request, 'my_business.html', context)
 
 
