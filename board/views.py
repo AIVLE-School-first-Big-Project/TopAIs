@@ -2,50 +2,51 @@ import json
 import os.path
 import urllib.parse
 import mimetypes
-from django.views.decorators.csrf import csrf_exempt
 
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
 from django.contrib import messages
 
-from map.models import Building
+from map.models import Building, Business, Facility
 
 from .forms import BoardWriteForm, CommentWriteForm
 from .models import Board, Comment, Announcement
-from accounts.views import is_Agency, is_Company
 
 login_url = '/accounts/login'
 
 
-@user_passes_test(is_Agency)
 @login_required(login_url=login_url)
+@user_passes_test(get_user_model().is_writable)
 def service(request):
     return render(request, 'service.html')
 
 
-@user_passes_test(is_Agency)
 @login_required(login_url=login_url)
+@user_passes_test(get_user_model().is_writable)
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
-        "latitude", "longitude", "city", "county", "district", "number1", "number2")
+        "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2")
 
     areas = {}
     for i in range(len(building)):
-        areas[str(i)] = building[i]
+        areas[str(building[i]['facility_ptr_id'])] = building[i]
 
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
 
 @login_required(login_url=login_url)
+@user_passes_test(get_user_model().is_writable)
 def service_roadLine(request):
     return render(request, 'service_roadLine.html')
 
 
 @csrf_exempt
 @login_required(login_url=login_url)
-@user_passes_test(is_Agency)
+@user_passes_test(get_user_model().is_writable)
 def service_write(request):
     context = {}
 
@@ -59,9 +60,17 @@ def service_write(request):
                 context['selected_areas'] = json.loads(selected_areas.replace("'", '"'))
             form = BoardWriteForm(request.POST)
             if form.is_valid():
+
                 form = form.save(commit=False)
                 form.user_id = request.session.get('_auth_user_id')
                 form.save()
+
+                # 시공대상 건물 저장
+                for key, values in context['selected_areas'].items():
+                    Business.objects.create(
+                        facility_id=key,
+                        board_id=form.id
+                    )
 
                 if request.FILES:
                     for file in request.FILES.getlist('files'):
@@ -116,6 +125,8 @@ def board_detail_view(request, pk):
                     print(file)
 
     board = get_object_or_404(Board, pk=pk)
+    building_list = Business.objects.select_related('board').values('facility')
+    selected_areas = Building.objects.filter(pk__in=building_list)
     file = Announcement.objects.filter(board_id__exact=pk)
 
     # 게시글 작성자 확인
@@ -128,6 +139,7 @@ def board_detail_view(request, pk):
         'board': board,
         'file': file,
         'board_auth': board_auth,
+        'selected_areas': selected_areas,
     }
 
     return render(request, 'board_detail.html', context)

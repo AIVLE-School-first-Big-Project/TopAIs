@@ -1,39 +1,39 @@
 // 변수 선언
-var areaArr = {
-    '0': {
-        'name' : '럭키아파트',
-        'city': '부산광역시',
-        'county': '사상구',
-        'district': '가야대로',
-        'number1': '284번길',
-        'number2': '2',
-        'latitude':'35.149571',
-        'longitude' :'129.003490' 
-    },
-    '1': {
-        'name' : '초가찜',
-        'city': '부산광역시',
-        'county': '사상구',
-        'district': '주례동',
-        'number1': '507',
-        'number2': '14',
-        'latitude':'35.149661644944004',
-        'longitude' :'129.00400623125148'
-    },
-    '2': {
-        'name' : '안오이시오이시스시',
-        'city': '부산광역시',
-        'county': '사상구',
-        'district': '주례3동',
-        'number1': '507',
-        'number2': '21',
-        'latitude':'35.14951479354232',
-        'longitude' :'129.00416721005902'  
-    }
-};
+// var areaArr = {
+//     '0': {
+//         'name' : '럭키아파트',
+//         'city': '부산광역시',
+//         'county': '사상구',
+//         'district': '가야대로',
+//         'number1': '284번길',
+//         'number2': '2',
+//         'latitude':'35.149571',
+//         'longitude' :'129.003490'
+//     },
+//     '1': {
+//         'name' : '초가찜',
+//         'city': '부산광역시',
+//         'county': '사상구',
+//         'district': '주례동',
+//         'number1': '507',
+//         'number2': '14',
+//         'latitude':'35.149661644944004',
+//         'longitude' :'129.00400623125148'
+//     },
+//     '2': {
+//         'name' : '안오이시오이시스시',
+//         'city': '부산광역시',
+//         'county': '사상구',
+//         'district': '주례3동',
+//         'number1': '507',
+//         'number2': '21',
+//         'latitude':'35.14951479354232',
+//         'longitude' :'129.00416721005902'
+//     }
+// };
 
-var area_x = areaArr['0']['latitude'];
-var area_y = areaArr['0']['longitude'];
+var area_x = areaArr[Object.keys(areaArr)[0]]['latitude'];
+var area_y = areaArr[Object.keys(areaArr)[0]]['longitude'];
 var selectedArea = {};
 let markers = new Array();
 let infowindows = new Array();

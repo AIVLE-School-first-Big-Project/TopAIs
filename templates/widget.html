@@ -19,8 +19,18 @@
                         <li><a href="{% url 'my_business' %}">내 사업 확인</a></li>
                         <li><a href="{% url 'my_qna' %}">내 질문 확인</a></li>
                         <li><a href="{% url 'pwchange' %}">비밀번호 변경</a></li>
-                        <li><a href="{% url 'edit_official' %}">개인정보 변경</a></li>
+                        {% if user.is_Agency %}
+                            <li><a href="{% url 'edit_official' %}">개인정보 변경</a></li>
+                        {% elif user.is_Company %}
+                            <li><a href="{% url 'edit_company' %}">개인정보 변경</a></li>
+                        {% endif %}
+
                         <li><a href="{% url 'delete' %}">회원탈퇴</a></li>
+
+                        {% if user.is_staff %}
+                            <li><a href="/admin">관리자페이지</a></li>
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>

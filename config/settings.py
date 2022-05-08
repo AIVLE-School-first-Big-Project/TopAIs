@@ -179,7 +179,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 사이트와 관련한 자동 응답을 
 
 # user 관련 설정
 AUTH_USER_MODEL = 'accounts.User'
-LOGOUT_REDIRECT_URL = '/app/main'
+LOGOUT_REDIRECT_URL = '/'
 
 # media
 MEDIA_URL = '/media/'
