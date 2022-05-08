@@ -23,11 +23,12 @@ def service(request):
 
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
-        "latitude", "longitude", "city", "county", "district", "number1", "number2")
+        "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2",
+        "electro_201608", "electro_201708", "electro_201808", "electro_201908", "electro_202008", "electro_202108", "area")
     
     areas = {}
     for i in range(len(building)):
-        areas[str(i)] = building[i]
+        areas[str(building[i]['facility_ptr_id'])] = building[i]
     
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
