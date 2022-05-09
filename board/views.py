@@ -13,8 +13,8 @@ from django.contrib import messages
 
 from map.models import Building, Business, Facility
 
-from .forms import BoardWriteForm, CommentWriteForm
-from .models import Board, Comment, Announcement
+from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
+from .models import Board, Comment, Announcement, Question, Answer
 
 login_url = '/accounts/login'
 
@@ -118,16 +118,24 @@ def board_detail_view(request, pk):
         form = CommentWriteForm(request.POST)
         if form.is_valid():
             print(form.data)
+            comment = form.save(commit=False)
+            comment.user_id = request.user.id
+            comment.board_id = pk
+            form.save()
 
             # 첨부 파일
             if request.FILES:
                 for file in request.FILES['files']:
                     print(file)
 
+        return redirect('board_detail', pk)
+
     board = get_object_or_404(Board, pk=pk)
     building_list = Business.objects.select_related('board').values('facility')
     selected_areas = Building.objects.filter(pk__in=building_list)
     file = Announcement.objects.filter(board_id__exact=pk)
+    comment = Comment.objects.filter(board_id=pk)
+    print(comment)
 
     # 게시글 작성자 확인
     board_auth = False
@@ -140,6 +148,7 @@ def board_detail_view(request, pk):
         'file': file,
         'board_auth': board_auth,
         'selected_areas': selected_areas,
+        'comment': comment,
     }
 
     return render(request, 'board_detail.html', context)
@@ -174,8 +183,15 @@ def board_edit_view(request, pk):
     else:
         if board.user == request.user:
             form = BoardWriteForm(instance=board)
+            board = get_object_or_404(Board, pk=pk)
+            building_list = Business.objects.select_related('board').values('facility')
+            selected_areas = Building.objects.filter(pk__in=building_list)
+            files = Announcement.objects.filter(board_id__exact=pk)
             context = {
                 'form': form,
+                'selected_areas': selected_areas,
+                'board': board,
+                'files': files,
             }
             return render(request, 'service_write.html', context)
         else:
@@ -188,8 +204,48 @@ def qna_write(request):
     return render(request, 'qna_write.html')
 
 
-def faq(request):
-    return render(request, 'faq.html')
+def qna(request):
+    question = Question.objects.order_by('-id')
+
+    list_per = 10
+    page_per = 5
+
+    paginator = Paginator(question, list_per)
+
+    page_number = request.GET.get('page', 1)
+    question_list = paginator.get_page(page_number)
+
+    start_page = (int(page_number) - 1) // page_per * page_per + 1
+    end_page = start_page + page_per - 1
+
+    if end_page > paginator.num_pages:
+        end_page = paginator.num_pages
+
+    context = {
+        'question_list': question_list,
+        'start_page': start_page,
+        'end_page': end_page,
+    }
+    return render(request, 'qna.html', context)
+
+
+@login_required(login_url=login_url)
+def qna_detail_view(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    answer = Answer.objects.filter(question_id=pk)
+
+    # 게시글 작성자 확인
+    question_auth = False
+
+    if question.user == request.user:
+        question_auth = True
+
+    context = {
+        'question': question,
+        'answer': answer,
+    }
+
+    return render(request, 'board_detail.html', context)
 
 
 @login_required(login_url=login_url)
