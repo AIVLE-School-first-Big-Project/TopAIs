@@ -179,8 +179,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # 사이트와 관련한 자동 응답을 
 
 # user 관련 설정
 AUTH_USER_MODEL = 'accounts.User'
-LOGOUT_REDIRECT_URL = '/app/main'
+LOGOUT_REDIRECT_URL = '/'
 
 # media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# session 설정
+SESSION_COOKIE_AGE = 3600
+SESSION_SAVE_EVERY_REQUEST = True
