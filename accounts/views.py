@@ -152,12 +152,12 @@ def edit_company(request):
 def edit_official(request):
     info = Agency.objects.get(pk=request.user)
 
-    if request.method == 'POST':
-        form = AgencyUpdateForm(request.POST)
-        if form.is_valid():
-            print(form.data)
-    else:
-        form = AgencyUpdateForm()
+    # if request.method == 'POST':
+    #     form = AgencyUpdateForm(request.POST)
+    #     if form.is_valid():
+    #         print(form.data)
+    # else:
+    #     form = AgencyUpdateForm()
     # if request.method == 'POST':
     #     form = AgencyRegistrationForm(request.POST)
     # else:

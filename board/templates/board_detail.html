@@ -35,11 +35,11 @@
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
                 <div style="width : 800px">
-                    {% if board_auth %}
+                    {% if board_auth %}              
                         <button type="submit" onclick="location.href='{% url "board_edit" board.id %}'"
                                 class="btn select-btn rewrite">수정
                         </button>
-                        <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite">삭제</button>
+                        <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite cr mt-10">삭제</button>
                     {% endif %}
                     <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
                     {% if board.process == 0 %}

@@ -1976,6 +1976,14 @@ a.text-secondary:hover {
   padding : 10px;
   border : 1px solid black
 }
+.cr {
+  color : red;
+  border : 1px solid red;
+}
+.cr:hover {
+  color : white;
+  background-color: red;
+}
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
