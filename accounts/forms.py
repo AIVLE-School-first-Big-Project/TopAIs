@@ -72,7 +72,6 @@ class AuthenticationForm(forms.ModelForm):
             if not authenticate(user_id=user_id, password=password):
                 raise forms.ValidationError("Invalid login")
 
-
 # class UserUpdateForm(UserChangeForm, forms.ModelForm):
 #     def clean_phone(self):
 #         phone = self.cleaned_data['phone']

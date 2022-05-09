@@ -119,17 +119,14 @@ def withdraw(request):
         confirm_password = request.POST.get('password2', '')
 
         if password != confirm_password:
-            messages.info(request, '두 비밀번호가 일치하지 않습니다.')
             return HttpResponseRedirect(reverse('delete'))
 
         if check_password(password, user.password):
             user.delete()
             logout(request)
-            messages.info(request, '회원탈퇴가 완료되었습니다.')
             return redirect('index')
 
         else:
-            messages.info(request, '비밀번호가 일치하지 않습니다.')
             return HttpResponseRedirect(reverse('delete'))
 
     return render(request, 'delete.html')
@@ -175,23 +172,6 @@ def edit_official(request):
 
 
 def my_business(request):
-    # kwargs = {
-    #     'name': '안오이시오이시스시',
-    #     'city': '부산광역시',
-    #     'county': '사상구',
-    #     'district': '주례3동',
-    #     'number1': '507',
-    #     'number2': '21',
-    #     'latitude': '35.14951479354232',
-    #     'longitude': '129.00416721005902',
-    #     'area': 0,
-    #     'facility_type': 'Building'
-    # }
-    #
-    # Building.objects.create(
-    #     **kwargs
-    # )
-
     # 지자체
     if get_user_model().is_Agency(request.user):
         board_list = Board.objects.filter(user_id=request.user)
