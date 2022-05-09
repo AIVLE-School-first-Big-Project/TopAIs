@@ -142,30 +142,35 @@ def logout_accounts(request):
 
 def edit_company(request):
     info = Company.objects.get(pk=request.user)
-
     context = {
         'info': info
     }
+
+    if request.method == 'POST':
+        info.comp_name = request.POST.get('compName', '')
+        info.comp_homepage = request.POST.get('compHompage', '')
+        info.comp_category = request.POST.get('compCategory', '')
+        info.username = request.POST.get('userName', '')
+        info.phone = request.POST.get('userPhone', '')
+
+        info.save()
+
     return render(request, 'edit_company.html', context)
 
 
 def edit_official(request):
     info = Agency.objects.get(pk=request.user)
-
-    if request.method == 'POST':
-        form = AgencyUpdateForm(request.POST)
-        if form.is_valid():
-            print(form.data)
-    else:
-        form = AgencyUpdateForm()
-    # if request.method == 'POST':
-    #     form = AgencyRegistrationForm(request.POST)
-    # else:
-    #     form = AgencyRegistrationForm(request.POST)
     context = {
         'info': info,
-        'form': form,
     }
+
+    if request.method == 'POST':
+        info.area = request.POST.get('area', '')
+        info.username = request.POST.get('username', '')
+        info.phone = request.POST.get('phone', '')
+
+        info.save()       
+    
     return render(request, 'edit_official.html', context)
 
 

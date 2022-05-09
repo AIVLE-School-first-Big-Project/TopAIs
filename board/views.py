@@ -127,8 +127,12 @@ def board_detail_view(request, pk):
 
     board = get_object_or_404(Board, pk=pk)
     building_list = Business.objects.select_related('board').values('facility')
-    selected_areas = Building.objects.filter(pk__in=building_list)
+    selected_areas = Building.objects.filter(pk__in=building_list).values()
     file = Announcement.objects.filter(board_id__exact=pk)
+
+    areas = {}
+    for i in range(len(selected_areas)):
+        areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]
 
     # 게시글 작성자 확인
     board_auth = False
@@ -141,6 +145,7 @@ def board_detail_view(request, pk):
         'file': file,
         'board_auth': board_auth,
         'selected_areas': selected_areas,
+        'areas': areas,
     }
 
     return render(request, 'board_detail.html', context)
