@@ -2,7 +2,7 @@ import datetime
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import Board, Comment
+from .models import Board, Comment, Question, Answer
 
 
 class BoardWriteForm(forms.ModelForm):
@@ -22,4 +22,16 @@ class BoardWriteForm(forms.ModelForm):
 class CommentWriteForm(forms.ModelForm):
     class Meta:
         model = Comment
+        fields = ('content',)
+
+
+class QuestionWriteForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ('title', 'content',)
+
+
+class AnswerWriteForm(forms.ModelForm):
+    class Meta:
+        model = Answer
         fields = ('content',)
