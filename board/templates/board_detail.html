@@ -10,6 +10,17 @@
             </div>
         </div>
     {% endfor %}
+
+    <!-- Google Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src='{% static "js/chart.js" %}'></script>
+
+    <script>
+        var areaArr = JSON.parse("{{ areas }}".replace(/&#x27;/g, "\""))
+        // 차트 script
+        
+        console.log(areaArr)
+    </script>
     <!-- ##### Breadcumb Area Start ##### -->
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
         <div class="bradcumbContent">
@@ -21,14 +32,13 @@
     <!-- ##### Events Area Start ##### -->
     <section class="contact-area section-padding-100">
         <div class="row">
-
             <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
                 {% if user.is_Agency or user.is_staff %}
                     {% for areas in selected_areas %}
-                        <div class="service-box mb-30">
+                        <div class="service-box mb-30" onclick="chartEnergy({{ areas|safe }});">
                             <div class="service-box-title">{{ areas.name }}</div>
                             <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
-                            <div class="service-box-area">면적 : {{ areas.area }}</div>
+                            <div class="service-box-area">면적 : {{ areas.area }}m2</div>
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -86,6 +96,7 @@
                         </div>
                     </form>
                     <!-- ##### Comment Area end ##### -->
+                    <div id="linechart_material" style="width: 900px; height: 500px"></div>
                 </div>
                 {% for c in comment %}
                     <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
