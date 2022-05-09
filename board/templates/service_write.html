@@ -60,7 +60,7 @@
                         <label for="File"
                                class="col-sm-2 col-form-label"><strong>기존 첨부파일</strong></label>
                         {% for file in files %}
-                            <a href="{% url 'file_download' file.id %}"><p>{{ file.name | truncatechars:100 }}</p></a>
+                            <a href="{% url 'file_download' file.id 0 %}"><p>{{ file.name | truncatechars:100 }}</p></a>
                         {% endfor %}
                     </div>
                     <input type="hidden" name="selected_areas" value="{{ selected_areas }}">
@@ -79,5 +79,9 @@
             </div>
         </div>
     </section>
+    <!-- Google Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src='{% static "js/chart.js" %}'></script>
+    <div id="linechart_material" style="width: 900px; height: 500px; padding-left: 10px;"></div>
 
 {% endblock content %}

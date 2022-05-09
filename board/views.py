@@ -14,7 +14,7 @@ from django.contrib import messages
 from map.models import Building, Business, Facility
 
 from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
-from .models import Board, Comment, Announcement, Question, Answer
+from .models import Board, Comment, Announcement, Estimate, File, Question, Answer
 
 login_url = '/accounts/login'
 
@@ -126,9 +126,8 @@ def board_detail_view(request, pk):
 
             # 첨부 파일
             if request.FILES:
-                for file in request.FILES['files']:
-                    print(file)
-
+                file = request.FILES['files']
+                Estimate.objects.create(name=file.name, uploadFile=file, comment=comment)
         return redirect('board_detail', pk)
 
     board = get_object_or_404(Board, pk=pk)
@@ -136,6 +135,7 @@ def board_detail_view(request, pk):
     selected_areas = Building.objects.filter(pk__in=building_list).values()
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
+    comment_file = Estimate.objects.filter(comment__board_id=pk)
     print(comment)
 
     areas = {}
@@ -154,6 +154,7 @@ def board_detail_view(request, pk):
         'board_auth': board_auth,
         'selected_areas': selected_areas,
         'comment': comment,
+        'comment_file': comment_file,
         'areas': areas,
     }
 
@@ -171,6 +172,19 @@ def board_delete_view(request, pk):
     else:
         messages.error(request, "본인 게시글이 아닙니다.")
         return redirect('board_detail', pk)
+
+
+@login_required(login_url=login_url)
+def comment_delete_view(request, board_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+
+    if comment.user == request.user:
+        comment.delete()
+        messages.success(request, "삭제되었습니다.")
+    else:
+        messages.error(request, "본인 댓글이 아닙니다.")
+    
+    return redirect('board_detail', board_pk)
 
 
 @login_required(login_url=login_url)
@@ -255,14 +269,19 @@ def qna_detail_view(request, pk):
 
 
 @login_required(login_url=login_url)
-def file_download(request, pk):
-    announcement = get_object_or_404(Announcement, file_ptr_id=pk)
-    url = announcement.uploadFile.url[1:]
-    file_url = urllib.parse.unquote(url)
+def file_download(request, pk, comment_pk=0):
+    try:
+        file = Estimate.objects.get(file_ptr_id=comment_pk)
+        url = file.uploadFile.url[1:]
+        file_url = urllib.parse.unquote(url)
+    except:
+        file = get_object_or_404(Announcement, file_ptr_id=pk)
+        url = file.uploadFile.url[1:]
+        file_url = urllib.parse.unquote(url)
 
     if os.path.exists(file_url):
         with open(file_url, 'rb') as f:
-            quote_file_url = urllib.parse.quote(announcement.name.encode('utf-8'))
+            quote_file_url = urllib.parse.quote(file.name.encode('utf-8'))
             response = HttpResponse(f.read(), content_type=mimetypes.guess_type(file_url)[0])
             response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s' % quote_file_url
             return response
