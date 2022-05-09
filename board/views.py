@@ -136,7 +136,6 @@ def board_detail_view(request, pk):
     selected_areas = Building.objects.filter(pk__in=building_list).values()
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
-    print(comment)
 
     areas = {}
     for i in range(len(selected_areas)):
@@ -207,7 +206,23 @@ def board_edit_view(request, pk):
 
 @login_required(login_url=login_url)
 def qna_write(request):
-    return render(request, 'qna_write.html')
+    if request.method == 'POST':
+        form = QuestionWriteForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user_id = request.user.id
+            form.save()
+
+            return redirect('qna')
+
+    else:
+        form = QuestionWriteForm()
+
+    context = {
+        'form': form,
+
+    }
+    return render(request, 'qna_write.html', context)
 
 
 def qna(request):
@@ -249,9 +264,45 @@ def qna_detail_view(request, pk):
     context = {
         'question': question,
         'answer': answer,
+        'question_auth': question_auth,
     }
 
-    return render(request, 'board_detail.html', context)
+    return render(request, 'qna_detail.html', context)
+
+
+@login_required(login_url=login_url)
+def qna_edit_view(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+
+    if request.method == 'POST':
+        if question.user == request.user:
+            form = QuestionWriteForm(request.POST, instance=question)
+            if form.is_valid():
+                question = form.save(commit=False)
+                question.save()
+                print(question)
+                return redirect('qna_detail', pk)
+
+    if question.user == request.user:
+        form = QuestionWriteForm(instance=question)
+        question = get_object_or_404(Question, pk=pk)
+        context = {
+            'form': form,
+            'question': question,
+        }
+        return render(request, 'qna_write.html', context)
+    return redirect('qna_detail', pk)
+
+
+@login_required(login_url=login_url)
+def qna_delete_view(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+
+    if question.user == request.user:
+        question.delete()
+        return redirect('qna')
+    else:
+        return redirect('qna_detail', pk)
 
 
 @login_required(login_url=login_url)

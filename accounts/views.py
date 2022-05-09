@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.core.paginator import Paginator
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import get_user_model
 
@@ -13,6 +14,7 @@ from .models import Agency, Company
 
 from board.models import Board, Comment
 from map.models import Building
+from board.models import Question
 
 
 def signup(request):
@@ -174,25 +176,64 @@ def edit_official(request):
 def my_business(request):
     # 지자체
     if get_user_model().is_Agency(request.user):
-        board_list = Board.objects.filter(user_id=request.user)
+        board = Board.objects.filter(user_id=request.user)
 
     # 시공업체
-    elif get_user_model().is_Company(request.user):
-        comment_list = Comment.objects.filter(user_id=request.user)
-        board_list = comment_list
+    # elif get_user_model().is_Company(request.user):
+    # comment_list = Comment.objects.filter(user_id=request.user)
+    # board_list = comment_list
 
     # 관리자
     else:
-        board_list = Board.objects.order_by('-id')
+        board = Board.objects.order_by('-id')
+
+    list_per = 10
+    page_per = 5
+
+    paginator = Paginator(board, list_per)
+
+    page_number = request.GET.get('page', 1)
+    board_list = paginator.get_page(page_number)
+
+    start_page = (int(page_number) - 1) // page_per * page_per + 1
+    end_page = start_page + page_per - 1
+
+    if end_page > paginator.num_pages:
+        end_page = paginator.num_pages
 
     context = {
         'board_list': board_list,
+        'start_page': start_page,
+        'end_page': end_page,
     }
     return render(request, 'my_business.html', context)
 
 
 def my_qna(request):
-    return render(request, 'my_qna.html')
+    if request.user.is_staff:
+        question = Question.objects.order_by('-id')
+    else:
+        question = Question.objects.filter(user_id=request.user.id).order_by('-id')
+    list_per = 10
+    page_per = 5
+
+    paginator = Paginator(question, list_per)
+
+    page_number = request.GET.get('page', 1)
+    question_list = paginator.get_page(page_number)
+
+    start_page = (int(page_number) - 1) // page_per * page_per + 1
+    end_page = start_page + page_per - 1
+
+    if end_page > paginator.num_pages:
+        end_page = paginator.num_pages
+
+    context = {
+        'question_list': question_list,
+        'start_page': start_page,
+        'end_page': end_page,
+    }
+    return render(request, 'my_qna.html', context)
 
 
 def signup_agreement(request):

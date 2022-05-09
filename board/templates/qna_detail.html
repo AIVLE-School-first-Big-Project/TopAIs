@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>Check Business List</p>
+            <h2>question</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    <!-- ##### Events Area Start ##### -->
+    <section class="contact-area section-padding-100">
+        <div class="row">
+            <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
+                <div style="width : 800px">
+                    {% if question_auth %}
+                        <button type="submit"
+                                onclick="location.href='{% url "qna_edit" question.id %}'"
+                                class="btn select-btn rewrite">수정
+                        </button>
+                        <button type="submit" onclick="delete_modal()"
+                                class="btn select-btn rewrite">삭제
+                        </button>
+                    {% endif %}
+                    <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
+                    <div class="service-box-title board-title">{{ question.title }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>CREATE / UPDATE</strong></div>
+                    <div class="board-time">{{ question.created_at|date:"Y.m.d H:i:s" }}
+                        / {{ question.updated_at|date:"Y.m.d H:i:s" }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
+                    <div class="board-time"><strong>{{ question.user }}</strong></div>
+                    <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div>
+                    <div class="board-content">{{ question.content }}</div>
+                    <!-- ##### Comment Area Start ##### -->
+                    {% if user.is_staff %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row w-900">
+                                <label for="inputContent"
+                                       class="col-sm-2 col-form-label"><strong>CONTENT</strong></label>
+                                <textarea type="text" name='content' class="form-control w-900" id="inputContent"
+                                          style='height: 300px'></textarea>
+                            </div>
+                            <div class="row" style='padding-right : 150px'>
+                                <div class="col-auto mr-auto"></div>
+                                <div class="col-auto">
+                                    <button type="submit"
+                                            class="btn write-btn mt-30 mr-30"> 글쓰기
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                    <!-- ##### Comment Area end ##### -->
+                </div>
+                {% for a in answer %}
+                    <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
+                    <div class="board-time"><strong>{{ a.user }}</strong></div>
+                    <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div>
+                    <div class="board-content">{{ a.content }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+        <script type="text/javascript">
+            function delete_modal() {
+                location.replace('/board/qna/delete/{{ question.id }}');
+            }
+        </script>
+{% endblock content %}
+

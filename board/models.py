@@ -77,6 +77,9 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'Question'
+
 
 class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -84,3 +87,6 @@ class Answer(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'Answer'
