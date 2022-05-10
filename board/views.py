@@ -12,7 +12,7 @@ from django.http import HttpResponse, Http404
 from django.contrib import messages
 
 from map.models import Building, Business, Facility
-from accounts.models import Agency
+from accounts.models import Agency, Company
 
 from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
 from .models import Board, Comment, Announcement, Estimate, File, Question, Answer
@@ -139,7 +139,8 @@ def board_detail_view(request, pk):
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
     comment_file = Estimate.objects.filter(comment__board_id=pk)
-
+    company = Company.objects.filter(uid=board.user)
+    print(company)
     # areas = {}
     # for i in range(len(selected_areas)):
     #     areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]
