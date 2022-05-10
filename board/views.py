@@ -12,6 +12,7 @@ from django.http import HttpResponse, Http404
 from django.contrib import messages
 
 from map.models import Building, Business, Facility
+from accounts.models import Agency
 
 from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
 from .models import Board, Comment, Announcement, Question, Answer
@@ -30,12 +31,13 @@ def service(request):
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
         "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2",
-        "electro_201608", "electro_201708", "electro_201808", "electro_201908", "electro_202008", "electro_202108", "area")
-    
+        "electro_201608", "electro_201708", "electro_201808", "electro_201908", "electro_202008", "electro_202108",
+        "area")
+
     areas = {}
     for i in range(len(building)):
         areas[str(building[i]['facility_ptr_id'])] = building[i]
-    
+
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
 
@@ -89,6 +91,7 @@ def service_write(request):
 @login_required(login_url=login_url)
 def listing(request):
     board = Board.objects.order_by('-id')
+    # agency = Agency.objects.filter(id=request.user.id)
 
     list_per = 10
     page_per = 5
@@ -108,6 +111,7 @@ def listing(request):
         'board_list': board_list,
         'start_page': start_page,
         'end_page': end_page,
+        # 'agency': agency,
     }
     return render(request, 'board_list.html', context)
 
@@ -132,14 +136,10 @@ def board_detail_view(request, pk):
         return redirect('board_detail', pk)
 
     board = get_object_or_404(Board, pk=pk)
-    building_list = Business.objects.select_related('board').values('facility')
-    selected_areas = Building.objects.filter(pk__in=building_list).values()
+    building_list = Business.objects.filter(board_id=pk).values('facility')
+    selected_areas = Building.objects.filter(pk__in=building_list)
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
-
-    areas = {}
-    for i in range(len(selected_areas)):
-        areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]
 
     # 게시글 작성자 확인
     board_auth = False
@@ -153,10 +153,20 @@ def board_detail_view(request, pk):
         'board_auth': board_auth,
         'selected_areas': selected_areas,
         'comment': comment,
-        'areas': areas,
     }
 
     return render(request, 'board_detail.html', context)
+
+
+@login_required(login_url=login_url)
+def board_done_view(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+
+    if board.user == request.user:
+        board.process = 1
+        board.save()
+
+    return redirect('board_list')
 
 
 @login_required(login_url=login_url)
@@ -176,6 +186,9 @@ def board_delete_view(request, pk):
 def board_edit_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
 
+    if board.process == 1:
+        return redirect('board_detail', pk)
+
     if request.method == 'POST':
         if board.user == request.user:
             form = BoardWriteForm(request.POST, instance=board)
@@ -189,16 +202,17 @@ def board_edit_view(request, pk):
         if board.user == request.user:
             form = BoardWriteForm(instance=board)
             board = get_object_or_404(Board, pk=pk)
-            building_list = Business.objects.select_related('board').values('facility')
+            building_list = Business.objects.filter(board_id=pk).values('facility')
             selected_areas = Building.objects.filter(pk__in=building_list)
             files = Announcement.objects.filter(board_id__exact=pk)
+            print(selected_areas)
             context = {
                 'form': form,
                 'selected_areas': selected_areas,
                 'board': board,
                 'files': files,
             }
-            return render(request, 'service_write.html', context)
+            return render(request, 'service_update.html', context)
         else:
             messages.error(request, '본인 게시글이 아닙니다.')
             return redirect('board_detail', pk)
@@ -255,6 +269,19 @@ def qna_detail_view(request, pk):
     question = get_object_or_404(Question, pk=pk)
     answer = Answer.objects.filter(question_id=pk)
 
+    if request.method == 'POST':
+        form = AnswerWriteForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user_id = request.user.id
+            form.question_id = pk
+            form.save()
+            question.is_answer = True
+            question.save()
+            return redirect('qna_detail', pk)
+
+    form = AnswerWriteForm()
+
     # 게시글 작성자 확인
     question_auth = False
 
@@ -265,6 +292,7 @@ def qna_detail_view(request, pk):
         'question': question,
         'answer': answer,
         'question_auth': question_auth,
+        'form': form,
     }
 
     return render(request, 'qna_detail.html', context)
@@ -280,7 +308,6 @@ def qna_edit_view(request, pk):
             if form.is_valid():
                 question = form.save(commit=False)
                 question.save()
-                print(question)
                 return redirect('qna_detail', pk)
 
     if question.user == request.user:

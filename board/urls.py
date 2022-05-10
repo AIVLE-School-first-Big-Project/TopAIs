@@ -20,6 +20,7 @@ urlpatterns = [
     path('edit/<int:pk>', views.board_edit_view, name='board_edit'),
     path('delete/<int:pk>', views.board_delete_view, name='board_delete'),
     path('download/<int:pk>', views.file_download, name='file_download'),
+    path('done/<int:pk>', views.board_done_view, name='board_done'),
 ]
 urlpatterns += static(settings.STATIC_URL, documnet_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, documnet_root=settings.MEDIA_ROOT)

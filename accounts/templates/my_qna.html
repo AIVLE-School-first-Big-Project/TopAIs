@@ -1,4 +1,4 @@
-제{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -18,7 +18,11 @@
                     <td>{{ question.created_at|date:"Y.m.d" }}</td>
                     <td><a href="{% url 'qna_detail' question.id %}">{{ question.title }}</a></td>
                     <td>
-                        <span class="complete_text">Y</span>
+                        {% if question.is_answer %}
+                            <span class="progress_text">Y</span>
+                        {% else %}
+                            <span class="complete_text">N</span>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

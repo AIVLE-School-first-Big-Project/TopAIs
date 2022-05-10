@@ -44,10 +44,8 @@
                                 <td>
                                     {% if board.process == 0 %}
                                         <div class="progress_text pos-center">진행중</div>
-                                    {% elif board.process == 1 %}
-                                        <div class="progress_text pos-center">검토중</div>
                                     {% else %}
-                                        <div class="progress_text pos-center">완료</div>
+                                        <div class="complete_text pos-center">완료</div>
                                     {% endif %}
                                 </td>
                             </tr>
