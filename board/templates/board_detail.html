@@ -33,15 +33,14 @@
     <section class="contact-area section-padding-100">
         <div class="row">
             <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
-                {% if user.is_Agency or user.is_staff %}
-                    {% for areas in selected_areas %}
-                        <div class="service-box mb-30" onclick="chartEnergy({{ areas|safe }});">
-                            <div class="service-box-title">{{ areas.name }}</div>
-                            <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
-                            <div class="service-box-area">면적 : {{ areas.area }}m2</div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+                {% for areas in selected_areas %}
+                    <div class="service-box mb-30" onclick="chartEnergy({{ areas|safe }});">
+                        <div class="service-box-title">{{ areas.name }}</div>
+                        <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
+                        <div class="service-box-area">면적 : {{ areas.area }}m2</div>
+                        <div class="service-box-area">전기사용량 : {{ areas.electro_202008 }}</div>
+                    </div>
+                {% endfor %}
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
                 <div style="width : 800px">
@@ -107,9 +106,13 @@
                     {% for c in comment %}
                         <div style="padding-right: 20px;">
                             {% if c.user_id == user.id or board_auth is True or user.is_staff %}
-                                <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
+                                <div class="col-sm-2 col-form-label"><strong>작성자</strong></div>
+                                <div class="board-time"><strong>{{ c.user.username }}</strong></div>
+                                <div class="col-sm-2 col-form-label"><strong>이메일</strong></div>
                                 <div class="board-time"><strong>{{ c.user.email }}</strong></div>
-                                <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div>
+                                <div class="col-sm-2 col-form-label"><strong>전화번호</strong></div>
+                                <div class="board-time"><strong>{{ c.user.phone }}</strong></div>
+                                <div class="col-sm-2 col-form-label"><strong>내용</strong></div>
                                 <div class="board-content">{{ c.content }}</div>
                                 <div class="col-sm-2 col-form-label"><strong>첨부 파일</strong></div>
                                 {% for f in comment_file %}
