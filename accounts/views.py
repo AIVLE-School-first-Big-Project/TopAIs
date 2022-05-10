@@ -13,7 +13,6 @@ from .email_auth import EmailAuthView
 from .models import Agency, Company
 
 from board.models import Board, Comment
-from map.models import Building
 from board.models import Question
 
 
@@ -159,6 +158,7 @@ def edit_company(request):
 
 def edit_official(request):
     info = Agency.objects.get(pk=request.user)
+
     context = {
         'info': info,
     }
@@ -168,8 +168,9 @@ def edit_official(request):
         info.username = request.POST.get('username', '')
         info.phone = request.POST.get('phone', '')
 
-        info.save()       
-    
+        info.save()
+        return redirect('edit_official')
+
     return render(request, 'edit_official.html', context)
 
 
@@ -179,9 +180,9 @@ def my_business(request):
         board = Board.objects.filter(user_id=request.user)
 
     # 시공업체
-    # elif get_user_model().is_Company(request.user):
-    # comment_list = Comment.objects.filter(user_id=request.user)
-    # board_list = comment_list
+    elif get_user_model().is_Company(request.user):
+        comment_list = Comment.objects.filter(user_id=request.user).values('board')
+        board = Board.objects.filter(pk__in=comment_list)
 
     # 관리자
     else:

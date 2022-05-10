@@ -81,6 +81,9 @@ class Question(models.Model):
     class Meta:
         db_table = 'Question'
 
+    def __str__(self):
+        return self.title
+
 
 class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
