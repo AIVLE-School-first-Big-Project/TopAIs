@@ -60,7 +60,7 @@
                     <div class="board-content">{{ board.content }}</div>
                     <div class="col-sm-2 col-form-label"><strong>첨부 파일</strong></div>
                     {% for f in file %}
-                        <a href="{% url 'file_download' f.id %}"><p>{{ f.name | truncatechars:100 }}</p></a>
+                        <a href="{% url 'file_download' f.id 0 %}"><p>{{ f.name | truncatechars:100 }}</p></a>
                     {% endfor %}
                     <!-- ##### Comment Area Start ##### -->
                     <form method="post" enctype="multipart/form-data">
