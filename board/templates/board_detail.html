@@ -91,7 +91,7 @@
                                 <div class="col-auto mr-auto"></div>
                                 <div class="col-auto">
                                     <button type="submit"
-                                            class="btn write-btn mt-30"> 지원하기
+                                            class="btn write-btn mt-30" style = "margin-right : 440px;"> 지원하기
                                     </button>
                                 </div>
                             </div>
@@ -103,6 +103,8 @@
 
                 <!-- 코멘트 -->
                 <div class="col-md-9 col-md-push-3" style ="margin-left : -100px">
+                    <h4>지원 내역</h4>
+                <hr style = 'border : 1px solid black'>
                     {% for c in comment %}
                         <div style = "box-shadow : 0 2px 6px 0 rgba(0, 0, 0, 0.3); padding : 20px;">
                             {% if c.user_id == user.id or board_auth is True or user.is_staff %}
