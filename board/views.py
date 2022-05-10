@@ -139,8 +139,7 @@ def board_detail_view(request, pk):
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
     comment_file = Estimate.objects.filter(comment__board_id=pk)
-    company = Company.objects.filter(uid=board.user)
-    print(company)
+   
     # areas = {}
     # for i in range(len(selected_areas)):
     #     areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]

@@ -61,6 +61,9 @@ img {
   max-width: 100%; }
 
 /* :: 3.1.0 Spacing */
+.ml-150 {
+  margin-left: -150px;
+}
 .ml-0{
   margin-left: 0px;
 }
@@ -1985,6 +1988,17 @@ a.text-secondary:hover {
 .cr:hover {
   color : white;
   background-color: red;
+}
+.datgirl {
+  position:sticky; 
+  min-width : 20px; 
+  line-height: 10px; 
+  height : 30px; 
+  font-size: 12px; 
+  left:5000px
+}
+.bsha {
+  box-shadow : 0 2px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* ====== The End ====== */
