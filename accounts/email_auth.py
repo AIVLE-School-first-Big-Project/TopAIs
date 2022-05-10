@@ -28,7 +28,7 @@ class EmailAuthView(TemplateView):
         except:
             user = None
 
-        if user is not None and account_activation_token.check_token(user, token):
+        if user.is_staff or user is not None and account_activation_token.check_token(user, token):
             user.email_auth = True
             user.save()
         return redirect('login')

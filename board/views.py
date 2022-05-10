@@ -12,6 +12,7 @@ from django.http import HttpResponse, Http404
 from django.contrib import messages
 
 from map.models import Building, Business, Facility
+from accounts.models import Agency
 
 from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
 from .models import Board, Comment, Announcement, Estimate, File, Question, Answer
@@ -30,12 +31,13 @@ def service(request):
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
         "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2",
-        "electro_201608", "electro_201708", "electro_201808", "electro_201908", "electro_202008", "electro_202108", "area")
-    
+        "electro_201608", "electro_201708", "electro_201808", "electro_201908", "electro_202008", "electro_202108",
+        "area")
+
     areas = {}
     for i in range(len(building)):
         areas[str(building[i]['facility_ptr_id'])] = building[i]
-    
+
     return render(request, 'service_coolRoof.html', context={'areas': areas})
 
 
@@ -118,7 +120,6 @@ def board_detail_view(request, pk):
     if request.method == 'POST':
         form = CommentWriteForm(request.POST)
         if form.is_valid():
-            print(form.data)
             comment = form.save(commit=False)
             comment.user_id = request.user.id
             comment.board_id = pk
@@ -126,21 +127,22 @@ def board_detail_view(request, pk):
 
             # 첨부 파일
             if request.FILES:
+                print(request.FILES)
                 file = request.FILES['files']
                 Estimate.objects.create(name=file.name, uploadFile=file, comment=comment)
+
         return redirect('board_detail', pk)
 
     board = get_object_or_404(Board, pk=pk)
-    building_list = Business.objects.select_related('board').values('facility')
+    building_list = Business.objects.filter(board_id=pk).values('facility')
     selected_areas = Building.objects.filter(pk__in=building_list).values()
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
     comment_file = Estimate.objects.filter(comment__board_id=pk)
-    print(comment)
 
-    areas = {}
-    for i in range(len(selected_areas)):
-        areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]
+    # areas = {}
+    # for i in range(len(selected_areas)):
+    #     areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]
 
     # 게시글 작성자 확인
     board_auth = False
@@ -155,10 +157,20 @@ def board_detail_view(request, pk):
         'selected_areas': selected_areas,
         'comment': comment,
         'comment_file': comment_file,
-        'areas': areas,
     }
 
     return render(request, 'board_detail.html', context)
+
+
+@login_required(login_url=login_url)
+def board_done_view(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+
+    if board.user == request.user:
+        board.process = 1
+        board.save()
+
+    return redirect('board_list')
 
 
 @login_required(login_url=login_url)
@@ -183,13 +195,16 @@ def comment_delete_view(request, board_pk, comment_pk):
         messages.success(request, "삭제되었습니다.")
     else:
         messages.error(request, "본인 댓글이 아닙니다.")
-    
+
     return redirect('board_detail', board_pk)
 
 
 @login_required(login_url=login_url)
 def board_edit_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
+
+    if board.process == 1:
+        return redirect('board_detail', pk)
 
     if request.method == 'POST':
         if board.user == request.user:
@@ -204,7 +219,7 @@ def board_edit_view(request, pk):
         if board.user == request.user:
             form = BoardWriteForm(instance=board)
             board = get_object_or_404(Board, pk=pk)
-            building_list = Business.objects.select_related('board').values('facility')
+            building_list = Business.objects.filter(board_id=pk).values('facility')
             selected_areas = Building.objects.filter(pk__in=building_list)
             files = Announcement.objects.filter(board_id__exact=pk)
             context = {
@@ -213,7 +228,7 @@ def board_edit_view(request, pk):
                 'board': board,
                 'files': files,
             }
-            return render(request, 'service_write.html', context)
+            return render(request, 'service_update.html', context)
         else:
             messages.error(request, '본인 게시글이 아닙니다.')
             return redirect('board_detail', pk)
@@ -221,7 +236,23 @@ def board_edit_view(request, pk):
 
 @login_required(login_url=login_url)
 def qna_write(request):
-    return render(request, 'qna_write.html')
+    if request.method == 'POST':
+        form = QuestionWriteForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user_id = request.user.id
+            form.save()
+
+            return redirect('qna')
+
+    else:
+        form = QuestionWriteForm()
+
+    context = {
+        'form': form,
+
+    }
+    return render(request, 'qna_write.html', context)
 
 
 def qna(request):
@@ -254,6 +285,19 @@ def qna_detail_view(request, pk):
     question = get_object_or_404(Question, pk=pk)
     answer = Answer.objects.filter(question_id=pk)
 
+    if request.method == 'POST':
+        form = AnswerWriteForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user_id = request.user.id
+            form.question_id = pk
+            form.save()
+            question.is_answer = True
+            question.save()
+            return redirect('qna_detail', pk)
+
+    form = AnswerWriteForm()
+
     # 게시글 작성자 확인
     question_auth = False
 
@@ -263,9 +307,45 @@ def qna_detail_view(request, pk):
     context = {
         'question': question,
         'answer': answer,
+        'question_auth': question_auth,
+        'form': form,
     }
 
-    return render(request, 'board_detail.html', context)
+    return render(request, 'qna_detail.html', context)
+
+
+@login_required(login_url=login_url)
+def qna_edit_view(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+
+    if request.method == 'POST':
+        if question.user == request.user:
+            form = QuestionWriteForm(request.POST, instance=question)
+            if form.is_valid():
+                question = form.save(commit=False)
+                question.save()
+                return redirect('qna_detail', pk)
+
+    if question.user == request.user:
+        form = QuestionWriteForm(instance=question)
+        question = get_object_or_404(Question, pk=pk)
+        context = {
+            'form': form,
+            'question': question,
+        }
+        return render(request, 'qna_write.html', context)
+    return redirect('qna_detail', pk)
+
+
+@login_required(login_url=login_url)
+def qna_delete_view(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+
+    if question.user == request.user:
+        question.delete()
+        return redirect('qna')
+    else:
+        return redirect('qna_detail', pk)
 
 
 @login_required(login_url=login_url)

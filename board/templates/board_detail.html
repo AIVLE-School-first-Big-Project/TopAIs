@@ -11,11 +11,14 @@
         </div>
     {% endfor %}
 
+    <!-- Google Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src='{% static "js/chart.js" %}'></script>
 
     <script>
         var areaArr = JSON.parse("{{ areas }}".replace(/&#x27;/g, "\""))
         // 차트 script
-        
+
         console.log(areaArr)
     </script>
     <!-- ##### Breadcumb Area Start ##### -->
@@ -32,7 +35,7 @@
             <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
                 {% if user.is_Agency or user.is_staff %}
                     {% for areas in selected_areas %}
-                        <div class="service-box mb-30">
+                        <div class="service-box mb-30" onclick="chartEnergy({{ areas|safe }});">
                             <div class="service-box-title">{{ areas.name }}</div>
                             <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
                             <div class="service-box-area">면적 : {{ areas.area }}m2</div>
@@ -42,11 +45,11 @@
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
                 <div style="width : 800px">
-                    {% if board_auth %}              
+                    {% if board_auth %}
                         <button type="submit" onclick="location.href='{% url "board_edit" board.id %}'"
                                 class="btn select-btn rewrite">수정
                         </button>
-                        <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite cr mt-10">삭제</button>
+                        <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite">삭제</button>
                     {% endif %}
                     <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
                     {% if board.process == 0 %}
@@ -70,63 +73,73 @@
                         <a href="{% url 'file_download' f.id 0 %}"><p>{{ f.name | truncatechars:100 }}</p></a>
                     {% endfor %}
                     <!-- ##### Comment Area Start ##### -->
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
+                    {% if board.process == 0 %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
 
-                        <div class="form-group row w-900">
-                            <label for="inputContent" class="col-sm-2 col-form-label"><strong>CONTENT</strong></label>
-                            <textarea type="text" name='content' class="form-control w-900" id="inputContent"
-                                      style='height: 300px'></textarea>
-                        </div>
-                        <div class="form-group row w-900">
-                            <label for="inputFile"
-                                   class="col-sm-2 col-form-label"><strong>FILE</strong></label>
-                            <input type="file" name="files" multiple class="form-control w-900" id="inputFile">
-                        </div>
-                        <div class="row" style='padding-right : 150px'>
-                            <div class="col-auto mr-auto"></div>
-                            <div class="col-auto">
-                                <button type="submit"
-                                        class="btn write-btn mt-30 mr-30"> 글쓰기
-                                </button>
+                            <div class="form-group row w-900">
+                                <label for="inputContent"
+                                       class="col-sm-2 col-form-label"><strong>CONTENT</strong></label>
+                                <textarea type="text" name='content' class="form-control w-900" id="inputContent"
+                                          style='height: 300px'></textarea>
                             </div>
-                        </div>
-                    </form>
+                            <div class="form-group row w-900">
+                                <label for="inputFile"
+                                       class="col-sm-2 col-form-label"><strong>FILE</strong></label>
+                                <input type="file" name="files" multiple class="form-control w-900" id="inputFile">
+                            </div>
+                            <div class="row" style='padding-right : 150px'>
+                                <div class="col-auto mr-auto"></div>
+                                <div class="col-auto">
+                                    <button type="submit"
+                                            class="btn write-btn mt-30 mr-30"> 글쓰기
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                    <!-- ##### Comment Area end ##### -->
                 </div>
                 <br><br>
 
                 <!-- 코멘트 -->
                 <div class="col-md-9 col-md-push-3">
-                {% for c in comment %}
-                <div style="padding-right: 20px;">
-                    {% if c.user_id == user.id or board_auth is True %}
-                    <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
-                    <div class="board-time"><strong>{{ c.user.email }}</strong></div>
-                    <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div>
-                    <div class="board-content">{{ c.content }}</div>
-                    <div class="col-sm-2 col-form-label"><strong>첨부 파일</strong></div>
-                    {% for f in comment_file %}
-                        {% if f.comment_id == c.id %}
-                        <a href="{% url 'file_download' file.0.id f.id %}"><p>{{ f.name | truncatechars:100 }}</p></a>
-                        {% endif %}
+                    {% for c in comment %}
+                        <div style="padding-right: 20px;">
+                            {% if c.user_id == user.id or board_auth is True or user.is_staff %}
+                                <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
+                                <div class="board-time"><strong>{{ c.user.email }}</strong></div>
+                                <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div>
+                                <div class="board-content">{{ c.content }}</div>
+                                <div class="col-sm-2 col-form-label"><strong>첨부 파일</strong></div>
+                                {% for f in comment_file %}
+                                    {% if f.comment_id == c.id %}
+                                        <a href="{% url 'file_download' file.0.id f.id %}">
+                                            <p>{{ f.name | truncatechars:100 }}</p></a>
+                                    {% endif %}
+                                {% endfor %}
+                                <button type="submit" onclick="delete_comment_modal({{ c.id }})"
+                                        class="btn select-btn rewrite">삭제
+                                </button>
+                            {% else %}
+                                <p>권한이 없는 글입니다.</p>
+                            {% endif %}
+                        </div>
+                        <hr><br>
                     {% endfor %}
-                    <button type="submit" onclick="delete_comment_modal({{ c.id }})" class="btn select-btn rewrite">삭제</button>
-                    {% else %}
-                    <p>권한이 없는 글입니다.</p>
-                    {% endif %}
                 </div>
-                <hr><br>
-                {% endfor %}
-                </div>
-            </div>
-        </div>
     </section>
     <script type="text/javascript">
         function delete_modal() {
             location.replace('/board/delete/{{ board.id }}');
         }
+
         function delete_comment_modal(c_id) {
             location.replace('/board/delete/{{ board.id }}/' + String(c_id));
+        }
+
+        function done_modal() {
+            location.replace('/board/done/{{ board.id }}');
         }
     </script>
 {% endblock content %}

@@ -225,6 +225,14 @@ function cancelwrite() {
     }
 }
 
+function presavewrite() {
+    alert("임시저장 되었습니다.")
+}
+
+function savewrite() {
+    alert("저장 되었습니다.")
+}
+
 var area_name = ['영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군']
 for (var i = 0; i < area_name.length; i++) {
     document.getElementById("area").innerHTML += '<option value="' + area_name[i] + '">'
@@ -252,8 +260,4 @@ function qboxopen() {
     } else {
         document.getElementById("qbox").style.visibility = "hidden"
     }
-}
-
-function memberdelete() {
-    alert("회원 탈퇴가 완료되었습니다.")
 }

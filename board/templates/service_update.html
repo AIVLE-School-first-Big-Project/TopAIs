@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>열사 현상 줄이는</p>
+            <h2>Cool-Roof</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <section class="contact-area section-padding-100">
+        <div class="row">
+            <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
+                {% for areas in selected_areas %}
+                    <div class="service-box mb-30">
+                        <div class="service-box-title">{{ areas.name }}</div>
+                        <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
+                        <div class="service-box-area">면적 : {{ areas.area }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-9 col-md-push-3" style='padding-left: 50px;'>
+                <div class="w-900">
+                    {% include "form_errors.html" %}
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group row w-900">
+                        <label for="inputTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+                        <input type="text" name="title" class="form-control w-900" id="inputTitle"
+                               value="{{ board.title }}">
+                    </div>
+                    <div class="form-group row w-900">
+                        <label for="inputDeadline"
+                               class="col-sm-2 col-form-label"><strong>공고기간</strong></label>
+                        <input type="date" name="deadline" required class="form-control w-900" id="inputDeadline"
+                               value={{ board.deadline | date:"Y-m-d" }}>
+                    </div>
+                    <div class="form-group row w-900">
+                        <label for="inputContent" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+                        <textarea type="text" name='content' class="form-control w-900" id="inputContent"
+                                  style='height: 300px'>{{ board.content }}</textarea>
+                    </div>
+{#                    <div class="form-group row w-900">#}
+                    {#                        <label for="inputFile"#}
+                    {#                               class="col-sm-2 col-form-label"><strong>첨부파일</strong></label>#}
+                    {#                        <input type="file" name="files" multiple class="form-control" id="inputFile">#}
+                    {#                    </div>#}
+                    <div class="form-group row w-900">
+                        <label for="File"
+                               class="col-sm-2 col-form-label"><strong>기존 첨부파일</strong></label>
+                        {% for file in files %}
+                            <a href="{% url 'file_download' file.id %}"><p>{{ file.name | truncatechars:100 }}</p></a>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="selected_areas" value="{{ selected_areas }}">
+                    <div class="row" style='padding-right : 150px'>
+                        <div class="col-auto mr-auto"></div>
+                        <div class="col-auto">
+                            <button type="button"
+                                    class="btn cancel-btn mt-30 mr-30" onclick="cancelwrite()">CANCEL
+                            </button>
+                            <button type="submit" onclick="savewrite()" class="btn write-btn mt-30">저장</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

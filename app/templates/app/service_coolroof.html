@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>열사 현상 줄이는</p>
+            <h2>Cool-Roof</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 col-lg-9">
+                    <!-- ##### Google Maps ##### -->
+                    <div class="map-area mb-100">
+                        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=efk8ds44x0"></script>
+                        <div id="map" style="width:100%;height:400px;"></div>
+                    </div>
+                </div>
+                <div id = 'service-box'>
+                </div>
+                <div class = "service-next-btn">
+                    <!-- <a href="{% url 'write' %}"> -->
+                        <button type="submit" class="btn oneMusic-btn mt-30">NEXT -></button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Area End ##### -->
+
+{%endblock content%}
