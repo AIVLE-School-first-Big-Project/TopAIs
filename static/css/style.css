@@ -1686,9 +1686,11 @@ img {
 .service-box-area{
   color: #000000;
   font-family: "Archivo Narrow", sans-serif;
-  font-size: 12px; 
-  font-weight: 500; 
-  margin-left : 180px
+  font-size: 8px; 
+  font-weight: 700;
+  margin-left : 10px;
+  margin-top : 3px;
+  color : red
 }
 .service-next-btn {
   margin-left : 925px; 
@@ -1969,7 +1971,7 @@ a.text-secondary:hover {
   position:absolute; 
   background-color:rgba(255, 255, 255, 1); 
   width : 300px; 
-  height : 150px; 
+  height : 110px; 
   z-index:939999999999999999999999;
   text-align:left;
   font-weight: 500;
@@ -1984,6 +1986,7 @@ a.text-secondary:hover {
   color : white;
   background-color: red;
 }
+
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */

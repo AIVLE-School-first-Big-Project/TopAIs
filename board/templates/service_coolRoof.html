@@ -12,11 +12,10 @@
     <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
         <div class="bradcumbContent">
             <h5 class = 'question-mark' onclick = "qboxopen()">?</h5>
-            <div class = 'question-box' id = "qbox">
-                <div>AI 모델이 쿨루프 시공이 필요하다고 판단한 건물위에 마커가 뜹니다.</div>
-                <div>마커 선택 후, next 버튼을 클릭하면 해당 건물 주소와 면적이 목록으로 뜹니다.</div>
-                <div>면적으로 계산한 정부지원금액이 표로 뜨고,</div>
-                <div>절감 예상되는 전기사용량이 차트로 뜹니다.</div></div>
+            <ul class = 'question-box' id = "qbox">
+                <li>- AI 모델이 쿨루프 시공이 필요하다고 판단한 건물위에 마커가 뜹니다.</li>
+                <li>- 마커 선택 후, next 버튼을 클릭하면 해당 건물 주소와 면적, 전기 사용량이 표시됩니다.</li>
+                </ul>
             <p>열사 현상 줄이는</p>
             <h2>Cool-Roof</h2>
         </div>
@@ -35,12 +34,11 @@
                         <div id="map" style="width:100%;height:400px;"></div>
                     </div>
                 </div>
-                <div id = 'service-box'>
-                </div>
+                <div id = 'service-box'></div>
                 <form action="{% url 'write' %}" method="post">
                     <input type="hidden" id="selected_area" name="selected_area">
                     <div class = "service-next-btn">
-                        <button type="submit" class="btn oneMusic-btn mt-30">NEXT -></button>
+                        <button type="submit" class="btn oneMusic-btn mt-30 disable-btn" id = "writenextbtn" disabled="true">NEXT -></button>
                     </div>
                 </form>
             </div>

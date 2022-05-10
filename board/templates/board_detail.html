@@ -37,24 +37,26 @@
                     <div class="service-box mb-30" onclick="chartEnergy({{ areas|safe }});">
                         <div class="service-box-title">{{ areas.name }}</div>
                         <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
-                        <div class="service-box-area">면적 : {{ areas.area }}m2</div>
-                        <div class="service-box-area">전기사용량 : {{ areas.electro_202008 }}</div>
+                        <div class="service-box-area">면적 / 전기사용량 : {{ areas.area }}m2 / {{ areas.electro_202008 }}Kw/h</div>
                     </div>
                 {% endfor %}
             </div>
             <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
                 <div style="width : 800px">
                     {% if board_auth %}
+                        {% if board.process == 0 %}
                         <button type="submit" onclick="location.href='{% url "board_edit" board.id %}'"
                                 class="btn select-btn rewrite">수정
                         </button>
+                        {% endif %}
                         <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite">삭제</button>
+                        {% if board.process == 0 %}
+                        <button type="submit" onclick="done_modal()" class="btn select-btn rewrite">완료</button>
+                        {% endif %}
                     {% endif %}
                     <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
                     {% if board.process == 0 %}
                         <div class="progress_text pos-right">진행중</div>
-                    {% elif board.process == 1 %}
-                        <div class="progress_text pos-right">검토중</div>
                     {% else %}
                         <div class="progress_text pos-right">완료</div>
                     {% endif %}

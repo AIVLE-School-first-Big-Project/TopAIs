@@ -51,6 +51,12 @@ for(key in areaArr) {
             delete selectedArea[key];
         }
         document.getElementById('selected_area').value = JSON.stringify(selectedArea);
+        if (document.getElementById("service-box").innerHTML.length < 1) {
+            document.getElementById('writenextbtn').disabled = true;
+        }
+        else {
+            document.getElementById('writenextbtn').disabled = false;
+        }
     }
     markers.push(marker);
     infowindows.push(infowindow);

@@ -30,7 +30,7 @@ def service(request):
 @user_passes_test(get_user_model().is_writable)
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
-        "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2",
+        "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2", "name",
         "electro_201608", "electro_201708", "electro_201808", "electro_201908", "electro_202008", "electro_202108",
         "area")
 
@@ -165,6 +165,9 @@ def board_detail_view(request, pk):
 @login_required(login_url=login_url)
 def board_done_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
+
+    if board.process != 0:
+        return redirect('board_detail', pk)
 
     if board.user == request.user:
         board.process = 1
