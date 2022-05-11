@@ -204,11 +204,11 @@ def edit_official(request):
 @login_required(login_url=login_url)
 def my_business(request):
     # 지자체
-    if get_user_model().is_Agency(request.user):
+    if is_Agency:
         board = Board.objects.filter(user_id=request.user)
 
     # 시공업체
-    elif get_user_model().is_Company(request.user):
+    elif is_company:
         comment_list = Comment.objects.filter(user_id=request.user).values('board')
         board = Board.objects.filter(pk__in=comment_list)
 
