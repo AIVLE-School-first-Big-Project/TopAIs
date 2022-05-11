@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include 'widget.html' %}
+    <div class="col-md-9 col-md-push-3" style='padding-left: 115px; padding-right: 100px;'>
+        <div class="login-content" style='height:100%; width : 800px; box-shadow : none; background-color : #bcbbb'>
+            <!-- PWchange Form -->
+            <div class="login-form">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                        <div class="alert-danger" role="alert">
+                            {% for message in messages %}
+                                {{ message.message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="current_password">Current Password</label>
+                        <input type="password" name="current_password" id="current_password" class="form-control"
+                               placeholder="Current Password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">New Password</label>
+                        <input type="password" name="password1" id="password1" class="form-control"
+                               placeholder="New Password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <input type="password" name="password2" id="password2" class="form-control"
+                               placeholder="Confirm Password" required>
+                    </div>
+                    <button type="submit" class="btn oneMusic-btn mt-30">CHANGE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </section>
+{% endblock content %}

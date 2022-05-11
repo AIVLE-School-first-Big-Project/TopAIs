@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>Select SERVICE</p>
+            <h2>SERVICE</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Events Area Start ##### -->
+    <section class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
+
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="/static/img/bg-img/cool_roof.PNG" alt="">
+                        </div>
+                        <div class="event-text">
+                            <h4>Cool-Roof</h4>
+                            <a href="{% url 'coolRoof' %}" class="btn see-more-btn">Enter SERVICE</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="/static/img/bg-img/ROAD_LINE.PNG" alt="">
+                        </div>
+                        <div class="event-text">
+                            <h4>ROAD-LINE</h4>
+                            <a href="{% url 'roadLine' %}" class="btn see-more-btn">Enter SERVICE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Events Area End ##### -->
+{%endblock content%}

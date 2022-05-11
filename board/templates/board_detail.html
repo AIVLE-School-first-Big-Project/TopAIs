@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% for message in messages %}
+        <div id="modal" class="modal-overlay">
+            <div class="modal-window">
+                <h6>{{ message }}</h6>
+                <button onclick="modalclose()" class="btn check-btn">확인</button>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Google Chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src='{% static "js/chart.js" %}'></script>
+
+    <script>
+        var areaArr = JSON.parse("{{ areas }}".replace(/&#x27;/g, "\""))
+        // 차트 script
+
+        console.log(areaArr)
+    </script>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>Check Business List</p>
+            <h2>BOARD</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    <!-- ##### Events Area Start ##### -->
+    <section class="contact-area section-padding-100">
+        <div class="row">
+            <div class="col-md-3 col-md-pull-9" style='padding-left: 80px; padding-right:0%'>
+                {% for areas in selected_areas %}
+                    <div class="service-box mb-30" onclick="chartEnergy({{ areas|safe }});">
+                        <div class="service-box-title">{{ areas.name }}</div>
+                        <div class="service-box-address">{{ areas.city }} {{ areas.county }} {{ areas.district }} {{ areas.number1 }} {{ areas.number2 }}</div>
+                        <div class="service-box-area">면적 / 전기사용량 : {{ areas.area }}m2 / {{ areas.electro_202008 }}Kw/h</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-9 col-md-push-3" style='padding-left: 100px;'>
+                <div style="width : 800px">
+                    {% if board_auth %}
+                        {% if board.process == 0 %}
+                        <button type="submit" onclick="location.href='{% url "board_edit" board.id %}'"
+                                class="btn select-btn rewrite">수정
+                        </button>
+                        {% endif %}
+                        <button type="submit" onclick="delete_modal()" class="btn select-btn rewrite cr">삭제</button>
+                        {% if board.process == 0 %}
+                        <button type="submit" onclick="done_modal()" class="btn select-btn rewrite">완료</button>
+                        {% endif %}
+                    {% endif %}
+                    <div class="col-sm-2 col-form-label"><strong>TITLE</strong></div>
+                    {% if board.process == 0 %}
+                        <div class="progress_text pos-right">진행중</div>
+                    {% else %}
+                        <div class="progress_text pos-right">완료</div>
+                    {% endif %}
+                    <div class="service-box-title board-title">{{ board.title }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>CREATE / UPDATE</strong></div>
+                    <div class="board-time">{{ board.created_at|date:"Y.m.d H:i:s" }}
+                        / {{ board.updated_at|date:"Y.m.d H:i:s" }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>AUTHOR</strong></div>
+                    <div class="board-time"><strong>{{ board.user }}</strong></div>
+                    <div class="col-sm-2 col-form-label"><strong>CONTENT</strong></div>
+                    <div class="board-content" style = "border : 1px solid black; height: 300px;">{{ board.content }}</div>
+                    <div class="col-sm-2 col-form-label"><strong>첨부 파일</strong></div>
+                    {% for f in file %}
+                        <a href="{% url 'file_download' f.id 0 %}"><p>📁 : {{ f.name | truncatechars:100 }}</p></a>
+                    {% endfor %}
+                    <!-- ##### Comment Area Start ##### -->
+                    {% if board.process == 0 %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row w-900 mt-100 ml-150 bsha">
+                                <label for="inputContent"
+                                       class="col-sm-2 col-form-label"><strong>지원내용</strong></label>
+                                <textarea type="text" name='content' class="form-control w-900" id="inputContent" placeholder="간단한 지원 내용을 입력해주세요."
+                                          style='height: 100px'></textarea>
+                            </div>
+                            <div class="form-group row w-900 ml-150 bsha" style = "padding : 10px">
+                                <label for="inputFile"
+                                       class="col-sm-2 col-form-label"><strong>견적서 FILE</strong></label>
+                                <input type="file" name="files" multiple class="form-control w-900" id="inputFile">
+                            </div>
+                            <div class="row">
+                                <div class="col-auto mr-auto"></div>
+                                <div class="col-auto">
+                                    <button type="submit"
+                                            class="btn write-btn mt-30" style = "margin-right : 440px;"> 지원하기
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    {% endif %}
+                    <!-- ##### Comment Area end ##### -->
+                </div>
+                <br><br>
+
+                <!-- 코멘트 -->
+                <div class="col-md-9 col-md-push-3" style ="margin-left : -100px">
+                    <h4>지원 내역</h4>
+                <hr style = 'border : 1px solid black'>
+                    {% for c in comment %}
+                        <div style = "box-shadow : 0 2px 6px 0 rgba(0, 0, 0, 0.3); padding : 20px;">
+                            {% if c.user_id == user.id or board_auth is True or user.is_staff %}
+                                <div class="board-time" style = "justify-content: left;"><strong>{{ c.user.username }} / {{ c.user.email }}</strong></div>
+                                <div class="board-time" style = "justify-content: left; margin-top: 20px;">지원내용</div>
+                                <div class="board-content mb-15">{{ c.content }}</div>
+                                {% for f in comment_file %}
+                                    {% if f.comment_id == c.id %}
+                                        <a href="{% url 'file_download' file.0.id f.id %}" style = "display : flex;justify-content: right;">
+                                            <p>📁 {{ f.name | truncatechars:100 }}</p></a>
+                                    {% endif %}
+                                {% endfor %}
+                                <button type="submit" onclick="delete_comment_modal({{ c.id }})"
+                                        class="btn cancel-btn datgirl">삭제
+                                </button>
+                            {% else %}
+                                <p>권한이 없는 글입니다.</p>
+                            {% endif %}
+                        </div>
+                        <hr><br>
+                    {% endfor %}
+                </div>
+    </section>
+    <script type="text/javascript">
+        function delete_modal() {
+            location.replace('/board/delete/{{ board.id }}');
+        }
+
+        function delete_comment_modal(c_id) {
+            location.replace('/board/delete/{{ board.id }}/' + String(c_id));
+        }
+
+        function done_modal() {
+            location.replace('/board/done/{{ board.id }}');
+        }
+    </script>
+{% endblock content %}
+

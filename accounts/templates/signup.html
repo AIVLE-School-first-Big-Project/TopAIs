@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+        <div class="bradcumbContent">
+            <p>What's Your TYPE</p>
+            <h2>SIGNUP</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+    <!-- ##### Events Area Start ##### -->
+    <section class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
+
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="/static/img/bg-img/official3.PNG" width="500" heigh="500" alt="">
+                        </div>
+                        <div class="event-text">
+                            <h4>OFFICIAL</h4>
+                            <a href="{% url 'signup_official' %}" class="btn see-more-btn">NEXT</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="/static/img/bg-img/company3.PNG" width="500" heigh="500" alt="">
+                        </div>
+                        <div class="event-text">
+                            <h4>COMPANY</h4>
+                            <a href="{% url 'signup_company' %}" class="btn see-more-btn">NEXT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Events Area End ##### -->
+
+
+{% endblock content %}

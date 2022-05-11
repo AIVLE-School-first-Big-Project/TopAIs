@@ -1,0 +1,37 @@
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/img/bg-img/earth.jpg);">
+    <div class="bradcumbContent">
+        <p>mypage</p>
+        <h2>Mypage</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<section class="contact-area section-padding-100">
+    <div class="row">
+        <div class="col-md-3 col-md-pull-9" style='padding-left: 120px; padding-right:0%'>
+            <div class="single-widget-area mb-30" style="box-shadow:0 6px 6px 0 rgba(0, 0, 0, 0.3);">
+                <div class="widget-title">
+                    <h5>Categories</h5>
+                </div>
+                <div class="widget-content">
+                    <ul>
+                        <li><a href="{% url 'my_business' %}">내 사업 확인</a></li>
+                        <li><a href="{% url 'my_qna' %}">내 질문 확인</a></li>
+                        <li><a href="{% url 'pwchange' %}">비밀번호 변경</a></li>
+                        {% if user.is_Agency %}
+                            <li><a href="{% url 'edit_official' %}">개인정보 변경</a></li>
+                        {% elif user.is_Company %}
+                            <li><a href="{% url 'edit_company' %}">개인정보 변경</a></li>
+                        {% endif %}
+
+                        <li><a href="{% url 'delete' %}">회원탈퇴</a></li>
+
+                        {% if user.is_staff %}
+                            <li><a href="/admin">관리자페이지</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
