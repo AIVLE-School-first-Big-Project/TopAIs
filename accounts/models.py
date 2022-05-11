@@ -51,6 +51,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'user_id'
+    REQUIRED_FIELDS = ['username', 'email', 'phone']
 
     class Meta:
         db_table = 'User'
@@ -64,15 +65,6 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
-
-    def is_Agency(self):
-        return self.user_type == 'Agency'
-
-    def is_Company(self):
-        return self.user_type == 'Company'
-
-    def is_writable(self):
-        return self.is_admin or self.is_Agency
 
 
 class Agency(User, models.Model):
