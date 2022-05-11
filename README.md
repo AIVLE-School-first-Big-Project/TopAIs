@@ -44,18 +44,36 @@
 > 쿨루프 시공전후의 지붕의 표면 온도측정 사진. (좌) 설치전 (우) 설치후 
 > (사진/한국환경산업기술원 보고서)
 <br>
-## Tech Stack
-![tech](https://user-images.githubusercontent.com/42468323/167661473-aba155e1-a107-4c76-91a0-3903b9cb5a72.png)
+
+## 4. Tech Stack
+
 <br>
-## System Architecture
-![아키텍처](https://user-images.githubusercontent.com/42468323/167651792-aa7dbf5c-ef48-4eb5-9d18-a80fd8a0c821.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/42468323/167661473-aba155e1-a107-4c76-91a0-3903b9cb5a72.png"/>
+</p>
 <br>
-## ERD
-![erd](https://user-images.githubusercontent.com/42468323/167654716-d3f3549c-9bd6-4c75-8d72-8236926b3a34.png)
+
+## 5. System Architecture
+
 <br>
-## Step to run
-```bash
-$ cd TopAIS
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/42468323/167651792-aa7dbf5c-ef48-4eb5-9d18-a80fd8a0c821.png"/>
+</p>
+<br>
+
+## 6. ERD
+
+<br>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/42468323/167654716-d3f3549c-9bd6-4c75-8d72-8236926b3a34.png"/>
+</p>
+<br>
+
+## 6. Step to run
+
+
+```console
+$ cd TopAIs
 $ python -m venv .venv
 $ source .venv/bin/activate
 $ python install -r requirements.txt
