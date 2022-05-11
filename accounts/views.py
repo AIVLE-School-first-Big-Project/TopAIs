@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
 from .email_auth import EmailAuthView
-from .models import Agency, Company
+from .models import Agency, Company, User
 
 from board.models import Board, Comment
 from board.models import Question
@@ -203,12 +203,13 @@ def edit_official(request):
 @csrf_exempt
 @login_required(login_url=login_url)
 def my_business(request):
+    user = User.objects.get(user_id=request.user)
     # 지자체
-    if is_Agency:
+    if user.user_type == 'Agency':
         board = Board.objects.filter(user_id=request.user)
 
     # 시공업체
-    elif is_company:
+    elif user.user_type == 'Company':
         comment_list = Comment.objects.filter(user_id=request.user).values('board')
         board = Board.objects.filter(pk__in=comment_list)
 
