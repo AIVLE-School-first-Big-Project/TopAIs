@@ -205,11 +205,12 @@ def edit_official(request):
 def my_business(request):
     user = User.objects.get(user_id=request.user)
     # 지자체
-    if user.user_type == 'Agency':
+    if is_Agency(user):
         board = Board.objects.filter(user_id=request.user)
 
     # 시공업체
-    elif user.user_type == 'Company':
+    elif is_company(user):
+
         comment_list = Comment.objects.filter(user_id=request.user).values('board')
         board = Board.objects.filter(pk__in=comment_list)
 
