@@ -1,4 +1,3 @@
-from ast import arg
 import logging
 import threading
 
@@ -25,15 +24,13 @@ class EmailAuthView(TemplateView):
 
         try:
             user = User.objects.get(pk=uid)
-        except:
+        except User.DoesNotExist:
             user = None
 
         if user.is_staff or user is not None and account_activation_token.check_token(user, token):
             user.email_auth = True
             user.save()
         return redirect('login')
-
-        # return redirect('auth_requeset')
 
     def post(self, request, *args, **kwargs):
         user = User.objects.get(user_id=request.user_id)

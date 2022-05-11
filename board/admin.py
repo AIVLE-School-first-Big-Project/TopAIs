@@ -17,7 +17,7 @@ class FileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Question)
-class AnswerAdmin(admin.ModelAdmin):
+class QuestionAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'content', 'is_answer']
     list_display_links = ['id', 'title']
 
