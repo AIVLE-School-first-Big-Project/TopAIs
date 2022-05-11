@@ -6,13 +6,12 @@ import mimetypes
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
 from django.contrib import messages
 
 from map.models import Building, Business, Facility
-from accounts.models import Agency, Company
+from accounts.views import is_Agency, is_writable, is_company
 
 from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
 from .models import Board, Comment, Announcement, Estimate, File, Question, Answer
@@ -21,13 +20,13 @@ login_url = '/accounts/login'
 
 
 @login_required(login_url=login_url)
-@user_passes_test(get_user_model().is_writable)
+@user_passes_test(is_writable)
 def service(request):
     return render(request, 'service.html')
 
 
 @login_required(login_url=login_url)
-@user_passes_test(get_user_model().is_writable)
+@user_passes_test(is_writable)
 def service_coolRoof(request):
     building = Building.objects.filter(city='부산광역시').values(
         "facility_ptr_id", "latitude", "longitude", "city", "county", "district", "number1", "number2", "name",
@@ -42,14 +41,14 @@ def service_coolRoof(request):
 
 
 @login_required(login_url=login_url)
-@user_passes_test(get_user_model().is_writable)
+@user_passes_test(is_writable)
 def service_roadLine(request):
     return render(request, 'service_roadLine.html')
 
 
 @csrf_exempt
 @login_required(login_url=login_url)
-@user_passes_test(get_user_model().is_writable)
+@user_passes_test(is_writable)
 def service_write(request):
     context = {}
 
@@ -88,6 +87,7 @@ def service_write(request):
     return render(request, 'service_write.html', context)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def listing(request):
     board = Board.objects.order_by('-id')
@@ -114,6 +114,7 @@ def listing(request):
     return render(request, 'board_list.html', context)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def board_detail_view(request, pk):
     # 댓글 작성
@@ -139,10 +140,6 @@ def board_detail_view(request, pk):
     file = Announcement.objects.filter(board_id__exact=pk)
     comment = Comment.objects.filter(board_id=pk)
     comment_file = Estimate.objects.filter(comment__board_id=pk)
-   
-    # areas = {}
-    # for i in range(len(selected_areas)):
-    #     areas[str(selected_areas[i]['facility_ptr_id'])] = selected_areas[i]
 
     # 게시글 작성자 확인
     board_auth = False
@@ -162,6 +159,7 @@ def board_detail_view(request, pk):
     return render(request, 'board_detail.html', context)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def board_done_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
@@ -202,6 +200,7 @@ def comment_delete_view(request, board_pk, comment_pk):
     return redirect('board_detail', board_pk)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def board_edit_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
@@ -237,6 +236,7 @@ def board_edit_view(request, pk):
             return redirect('board_detail', pk)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def qna_write(request):
     if request.method == 'POST':
@@ -258,31 +258,12 @@ def qna_write(request):
     return render(request, 'qna_write.html', context)
 
 
+@csrf_exempt
 def qna(request):
-    question = Question.objects.order_by('-id')
-
-    list_per = 10
-    page_per = 5
-
-    paginator = Paginator(question, list_per)
-
-    page_number = request.GET.get('page', 1)
-    question_list = paginator.get_page(page_number)
-
-    start_page = (int(page_number) - 1) // page_per * page_per + 1
-    end_page = start_page + page_per - 1
-
-    if end_page > paginator.num_pages:
-        end_page = paginator.num_pages
-
-    context = {
-        'question_list': question_list,
-        'start_page': start_page,
-        'end_page': end_page,
-    }
-    return render(request, 'qna.html', context)
+    return render(request, 'qna.html')
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def qna_detail_view(request, pk):
     question = get_object_or_404(Question, pk=pk)
@@ -317,6 +298,7 @@ def qna_detail_view(request, pk):
     return render(request, 'qna_detail.html', context)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def qna_edit_view(request, pk):
     question = get_object_or_404(Question, pk=pk)
@@ -351,6 +333,7 @@ def qna_delete_view(request, pk):
         return redirect('qna_detail', pk)
 
 
+@csrf_exempt
 @login_required(login_url=login_url)
 def file_download(request, pk, comment_pk=0):
     try:

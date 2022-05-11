@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .forms import AuthenticationForm, AgencyRegistrationForm, CompanyRegistrationForm
 from .email_auth import EmailAuthView
@@ -14,6 +15,20 @@ from .models import Agency, Company
 
 from board.models import Board, Comment
 from board.models import Question
+
+login_url = '/accounts/login'
+
+
+def is_writable(user):
+    return user.is_staff or is_Agency(user)
+
+
+def is_company(user):
+    return user.user_type == 'Company'
+
+
+def is_Agency(user):
+    return user.user_type == 'Agency'
 
 
 def signup(request):
@@ -94,6 +109,8 @@ def login_accounts(request):
     return render(request, 'login.html', context)
 
 
+@csrf_exempt
+@login_required(login_url=login_url)
 def pwchange(request):
     if request.method == 'POST':
         user_id = request.session.get('_auth_user_id')
@@ -113,6 +130,8 @@ def pwchange(request):
     return render(request, 'pwchange.html')
 
 
+@csrf_exempt
+@login_required(login_url=login_url)
 def withdraw(request):
     if request.method == 'POST':
         user = request.user
@@ -133,11 +152,15 @@ def withdraw(request):
     return render(request, 'delete.html')
 
 
+@login_required(login_url=login_url)
 def logout_accounts(request):
     logout(request)
     return redirect('index')
 
 
+@csrf_exempt
+@login_required(login_url=login_url)
+@user_passes_test(is_company)
 def edit_company(request):
     info = Company.objects.get(pk=request.user)
     context = {
@@ -156,6 +179,9 @@ def edit_company(request):
     return render(request, 'edit_company.html', context)
 
 
+@csrf_exempt
+@login_required(login_url=login_url)
+@user_passes_test(is_Agency)
 def edit_official(request):
     info = Agency.objects.get(pk=request.user)
 
@@ -174,6 +200,8 @@ def edit_official(request):
     return render(request, 'edit_official.html', context)
 
 
+@csrf_exempt
+@login_required(login_url=login_url)
 def my_business(request):
     # 지자체
     if get_user_model().is_Agency(request.user):
@@ -210,6 +238,8 @@ def my_business(request):
     return render(request, 'my_business.html', context)
 
 
+@csrf_exempt
+@login_required(login_url=login_url)
 def my_qna(request):
     if request.user.is_staff:
         question = Question.objects.order_by('-id')
@@ -238,4 +268,7 @@ def my_qna(request):
 
 
 def signup_agreement(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+
     return render(request, 'signup_agreement.html')
