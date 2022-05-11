@@ -1,6 +1,5 @@
-from django.contrib.auth.hashers import check_password
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, get_user_model
 from .models import Agency, Company, User
 
@@ -13,7 +12,7 @@ class RegistrationForm(UserCreationForm, forms.ModelForm):
         email = self.cleaned_data['email'].lower()
         try:
             _ = User.objects.get(email=email)
-        except User.DoesNotExist as e:
+        except User.DoesNotExist:
             return email
         raise forms.ValidationError(f"Email {email} is already in use.")
 
@@ -21,7 +20,7 @@ class RegistrationForm(UserCreationForm, forms.ModelForm):
         user_id = self.cleaned_data['user_id']
         try:
             _ = User.objects.get(user_id=user_id)
-        except User.DoesNotExist as e:
+        except User.DoesNotExist:
             return user_id
         raise forms.ValidationError(f"User_id {user_id} is already in use.")
 
@@ -29,7 +28,7 @@ class RegistrationForm(UserCreationForm, forms.ModelForm):
         phone = self.cleaned_data['phone']
         try:
             _ = User.objects.get(phone=phone)
-        except User.DoesNotExist as e:
+        except User.DoesNotExist:
             return phone
         raise forms.ValidationError(f"Phone {phone} is already in use.")
 

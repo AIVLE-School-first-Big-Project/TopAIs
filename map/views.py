@@ -1,16 +1,11 @@
-from distutils.command.build import build
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.core import serializers
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 
-import json
+from .models import Building
 
-from .models import Facility, Building
-
-from accounts.views import is_company, is_Agency, is_writable
+from accounts.views import is_writable
 
 # Create your views here.
 

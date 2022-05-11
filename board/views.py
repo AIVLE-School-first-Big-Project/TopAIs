@@ -10,11 +10,11 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
 from django.contrib import messages
 
-from map.models import Building, Business, Facility
-from accounts.views import is_Agency, is_writable, is_company
+from map.models import Building, Business
+from accounts.views import is_writable
 
 from .forms import BoardWriteForm, CommentWriteForm, AnswerWriteForm, QuestionWriteForm
-from .models import Board, Comment, Announcement, Estimate, File, Question, Answer
+from .models import Board, Comment, Announcement, Estimate, Question, Answer
 
 login_url = '/accounts/login'
 
@@ -340,7 +340,7 @@ def file_download(request, pk, comment_pk=0):
         file = Estimate.objects.get(file_ptr_id=comment_pk)
         url = file.uploadFile.url[1:]
         file_url = urllib.parse.unquote(url)
-    except:
+    except Estimate.DoesNotExist:
         file = get_object_or_404(Announcement, file_ptr_id=pk)
         url = file.uploadFile.url[1:]
         file_url = urllib.parse.unquote(url)
